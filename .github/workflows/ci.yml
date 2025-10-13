@@ -11,7 +11,7 @@ on:
 
 # Définit les jobs à exécuter
 jobs:
-  # === JOB 1 : BACKEND BUILD ===
+  # === JOB 1 : BACKEND ===
   backend:
     name: Backend CI
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
           distribution: "temurin"
           java-version: 21
 
-      # Cache le repo Maven pour accélérer les builds
+      # Met en cache le repo Maven pour accélérer les builds
       - name: Cache Maven repository
         uses: actions/cache@v4
         with:
@@ -43,27 +43,23 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2-
 
-      # Précharge les dépendances Maven pour un build plus rapide
+      # Installe les dépendances Maven
       - name: Install Dependencies
-        run: mvn -DskipTests=true -DskipITs=true dependency:go-offline
+        run: mvn dependency:go-offline -B
 
       # Lance Spotless pour vérifier le formatage du code
       - name: Run Spotless
         run: mvn -q spotless:check
 
-      # Configure les variables d'environnement pour la connexion à la BDD
-      - name: Set up environment variables
-        run: |
-          echo "DB_URL=${{ secrets.DB_URL }}" >> $GITHUB_ENV
-          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
-          echo "SPRING_PROFILES_ACTIVE=prod" >> $GITHUB_ENV
+      # ---- Tests ----
+      - name: Run unit tests
+        run: mvn test
 
-      # Build le backend avec Maven 
-      - name: Build backend with Maven
-        run: mvn -B -U clean package
+      # ---- Audit sécurité ----
+      # - name: Dependency vulnerability check
+      #   run: mvn org.owasp:dependency-check-maven:check -Dformat=ALL
 
-  # === FRONTEND BUILD ===
+  # === JOB 2 : FRONTEND ===
   frontend:
     name: Frontend CI
     runs-on: ubuntu-latest
@@ -84,15 +80,37 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: "npm"
 
+      # Installe les dépendances
       - name: Install dependencies
         run: npm ci --no-audit
 
+      # Linter
       - name: Run linter
         run: npm run lint
 
+      # Build Angular
       - name: Build Angular app
         run: npm run build
+
+  # === JOB 3 : DOCKER ===
+  docker:
+    name: Validate Dockerfiles
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Vérifie le Dockerfile backend
+      - name: Build backend Docker image
+        run: docker build -t peps-backend-test -f ./api/Dockerfile ./api
+
+      # Vérifie le Dockerfile frontend
+      - name: Build frontend Docker image
+        run: docker build -t peps-frontend-test -f ./client/Dockerfile ./client
 
   # === DEPLOY ===
   # deploy:
