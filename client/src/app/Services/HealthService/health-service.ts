@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal, Signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { inject, Injectable, signal} from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HealthService {
-  public API_URL: string = 'http://localhost:8080';
+  public API_URL: string = environment.apiUrl;
   public apiState = signal('client');
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   tryConnexion() {
     this.http.get<{ status: string; message: string }>(`${this.API_URL}/api/health`).subscribe({
@@ -23,5 +23,4 @@ export class HealthService {
       },
     });
   }
-
 }
