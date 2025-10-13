@@ -59,7 +59,7 @@ jobs:
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
           echo "SPRING_PROFILES_ACTIVE=prod" >> $GITHUB_ENV
 
-      # Build le backend avec Maven
+      # Build le backend avec Maven 
       - name: Build backend with Maven
         run: mvn -B -U clean package
 
