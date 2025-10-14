@@ -90,6 +90,10 @@ jobs:
       - name: Run linter
         run: npm run lint
 
+      # Tests
+      # - name: Run tests
+      #   run: npm run test
+
       # Build Angular
       - name: Build Angular app
         run: npm run build
