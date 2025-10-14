@@ -26,14 +26,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Install JDK 21, setup env variables, build avec Maven
+      # Install JDK 21, setup env variables
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: 21
 
-      # Met en cache le repo Maven pour accélérer les builds
+      # Met en cache le repo Maven 
       - name: Cache Maven repository
         uses: actions/cache@v4
         with:
@@ -51,13 +51,13 @@ jobs:
       - name: Run Spotless
         run: mvn -q spotless:check
 
-      # ---- Tests ----
+      # Tests 
       - name: Run unit tests
         run: mvn test
 
-      # ---- Audit sécurité ----
-      # - name: Dependency vulnerability check
-      #   run: mvn org.owasp:dependency-check-maven:check -Dformat=ALL
+      # Audit sécurité 
+      - name: Dependency vulnerability check
+        run: mvn org.owasp:dependency-check-maven:check -Dformat=ALL
 
   # === JOB 2 : FRONTEND ===
   frontend:
