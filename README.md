@@ -68,7 +68,14 @@ peps/
 - [Docker Compose](https://docs.docker.com/compose/)
 - (optionnel) [Java 21](https://adoptium.net/) et [Node.js 22+](https://nodejs.org/) pour lancer les services séparément
 
-### 2. Configuration des variables d’environnement
+### 2. Cloner le Projet
+
+```bash
+git clone https://github.com/2024-devops-alt-dist/YC-peps-app.git
+cd YC-peps-app
+````
+
+### 3. Configuration des variables d’environnement
 
 Crée un fichier `.env` à la racine du projet à partir du modèle fourni :
 
@@ -79,22 +86,24 @@ cp .env.sample .env
 Exemple du contenu :
 
 ```env
-# Server
 PORT=8080
 
 # DB
-DB_URL=localhost
+
+DB_URL=
+
+DB_HOST=postgres
 DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_NAME=peps
+DB_USER=user
+DB_PASSWORD=password
+DB_NAME=database
 
 # Hibernate
 SPRING_PROFILES_ACTIVE=dev
 ```
 
 
-## 🚀 Lancement du projet
+## 🚀 Lancement du projet en local
 
 Le projet peut être lancé localement avec **Docker Compose** :
 
@@ -118,7 +127,6 @@ Les trois services principaux sont :
 * **postgres** → base de données PostgreSQL 16
 * **api** → API Spring Boot
 * **client** → application Angular
-
 
 ## 🧱 Architecture des services
 
