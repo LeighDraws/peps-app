@@ -159,6 +159,8 @@ Routes actuellement disponibles :
 
 Le workflow GitHub Actions (`.github/workflows/ci.yml`) automatise la vérification du projet à chaque push ou pull request.
 
+[![CI - main](https://github.com/LeighDraws/peps-app/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/LeighDraws/peps-app/actions/workflows/ci.yml)
+
 ### 🧩 Les 4 jobs principaux :
 
 | Job          | Description                                                                                   |
