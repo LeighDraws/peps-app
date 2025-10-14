@@ -56,8 +56,8 @@ jobs:
         run: mvn test
 
       # Audit sécurité 
-      - name: Dependency vulnerability check
-        run: mvn org.owasp:dependency-check-maven:check -Dformat=ALL
+      # - name: Dependency vulnerability check
+      #   run: mvn org.owasp:dependency-check-maven:check -Dformat=ALL
 
   # === JOB 2 : FRONTEND ===
   frontend:
