@@ -173,13 +173,13 @@ Le workflow GitHub Actions (`.github/workflows/ci.yml`) automatise la vérificat
 
 ## 🧪 Tests
 
-* **Backend**
+ **Backend**
 
   ```bash
   cd api
   mvn test
   ```
-* **Frontend**
+ **Frontend**
 
   ```bash
   cd client
