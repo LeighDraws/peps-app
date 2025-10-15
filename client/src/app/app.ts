@@ -11,9 +11,7 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   // public apiState = signal("Tester la connexion à l'API");
-
   // private healthService: HealthService = inject(HealthService);
-
   // callConnexion() {
   //   this.healthService.tryConnexion();
   //   this.apiState = this.healthService.apiState;
