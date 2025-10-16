@@ -1,0 +1,29 @@
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { catchError, Observable } from 'rxjs';
+import { Recipe } from 'src/entities/Recipe/model/recipe';
+import { RecipeService } from 'src/entities/Recipe/service/recipe-service';
+
+@Component({
+  selector: 'app-recipe-list-component',
+  imports: [CommonModule],
+  templateUrl: './recipe-list-component.html',
+  styleUrl: './recipe-list-component.css',
+})
+export class RecipeListComponent implements OnInit {
+  // Observable Recipes pour stocker les recettes
+  recipes$!: Observable<Recipe[]>;
+
+  // Injection du service RecipeService
+  private recipeService: RecipeService = inject(RecipeService);
+
+  // A l'initialisation du composant, on récupère toutes les recettes depuis le service
+  ngOnInit(): void {
+    this.recipes$ = this.recipeService.getAllRecipes().pipe(
+      catchError((err) => {
+        console.error('Error fetching recipes', err);
+        throw err;
+      }),
+    );
+  }
+}

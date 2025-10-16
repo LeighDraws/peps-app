@@ -12,7 +12,7 @@ export class HealthService {
   private http = inject(HttpClient);
 
   tryConnexion() {
-    this.http.get<{ status: string; message: string }>(`${this.API_URL}/api/health`).subscribe({
+    this.http.get<{ status: string; message: string }>(`${this.API_URL}/health`).subscribe({
       next: (data) => {
         this.apiState.set(data.message);
         console.log('API is healthy:', data);
