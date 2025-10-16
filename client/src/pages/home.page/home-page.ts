@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RecipeListComponent } from 'src/features/recipes-list/recipe-list-component';
+import { RecipeListComponent } from 'src/features/recipe/recipes-list/recipe-list-component';
 
 @Component({
   selector: 'app-home-page',

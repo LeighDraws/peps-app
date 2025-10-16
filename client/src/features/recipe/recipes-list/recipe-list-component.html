@@ -1,0 +1,10 @@
+<div class="p-6 m-auto text-center border-2 rounded-2xl">
+  <h2 class="font-bold text-2xl">Liste des recettes</h2>
+
+  <ul>
+    <li *ngFor="let recipe of recipes$ | async">
+      <h3 class="font-bold text-xl">{{ recipe.name }}</h3>
+      <p>{{ recipe.description }}</p>
+    </li>
+  </ul>
+</div>
