@@ -1,9 +1,8 @@
-import { Observable } from "rxjs";
-import { Recipe } from "../model/recipe";
+import { Observable } from 'rxjs';
+import { Recipe } from '../model/recipe';
 
 export interface IRecipeService {
-
-    // Interface du service Recipe qui definit les methodes a implementer
+  // Interface du service Recipe qui definit les methodes a implementer
 
   getAllRecipes(): Observable<Recipe[]>;
   // create(recipe: Recipe): Observable<Recipe>;
