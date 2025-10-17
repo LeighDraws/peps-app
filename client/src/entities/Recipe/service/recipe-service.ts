@@ -23,6 +23,10 @@ export class RecipeService implements IRecipeService {
     return this.service.getAllRecipes();
   }
 
+  createRecipe(recipe: Recipe): Observable<Recipe> {
+    return this.service.createRecipe(recipe);
+  }
+
   // create(recipe: Recipe): Observable<Recipe> {
   //   return this.service.create(recipe);
   // }

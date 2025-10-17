@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class RecipeApiService implements IRecipeService {
+
   private readonly API_URL: string = environment.apiUrl;
   // TODO: Vérifier l'endpoint avec le backend plus tard
   private readonly ENDPOINT = '/api/recipes';
@@ -17,5 +18,9 @@ export class RecipeApiService implements IRecipeService {
 
   getAllRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${this.API_URL}${this.ENDPOINT}`);
+  }
+
+    createRecipe(recipe: Recipe): Observable<Recipe> {
+    return this.http.post<Recipe>(`${this.API_URL}${this.ENDPOINT}/create`, recipe);
   }
 }
