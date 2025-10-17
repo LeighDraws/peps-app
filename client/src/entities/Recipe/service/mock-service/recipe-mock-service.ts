@@ -18,7 +18,7 @@ export class RecipeMockService implements IRecipeService {
 
   createRecipe(recipe: Recipe): Observable<Recipe> {
     const currentRecipes = this.recipes$.getValue();
-    const newRecipe = { ...recipe, id: currentRecipes.length ++ }; // Générer un ID unique simple
+    const newRecipe = { ...recipe, id: currentRecipes.length++ }; // Générer un ID unique simple
     const updatedRecipes = [...currentRecipes, newRecipe];
     this.recipes$.next(updatedRecipes);
 
