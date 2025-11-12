@@ -8,16 +8,16 @@ L’objectif : simplifier la création de menus équilibrés et inspirants au qu
 
 ## 🧭 Sommaire
 
-1. [Présentation](#-présentation)
-2. [Structure du projet](#-structure-du-projet)
-3. [Technologies utilisées](#️-technologies-utilisées)
-4. [Installation et configuration](#-installation-et-configuration)
-5. [Lancement du projet](#-lancement-du-projet)
-6. [Architecture des services](#-architecture-des-services)
-7. [Intégration continue (CI)](#-intégration-continue-ci)
-8. [Tests](#-tests)
-9. [Roadmap](#-roadmap)
-10. [Auteurs et licence](#-auteurs-et-licence)
+1. [🌿 Présentation](#🌿-présentation)
+2. [Diagrammes](#diagrammes)
+3. [Structure du projet](#📁-structure-du-projet)
+4. [Technologies utilisées](#️🔧-technologies-utilisées)
+5. [Installation et configuration](#⚙️-installation-et-configuration)
+6. [Lancement du projet](#🚀-lancement-du-projet)
+7. [Architecture des services](#🏗️-architecture-des-services)
+8. [Intégration continue (CI)](#🤖-intégration-continue-ci)
+9. [Tests](#🧪-tests)
+10. [Roadmap](#🗺️-roadmap)
 
 
 
@@ -30,6 +30,17 @@ Pep’s permet de :
 
 Le projet vise à devenir un outil pratique pour mieux manger, économiser du temps et éviter le gaspillage alimentaire.
 
+## 📊 Diagrammes
+
+### Diagramme d'Activité
+
+![diagramme d'activité](diagrams\diagram-activité.png)
+
+### Diagramme de Cas d'utilisation
+
+### Diagramme de Séquence
+
+### Diagramme de Classe
 
 
 ## 📁 Structure du projet
@@ -37,18 +48,16 @@ Le projet vise à devenir un outil pratique pour mieux manger, économiser du te
 Le projet est organisé en **monorepo** avec une séparation claire entre le front-end et le back-end.
 
 ```
-
 peps/
 ├── api/            # Backend (Spring Boot 3, Java 21)
 ├── client/         # Frontend (Angular 20)
 ├── .github/        # Workflows GitHub Actions (CI)
 ├── docker-compose.yml
 └── .env.sample
+```
 
-````
 
-
-## 🧰 Technologies utilisées
+## 🔧 Technologies utilisées
 
 | Composant | Stack |
 |------------|--------|
@@ -73,7 +82,7 @@ peps/
 ```bash
 git clone https://github.com/2024-devops-alt-dist/YC-peps-app.git
 cd YC-peps-app
-````
+```
 
 ### 3. Configuration des variables d’environnement
 
@@ -81,11 +90,11 @@ Crée un fichier `.env` à la racine du projet à partir du modèle fourni :
 
 ```bash
 cp .env.sample .env
-````
+```
 
 Exemple du contenu :
 
-```env
+```bash
 PORT=8080
 
 # DB
@@ -120,7 +129,7 @@ Une fois le build terminé :
 | **Base de données**   | `localhost:5432`                                                     |
 | **Route de test API** | [http://localhost:8080/api/health](http://localhost:8080/api/health) |
 
-### 🧩 Docker Compose
+### Docker Compose 🐋
 
 Les trois services principaux sont :
 
@@ -128,7 +137,7 @@ Les trois services principaux sont :
 * **api** → API Spring Boot
 * **client** → application Angular
 
-## 🧱 Architecture des services
+## 🏗️ Architecture des services
 
 ### 🖥️ Backend (`/api`)
 
@@ -161,7 +170,6 @@ Routes actuellement disponibles :
   * `dev` → exécution avec `npm start`
   * `prod` → build statique du front
 
----
 
 ## 🤖 Intégration continue (CI)
 
@@ -183,17 +191,26 @@ Le workflow GitHub Actions (`.github/workflows/ci.yml`) automatise la vérificat
 
 ## 🧪 Tests
 
- **Backend**
+ **Backend** \
+ Lancer les tests unitaire du back avec Mockito et JUnit 5, pour le moment vide :
 
   ```bash
   cd api
   mvn test
   ```
- **Frontend**
+ **Frontend** \
+ Lancer les tests unitaires avec Karma et Jasmine, pour le moment vide :
+
+ ```bash
+ cd client
+ npm test
+ ```
+
+ Lancer les tests e2e avec Playwright dans une nouvelle fenêtre (UI activé):
 
   ```bash
   cd client
-  npm test
+  npm run test:e2e
   ```
 
 
