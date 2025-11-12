@@ -1,0 +1,57 @@
+<!-- <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 p-4 border rounded">
+  <h2>Ajouter une recette</h2>
+
+  <label>
+    Nom :
+    <input formControlName="name" placeholder="Nom de la recette" />
+  </label>
+
+  <label>
+    Description :
+    <textarea formControlName="description" class="w-full p-2 rounded-xl border-[1px]"></textarea>
+  </label>
+
+  <label>
+    Durée (minutes) :
+    <input type="number" formControlName="durationMinutes" />
+  </label>
+
+  <label>
+    Ingrédients (séparés par des virgules) :
+    <input formControlName="ingredients" placeholder="Ex: tomate, basilic" />
+  </label>
+
+  <button type="submit" [disabled]="recipeForm.invalid" class="rounded-md border-0 bg-primary">Ajouter</button>
+</form> -->
+
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="flex flex-col box">
+  <h2 class="text-2xl font-bold text-primary">Créer une recette</h2>
+
+  <mat-form-field>
+    <mat-label>Nom de la recette</mat-label>
+    <input matInput formControlName="name" placeholder="Nom de la recette" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" placeholder="Description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Durée (minutes)</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="durationMinutes"
+      placeholder="Durée en minutes"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Ingrédients (séparés par des virgules)</mat-label>
+    <input matInput formControlName="ingredients" placeholder="Ex: tomate, basilic" />
+  </mat-form-field>
+
+  <button type="submit" class="btn btn-primary" [disabled]="recipeForm.invalid">Ajouter</button>
+
+</form>
