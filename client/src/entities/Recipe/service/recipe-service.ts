@@ -11,16 +11,17 @@ import { Recipe } from '../model/recipe';
 })
 export class RecipeService implements IRecipeService {
   private service: IRecipeService;
-  private mockService = inject(RecipeMockService);
-  private apiService = inject(RecipeApiService);
 
   constructor() {
-    // Choisir le service à utiliser (mock ou API)
-    this.service = USE_MOCK ? this.mockService : this.apiService;
+    this.service = USE_MOCK ? inject(RecipeMockService) : inject(RecipeApiService);
   }
 
   getAllRecipes(): Observable<Recipe[]> {
     return this.service.getAllRecipes();
+  }
+
+  createRecipe(recipe: Recipe): Observable<Recipe> {
+    return this.service.createRecipe(recipe);
   }
 
   // create(recipe: Recipe): Observable<Recipe> {

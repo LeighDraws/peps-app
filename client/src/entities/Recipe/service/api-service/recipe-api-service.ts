@@ -18,4 +18,8 @@ export class RecipeApiService implements IRecipeService {
   getAllRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${this.API_URL}${this.ENDPOINT}`);
   }
+
+  createRecipe(recipe: Recipe): Observable<Recipe> {
+    return this.http.post<Recipe>(`${this.API_URL}${this.ENDPOINT}/create`, recipe);
+  }
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600">
+  <style>
+    .box { fill:#f8fafc; stroke:#334155; stroke-width:2; rx:8; }
+    .title { font: 600 16px/1.2 system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; fill:#0f172a; }
+    .label { font: 14px/1.2 system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; fill:#0f172a; }
+    .small { font-size:12px; fill:#475569 }
+    .arrow { stroke:#94a3b8; stroke-width:2; fill:none; marker-end:url(#arrowhead);} 
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Pages -->
+  <rect x="60" y="40" width="220" height="110" class="box"/>
+  <text x="170" y="70" text-anchor="middle" class="title">Pages / Routes</text>
+  <text x="170" y="95" text-anchor="middle" class="label">`client/src/pages`</text>
+  <text x="170" y="115" text-anchor="middle" class="small">Conteneurs, composition de features</text>
+
+  <!-- Features -->
+  <rect x="360" y="30" width="260" height="140" class="box"/>
+  <text x="490" y="65" text-anchor="middle" class="title">Features (Slices)</text>
+  <text x="490" y="95" text-anchor="middle" class="label">`client/src/features/*`</text>
+  <text x="490" y="115" text-anchor="middle" class="small">Composants, hooks, forms, tests</text>
+
+  <!-- Entities -->
+  <rect x="680" y="40" width="240" height="110" class="box"/>
+  <text x="800" y="70" text-anchor="middle" class="title">Entities</text>
+  <text x="800" y="95" text-anchor="middle" class="label">`client/src/entities/*`</text>
+  <text x="800" y="115" text-anchor="middle" class="small">Domain models, types, mappers</text>
+
+  <!-- Arrows: Pages -> Features -> Entities -->
+  <path d="M280 95 L360 95" class="arrow"/>
+  <path d="M620 95 L680 95" class="arrow"/>
+
+  <!-- App / Services -->
+  <rect x="120" y="210" width="250" height="110" class="box"/>
+  <text x="245" y="240" text-anchor="middle" class="title">App / Services</text>
+  <text x="245" y="265" text-anchor="middle" class="label">`client/src/app`</text>
+  <text x="245" y="285" text-anchor="middle" class="small">Providers, services HTTP, config</text>
+
+  <!-- Shared / UI -->
+  <rect x="420" y="210" width="240" height="110" class="box"/>
+  <text x="540" y="240" text-anchor="middle" class="title">Shared / UI</text>
+  <text x="540" y="265" text-anchor="middle" class="label">`client/src/shared`</text>
+  <text x="540" y="285" text-anchor="middle" class="small">Composants réutilisables, utils</text>
+
+  <!-- Assets -->
+  <rect x="700" y="210" width="220" height="110" class="box"/>
+  <text x="810" y="240" text-anchor="middle" class="title">Assets / Styles</text>
+  <text x="810" y="265" text-anchor="middle" class="label">`client/src/assets`</text>
+  <text x="810" y="285" text-anchor="middle" class="small">Images, styles, polices</text>
+
+  <!-- Arrows from App/Shared to Features/Entities -->
+  <path d="M370 210 L370 170 L360 170" class="arrow"/>
+  <path d="M540 210 L540 170 L540 170" class="arrow"/>
+
+  <!-- Notes -->
+  <rect x="60" y="360" width="860" height="200" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="80" y="390" class="title">Notes</text>
+  <text x="80" y="415" class="small">- Dépendances autorisées : Pages → Features → Entities → Shared/App</text>
+  <text x="80" y="435" class="small">- Features peuvent consommer `app/Services` pour les appels API</text>
+  <text x="80" y="455" class="small">- Garder les entités indépendantes et réutilisables</text>
+  <text x="80" y="475" class="small">- Exemple du projet : `client/src/features/recipe`, `client/src/entities/Recipe`</text>
+
+</svg>

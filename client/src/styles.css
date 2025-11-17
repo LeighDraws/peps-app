@@ -1,6 +1,51 @@
 @import 'tailwindcss';
 @plugin "daisyui";
 
+@plugin "daisyui/theme" {
+  name: 'peps-theme';
+  default: true;
+  prefersdark: false;
+  color-scheme: 'light';
+
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(98% 0 0);
+  --color-base-300: oklch(95% 0 0);
+  --color-base-content: #414141;
+
+  --color-primary: #ee9217;
+  --color-primary-content: oklch(98% 0.003 247.858);
+
+  --color-secondary: #d75822;
+  --color-secondary-content: oklch(98% 0.003 247.858);
+
+  --color-accent: #599558;
+  --color-accent-content: oklch(98% 0.003 247.858);
+
+  --color-neutral: #414141;
+  --color-neutral-content: oklch(92% 0.004 286.32);
+
+  --color-info: #f5aa36;
+  --color-info-content: #414141;
+
+  --color-success: #407c55;
+  --color-success-content: oklch(98% 0.003 247.858);
+
+  --color-warning: oklch(82% 0.189 84.429);
+  --color-warning-content: oklch(41% 0.112 45.904);
+
+  --color-error: oklch(71% 0.194 13.428);
+  --color-error-content: oklch(27% 0.105 12.094);
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
 h1 {
   font-size: 3.125rem;
   color: var(--gray-900);
@@ -23,7 +68,6 @@ h1 {
 
 p {
   margin: 0;
-  color: var(--gray-700);
 }
 
 main {
@@ -37,16 +81,19 @@ main {
   position: relative;
 }
 
-@media screen and (max-width: 650px) {
-  .content {
-    flex-direction: column;
-    width: max-content;
+@layer components {
+  .box {
+    border-radius: var(--radius-box);
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
+    padding: 1rem;
+    box-shadow: var(--depth) 4px rgba(0, 0, 0, 0.05);
   }
 
-  .divider {
-    height: 1px;
-    width: 100%;
-    background: var(--red-to-pink-to-purple-horizontal-gradient);
-    margin-block: 1.5rem;
+  .field {
+    border-radius: var(--radius-field);
+    border: var(--border) solid var(--color-neutral);
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
   }
 }
