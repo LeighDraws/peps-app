@@ -3,6 +3,7 @@
 Ce dossier contient un schéma simplifié de l'architecture front basée sur le pattern Feature-Sliced Development.
 
 Fichiers :
+
 - `feature-sliced-diagram.svg` : diagramme vectoriel montrant les couches et le flux de dépendances.
 
 Mapping rapide vers le projet `client` :
@@ -29,15 +30,18 @@ Mapping rapide vers le projet `client` :
   - Pages top-level et routes (ex. `home.page`, `my-recipes.page`).
 
 Bonnes pratiques suggérées :
+
 - Respecter le flux de dépendance : Pages → Features → Entities → Shared/App.
 - Ne pas faire dépendre les Entities de Features.
 - Garder `app/Services` pour les appels réseau et la configuration partagée.
 
 Ouvrir le diagramme :
+
 - Dans VS Code, double-cliquez sur `client/architecture/feature-sliced-diagram.svg` pour l’aperçu.
 - Vous pouvez aussi l’ouvrir dans un navigateur.
 
 Souhaitez-vous :
+
 - que je génère aussi un PNG exporté à côté du SVG, ou
 - que j’ajoute des exemples de fichiers réels (liste de fichiers) pour chaque couche ?
 

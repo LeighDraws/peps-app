@@ -54,6 +54,7 @@ assets/
 ```
 
 Courte explication :
+
 - `pages/` : pages top-level accessibles via routing (ex. `client/src/pages/*`).
 - `features/recipes` : UI et logique spécifique à la feature (composants, hooks, petits wrappers locaux).
 - `entities/recipe/model` : types et mappers de domaine (les modèles de données reçues de l'API).
@@ -63,6 +64,7 @@ Courte explication :
 - `app/Services` : services d'application globaux (ex. `HealthService`).
 
 Où placer dans ton projet :
+
 - `client/src/pages` → `pages/`
 - `client/src/features/*` → `features/`
 - `client/src/entities/*` → `entities/`
