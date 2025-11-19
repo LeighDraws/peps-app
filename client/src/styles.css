@@ -79,27 +79,7 @@ p {
 main {
   width: 100%;
   min-height: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
-  box-sizing: inherit;
   position: relative;
-}
-
-@layer components {
-  .box {
-    border-radius: var(--radius-box);
-    background-color: var(--color-base-100);
-    color: var(--color-base-content);
-    padding: 1rem;
-    box-shadow: var(--depth) 4px rgba(0, 0, 0, 0.05);
-  }
-
-  .field {
-    border-radius: var(--radius-field);
-    border: var(--border) solid var(--color-neutral);
-    padding: 0.5rem 1rem;
-    box-sizing: border-box;
-  }
 }
