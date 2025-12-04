@@ -1,0 +1,93 @@
+<!-- Sidebar content here -->
+<ul class="menu grow gap-2 pt-8 text-white font-main text-base font-medium">
+  <!-- LOGO -->
+  <li class="mb-4">
+    <button
+      class="is-drawer-close:bg-(--secondary-dark) is-drawer-open:hover:bg-transparent is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Pep's!"
+      [routerLink]="['/home']"
+    >
+      <img
+        src="/assets/images/logo/logoicon.svg"
+        alt="Pep's logo"
+        class="is-drawer-open:hidden my-1.5 inline-block"
+      />
+      <img
+        src="/assets/images/logo/peps.svg"
+        alt="Pep's logo"
+        class="is-drawer-close:hidden my-1.5 inline-block"
+      />
+      <span class="my-1.5 font-alt tracking-tighter text-4xl is-drawer-close:hidden">Pep's</span>
+    </button>
+  </li>
+
+  <!-- List item -->
+  <li>
+    <button
+      class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Accueil"
+      [routerLink]="['/home']"
+      [routerLinkActive]="['active-link']"
+    >
+      <!-- Home icon -->
+      <fa-icon [icon]="faHome" class="my-1.5 text-xl inline-block"></fa-icon>
+      <span class="my-1.5 is-drawer-close:hidden">Accueil</span>
+    </button>
+  </li>
+
+  <!-- List item -->
+  <li>
+    <button
+      class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Recettes"
+      [routerLink]="['/recipes']"
+      [routerLinkActive]="['active-link']"
+    >
+      <!-- Recipe icon -->
+      <fa-icon [icon]="faBook" class="my-1.5 text-xl inline-block"></fa-icon>
+      <span class="my-1.5 is-drawer-close:hidden">Recettes</span>
+    </button>
+  </li>
+
+  <!-- List item -->
+  <li>
+    <button
+      class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Menus"
+      [routerLink]="['/menus']"
+      [routerLinkActive]="['active-link']"
+    >
+      <!-- Menu icon -->
+      <fa-icon [icon]="faCalendarDays" class="my-1.5 text-xl inline-block"></fa-icon>
+      <span class="my-1.5 is-drawer-close:hidden">Menus</span>
+    </button>
+  </li>
+
+  <!-- List item -->
+  <li>
+    <button
+      class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Paramètres"
+      [routerLink]="['/settings']"
+      [routerLinkActive]="['active-link']"
+    >
+      <!-- Settings icon -->
+      <fa-icon [icon]="faGears" class="my-1.5 text-xl inline-block"></fa-icon>
+      <span class="my-1.5 is-drawer-close:hidden">Paramètres</span>
+    </button>
+  </li>
+
+  <!-- List item -->
+  <li class="">
+    <button
+      class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
+      data-tip="Deconnexion"
+      [routerLink]="['/logout']"
+      [routerLinkActive]="['active-link']"
+    >
+      <!-- Settings icon -->
+      <fa-icon [icon]="faArrowRightFromBracket" class="my-1.5 text-xl inline-block"></fa-icon>
+      <span class="my-1.5 is-drawer-close:hidden">Deconnexion</span>
+    </button>
+  </li>
+</ul>
