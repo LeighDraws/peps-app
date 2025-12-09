@@ -1,4 +1,4 @@
-<div class="drawer lg:drawer-open">
+<div class="drawer md:drawer-open">
   <!-- Toggle sidebar gauche -->
   <input id="left-drawer" type="checkbox" class="drawer-toggle" />
 
@@ -10,33 +10,37 @@
       <main>
         <!-- HEADER MILIEU -->
         <!-- Peut être découpé en composant -->
-        <nav class="navbar w-full">
-          <label for="left-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
-            <!-- Sidebar toggle icon -->
-            <!-- TODO Modifier l'icone de toggle #27-->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              stroke-linejoin="round"
-              stroke-linecap="round"
-              stroke-width="2"
-              fill="none"
-              stroke="currentColor"
-              class="my-1.5 inline-block size-4"
-            >
-              <path
-                d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"
-              ></path>
-              <path d="M9 4v16"></path>
-              <path d="M14 10l2 2l-2 2"></path>
-            </svg>
-          </label>
-          <div class="px-4">Navbar Title</div>
+        <nav class="navbar w-full my-3 md:px-6! justify-between">
+          <div class="flex flex-row items-center">
+            <label for="left-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+              <!-- Sidebar toggle icon -->
+              <fa-icon
+                [icon]="faCaretLeft"
+                class="inline is-drawer-close:hidden md:text-lg text-primary"
+              ></fa-icon>
+            </label>
 
-          <label class="input drop-shadow-sm">
+            <!-- Message d'Accueil -->
+            <div class="px-4">
+              <h2 class="font-fancy text-center items-center">Welcome, Yaël ! 👋</h2>
+            </div>
+          </div>
+
+          <!-- Barre de recherche -->
+          <label class="hidden md:inline input drop-shadow-sm">
             <fa-icon [icon]="faSearch" class="mx-2 text-primary"></fa-icon>
-            <input type="search" required placeholder="Search" />
+            <input type="search" required placeholder="Search"/>
           </label>
+
+          <!-- Avatar -->
+          <div class="avatar">
+            <div class="w-12 md:w-14 rounded-full">
+              <img
+                alt="avatar profile picture"
+                src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
+              />
+            </div>
+          </div>
         </nav>
 
         <!-- APPLICATION GLOBALE -->
@@ -45,7 +49,7 @@
 
       <!-- SIDEBAR DROITE FIXE -->
       <!-- TODO : rendre collapsible ou masquer en mobile (drawer bas) -->
-      <aside class="w-80 drop-shadow-sm bg-white rounded-l-(--big) p-4">
+      <aside class="hidden md:block w-80 drop-shadow-sm bg-white rounded-l-(--big) p-4">
         <!-- MENU CREATION -->
         <div class="menu grow gap-2 pt-8 text-base-content font-main text-base font-medium">
           <h2 class="font-bold mb-4">Menu Création</h2>

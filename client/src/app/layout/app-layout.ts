@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Sidenav } from 'src/shared/components/sidenav/sidenav';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-app-layout',
@@ -12,4 +12,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppLayout {
   faSearch = faSearch;
+  faCarretRight = faCaretRight;
+  faCaretLeft = faCaretLeft
 }
