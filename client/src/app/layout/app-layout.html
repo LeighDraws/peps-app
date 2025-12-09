@@ -1,0 +1,73 @@
+<div class="drawer md:drawer-open">
+  <!-- Toggle sidebar gauche -->
+  <input id="left-drawer" type="checkbox" class="drawer-toggle" />
+
+  <!-- Zone centrale + header + sidebar droite -->
+  <div class="drawer-content flex flex-col">
+    <!-- Contenu principal + aside droite -->
+    <div class="flex flex-row">
+      <!-- Main -->
+      <main>
+        <!-- HEADER MILIEU -->
+        <!-- Peut être découpé en composant -->
+        <nav class="navbar w-full my-3 md:px-6! justify-between">
+          <div class="flex flex-row items-center">
+            <label for="left-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+              <!-- Sidebar toggle icon -->
+              <fa-icon
+                [icon]="faCaretLeft"
+                class="inline is-drawer-close:hidden md:text-lg text-primary"
+              ></fa-icon>
+            </label>
+
+            <!-- Message d'Accueil -->
+            <div class="px-4">
+              <h2 class="font-fancy text-center items-center">Welcome, Yaël ! 👋</h2>
+            </div>
+          </div>
+
+          <!-- Barre de recherche -->
+          <label class="hidden md:inline input drop-shadow-sm">
+            <fa-icon [icon]="faSearch" class="mx-2 text-primary"></fa-icon>
+            <input type="search" required placeholder="Search" />
+          </label>
+
+          <!-- Avatar -->
+          <div class="avatar">
+            <div class="w-12 md:w-14 rounded-full">
+              <img
+                alt="avatar profile picture"
+                src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
+              />
+            </div>
+          </div>
+        </nav>
+
+        <!-- APPLICATION GLOBALE -->
+        <router-outlet></router-outlet>
+      </main>
+
+      <!-- SIDEBAR DROITE FIXE -->
+      <!-- TODO : rendre collapsible ou masquer en mobile (drawer bas) -->
+      <aside class="hidden md:block w-80 drop-shadow-sm bg-white rounded-l-(--big) p-4">
+        <!-- MENU CREATION -->
+        <div class="menu grow gap-2 pt-8 text-base-content font-main text-base font-medium">
+          <h2 class="font-bold mb-4">Menu Création</h2>
+          <p>Contenu du menu…</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- NAVBAR - GAUCHE -->
+  <div class="drawer-side is-drawer-close:overflow-visible">
+    <label for="left-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+
+    <div
+      class="flex min-h-full flex-col drop-shadow-sm items-start bg-(--primary-light) rounded-r-(--big) is-drawer-close:w-16 is-drawer-open:w-64"
+    >
+      <!-- Contenu de la sidenav en composant -->
+      <app-sidenav></app-sidenav>
+    </div>
+  </div>
+</div>

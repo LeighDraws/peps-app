@@ -2,9 +2,15 @@
 export default {
   content: ['./src/**/*.{html,ts}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        main: ['"Poppins"', 'sans-serif'],
+        alt: ['"Josefin Sans"', 'sans-serif'],
+        fancy: ['"Peanut Butter"', 'cursive'],
+      },
+    },
   },
-  plugins: [require('daisyui')],
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
   daisyui: {
     themes: ['peps-theme'], // 🔥 thème personnalisé
   },

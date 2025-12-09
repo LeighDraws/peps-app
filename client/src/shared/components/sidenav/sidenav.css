@@ -1,0 +1,5 @@
+.active-link {
+  background-color: var(--secondary-dark); /* Background color for active link */
+  -webkit-box-shadow: 1px 1px 14px 4px rgba(230, 119, 53, 0.6);
+  box-shadow: 1px 1px 14px 4px rgba(230, 119, 53, 0.6);
+}

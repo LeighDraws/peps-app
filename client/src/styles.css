@@ -2,68 +2,84 @@
 @plugin "daisyui";
 
 @plugin "daisyui/theme" {
-  name: 'peps-theme';
+  name: 'light';
   default: true;
   prefersdark: false;
   color-scheme: 'light';
 
+  /* Base colors for backgrounds */
   --color-base-100: oklch(100% 0 0);
-  --color-base-200: oklch(98% 0 0);
+  --color-base-200: oklch(98% 0 0); /* couleur fond principal - milieu app */
   --color-base-300: oklch(95% 0 0);
-  --color-base-content: #414141;
-
+  --color-base-content: #414141; /* Couleur texte principal - dark anthracite */
+  /* Primary color : yellowish-orange */
   --color-primary: #ee9217;
   --color-primary-content: oklch(98% 0.003 247.858);
-
-  --color-secondary: #d75822;
+  /* Secondary color : orange */
+  --color-secondary: #e67735;
   --color-secondary-content: oklch(98% 0.003 247.858);
-
+  /* Accent color : green */
   --color-accent: #599558;
   --color-accent-content: oklch(98% 0.003 247.858);
-
+  /* Neutral for texts : Dark Anthracite */
   --color-neutral: #414141;
   --color-neutral-content: oklch(92% 0.004 286.32);
+  /* Color for info : yellowish orange - primary color */
+  --color-info: #ee9217;
+  --color-info-content: oklch(41% 0.112 45.904);
+  /* Color for success : green - accent color */
+  --color-success: #599558;
+  --color-success-content: oklch(26% 0.065 152.934);
+  /* Color for warning : darker orange - dark secondary color */
+  --color-warning: #d75822;
+  --color-warning-content: oklch(27% 0.105 12.094);
+  /* Color for error : red */
+  --color-error: oklch(59.9% 0.186 27.3);
+  --color-error-content: oklch(25% 0.092 26.042);
 
-  --color-info: #f5aa36;
-  --color-info-content: #414141;
+  /* Border radius */
+  --radius-box: 1.25rem; /* Cards, Modal, Alert */
+  --radius-field: 1.25rem; /* Buttons, Inputs, Selectors */
+  --radius-selector: 1.25rem; /* Checkbox, Toggle, Badge */
 
-  --color-success: #407c55;
-  --color-success-content: oklch(98% 0.003 247.858);
-
-  --color-warning: oklch(82% 0.189 84.429);
-  --color-warning-content: oklch(41% 0.112 45.904);
-
-  --color-error: oklch(71% 0.194 13.428);
-  --color-error-content: oklch(27% 0.105 12.094);
-
-  --radius-selector: 0.5rem;
-  --radius-field: 0.5rem;
-  --radius-box: 1rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 1;
+
+  --border: 0;
+  --depth: 0;
   --noise: 0;
 }
 
-h1 {
-  font-size: 3.125rem;
-  color: var(--gray-900);
+/* VARIABLES GLOBALES */
+:root {
+  /* police principale */
+  font-family: var(--font-main);
   font-weight: 500;
-  line-height: 100%;
-  letter-spacing: -0.125rem;
-  font-family:
-    'Inter Tight',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif,
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol';
+  font-size: 1rem !important;
+
+  /* fonts */
+  --font-main: 'Poppins', sans-serif;
+  --font-alt: 'Josefin Sans', sans-serif;
+  --font-fancy: 'Peanut Butter', cursive;
+
+  /* radius */
+  --checkbox: 0.25rem;
+  --big: 2.5rem;
+
+  /* shadows */
+  /* drop-shadow-sm → inputs */
+
+  /* colors */
+  --primary-light: #f5aa36; /* bg-(--primary-light) */
+  --primary: #ee9217; /* bg-(--primary) */
+  --secondary: #e67735; /* bg-(--secondary) */
+  --secondary-dark: #d75822; /* bg-(--secondary-dark) */
+  --accent: #599558; /* bg-(--accent) */
+  --neutral: #414141; /* text-(--neutral-dark) */
+}
+
+html {
+  background-color: oklch(98% 0 0);
 }
 
 p {
@@ -73,27 +89,51 @@ p {
 main {
   width: 100%;
   min-height: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
-  box-sizing: inherit;
   position: relative;
 }
 
-@layer components {
-  .box {
-    border-radius: var(--radius-box);
-    background-color: var(--color-base-100);
-    color: var(--color-base-content);
-    padding: 1rem;
-    box-shadow: var(--depth) 4px rgba(0, 0, 0, 0.05);
-  }
+/* ** FONTS ** */
 
-  .field {
-    border-radius: var(--radius-field);
-    border: var(--border) solid var(--color-neutral);
-    padding: 0.5rem 1rem;
-    box-sizing: border-box;
-  }
+.font-main {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-alt {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+@font-face {
+  font-family: 'Peanut Butter';
+  src: url('assets/fonts/PeanutButter.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-fancy {
+  font-family: 'Peanut Butter', cursive;
+}
+
+/* ** TITLES ** */
+
+h1 {
+  font-size: 3.125rem;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.125rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.075rem;
+}
+
+h3 {
+  font-size: 1.875rem;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.05rem;
 }
