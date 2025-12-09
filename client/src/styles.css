@@ -9,9 +9,9 @@
 
   /* Base colors for backgrounds */
   --color-base-100: oklch(100% 0 0);
-  --color-base-200: oklch(98% 0 0);
+  --color-base-200: oklch(98% 0 0); /* couleur fond principal - milieu app */
   --color-base-300: oklch(95% 0 0);
-  --color-base-content: #414141;
+  --color-base-content: #414141; /* Couleur texte principal - dark anthracite */
   /* Primary color : yellowish-orange */
   --color-primary: #ee9217;
   --color-primary-content: oklch(98% 0.003 247.858);
@@ -33,7 +33,7 @@
   /* Color for warning : darker orange - dark secondary color */
   --color-warning: #d75822;
   --color-warning-content: oklch(27% 0.105 12.094);
-  /* Color for info : primary color */
+  /* Color for error : red */
   --color-error: oklch(59.9% 0.186 27.3);
   --color-error-content: oklch(25% 0.092 26.042);
 
@@ -52,24 +52,34 @@
 
 /* VARIABLES GLOBALES */
 :root {
+  /* police principale */
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 1rem !important;
+
   /* fonts */
   --font-main: 'Poppins', sans-serif;
   --font-alt: 'Josefin Sans', sans-serif;
   --font-fancy: 'Peanut Butter', cursive;
 
   /* radius */
-  --radius-checkbox: 0.25rem;
-  --radius-big: 3.5rem;
+  --checkbox: 0.25rem;
+  --big: 2.5rem;
 
-  /* shadow depth */
-  --depth-shadow: 0 0 16px rgba(0, 0, 0, 0.08);
+  /* shadows */
+  /* drop-shadow-sm → inputs */
+
+  /* colors */
+  --primary-light: #f5aa36; /* bg-(--primary-light) */
+  --primary: #ee9217; /* bg-(--primary) */
+  --secondary: #e67735; /* bg-(--secondary) */
+  --secondary-dark: #d75822; /* bg-(--secondary-dark) */
+  --accent: #599558; /* bg-(--accent) */
+  --neutral: #414141; /* text-(--neutral-dark) */
 }
 
-h1 {
-  font-size: 3.125rem;
-  font-weight: 500;
-  line-height: 100%;
-  letter-spacing: -0.125rem;
+html {
+  background-color: oklch(98% 0 0);
 }
 
 p {
@@ -82,4 +92,48 @@ main {
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+/* ** FONTS ** */
+
+.font-main {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-alt {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+@font-face {
+  font-family: 'Peanut Butter';
+  src: url('assets/fonts/PeanutButter.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-fancy {
+  font-family: 'Peanut Butter', cursive;
+}
+
+/* ** TITLES ** */
+
+h1 {
+  font-size: 3.125rem;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.125rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.075rem;
+}
+
+h3 {
+  font-size: 1.875rem;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.05rem;
 }

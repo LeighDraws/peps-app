@@ -1,8 +1,58 @@
-# Exemple de structure (Feature-Sliced) — mise à jour
+# Structure Feature-Sliced Desgin exemple
 
-Ce fichier illustre une organisation adaptée à ton projet : le dossier `model` est placé dans `entities/recipe`, et `entities/recipe` contient `data`, `model` et `service`.
+## Organisation :
 
 ```text
+src/
+  app/
+  pages/
+  widgets/
+  features/
+  entities/
+  shared/
+```
+
+## FSD sépare clairement :
+
+1️⃣ app/ — le bootstrap, la config \
+Ex : déclaration des routes, initialisation Auth, global layout.
+
+2️⃣ pages/ — l’entrée par route \
+Ex : home.page, my-recipes.page
+
+3️⃣ features/ — les interactions utilisateur avec logique métier \
+Ex : recipe-form, recipe-list, filters, auth-login
+
+4️⃣ entities/ — les modèles du domaine \
+Ex : recipe, user, health-check
+
+5️⃣ shared/ — bâtiment lego réutilisables\
+Ex : button, layout, utils, styles
+
+## Pourquoi on ne met pas tout dans app/ avec Angular ?
+
+Parce qu’en FSD :
+
+- app/ doit rester très léger
+- features/, entities/, pages/ doivent vivre en dehors pour rester indépendants
+- Ça évite les imports en spaghetti dans Angular
+- Ça structure mieux les responsabilités
+
+# Structure de Pep's en Feature-Sliced Design
+
+Ce fichier illustre une organisation adaptée au projet Pep's en FSD. Le dossier `Services` dans `app` sert uniquement à checker la santé de l'application, il ne correspond pas à une logique métier et peut donc rester dans `app`.
+
+```text
+
+app/
+└── layout/
+    └── app-layout.html
+    ├── app-layout.ts
+    └── app-layout.css
+└── Services/
+    └── HealthService/
+        └── health.service.ts
+
 pages/
 └── home.page/
     ├── home-page.ts
@@ -20,6 +70,7 @@ features/
     │    ├── recipe-form.component.ts
     │    ├── recipe-form.component.html
     │    └── recipe-form.component.css
+└── menus/
 
 entities/
 └── recipe/
@@ -40,15 +91,12 @@ shared/
 │   └── button/
 │       ├── button.component.ts
 │       └── button.component.css
+│   └── sidenav/
+│   └── header/
 ├── utils/
-└── styles/
-
-app/
-└── Services/
-    └── HealthService/
-        └── health.service.ts
 
 assets/
+└── fonts/
 └── images/
 
 ```
@@ -65,8 +113,7 @@ Courte explication :
 
 Où placer dans ton projet :
 
-- `client/src/pages` → `pages/`
-- `client/src/features/*` → `features/`
-- `client/src/entities/*` → `entities/`
-
-Souhaites-tu que je génère des fichiers TypeScript d'exemple pour `IRecipeService` et `recipe.service.ts` ?
+- `client/src/pages` → Les pages, structures, pas de logiques métiers, pas de fonctionnel
+- `client/src/features/*` → Tout élément qui correspond à une feature. Tout les composants en rapport avec `recipe` vont dans `/feature/recipe`. Composants d'affichage et pas de logique.
+- `client/src/entities/*` → Les models, services et données qui correspondent à une entité. Le model d'une recette, son service d'appel à l'api et les données stockées : `/entities/Recipe`
+- `client/src/shared/components` → Tout composant partagé dans l'application. `sidenav`, `header`, `button`, etc.
