@@ -13,5 +13,5 @@ import { faSearch, faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg
 export class AppLayout {
   faSearch = faSearch;
   faCarretRight = faCaretRight;
-  faCaretLeft = faCaretLeft
+  faCaretLeft = faCaretLeft;
 }
