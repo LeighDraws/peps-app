@@ -3,9 +3,8 @@
 
   <ul>
     @for (recipe of recipes$ | async; track recipe.id) {
-      <li>
-        <h3 class="font-bold text-xl">{{ recipe.name }}</h3>
-        <p>{{ recipe.description }}</p>
+      <li class="my-4">
+        <app-recipe-card />
       </li>
     }
   </ul>

@@ -3,10 +3,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { Recipe } from 'src/entities/Recipe/model/recipe';
 import { RecipeService } from 'src/entities/Recipe/service/recipe-service';
+import { RecipeCard } from '../recipe-card/recipe-card';
 
 @Component({
   selector: 'app-recipe-list-component',
-  imports: [CommonModule],
+  imports: [CommonModule, RecipeCard],
   templateUrl: './recipe-list-component.html',
   styleUrl: './recipe-list-component.css',
 })
