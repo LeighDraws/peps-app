@@ -1,4 +1,4 @@
-package com.project.peps.health;
+package com.project.peps.shared.health;
 
 import java.util.Map;
 import org.springframework.http.HttpStatus;
