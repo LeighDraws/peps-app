@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.project.peps.user.dto.UserRequest;
-import com.project.peps.user.exception.UserNotFoundException;
+import com.project.peps.shared.exception.ResourceNotFoundException;
 import com.project.peps.user.model.User;
 import com.project.peps.user.repository.UserRepository;
 
@@ -26,13 +26,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
     }
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
     }
 
     @Override
@@ -52,7 +52,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(Long id) {
-        // TODO: check if user exists before deleting
+        if (!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("User", "id", id);
+        }
         userRepository.deleteById(id);
     }
 }
