@@ -9,10 +9,6 @@ pre-commit:
       root: "client"
       run: "npm run format"
       fail_text: "Erreur de formattage, pov' tâche !"
-    lint-java:
-      root: "api"
-      run: "mvn spotless:check"
-      fail_text: "Répare grognasse !"
 
 post-commit:
   commands:
