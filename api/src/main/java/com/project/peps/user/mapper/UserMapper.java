@@ -3,17 +3,14 @@ package com.project.peps.user.mapper;
 import com.project.peps.user.dto.UserRequest;
 import com.project.peps.user.dto.UserResponse;
 import com.project.peps.user.model.User;
+import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class UserMapper {
+@Component
+public class UserMapper {
 
-    private UserMapper() {
-        // Création du constructeur en private pour éviter l'instanciation directe de la classe (pas de new UserMapper())
-        // UserMapper est une classe utilitaire on ne peut utiliser que toEntity et toResponse
-    }
-
-    public static User toEntity(UserRequest userRequest) {
+    public User toEntity(UserRequest userRequest) {
         if (userRequest == null) {
             return null;
         }
@@ -26,7 +23,7 @@ public final class UserMapper {
         return user;
     }
 
-    public static UserResponse toResponse(User user) {
+    public UserResponse toResponse(User user) {
         if (user == null) {
             return null;
         }
@@ -40,12 +37,12 @@ public final class UserMapper {
         return userResponse;
     }
 
-    public static List<UserResponse> toResponseList(List<User> users) {
+    public List<UserResponse> toResponseList(List<User> users) {
         if (users == null) {
             return null;
         }
         return users.stream()
-                .map(UserMapper::toResponse)
+                .map(this::toResponse)
                 .collect(Collectors.toList());
     }
 }

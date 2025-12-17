@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.project.peps.user.dto.UserRequest;
 import com.project.peps.shared.exception.ResourceNotFoundException;
+import com.project.peps.user.dto.UserRequest;
 import com.project.peps.user.model.User;
 import com.project.peps.user.repository.UserRepository;
 
@@ -51,10 +51,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        if (!userRepository.existsById(id)) {
-            throw new ResourceNotFoundException("User", "id", id);
-        }
+    public User deleteById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
         userRepository.deleteById(id);
+        return user;
     }
 }
