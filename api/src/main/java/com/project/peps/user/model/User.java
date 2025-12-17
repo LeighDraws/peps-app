@@ -26,11 +26,6 @@ public class User {
   @Column(nullable = false, unique = true, length = 50)
   private String pseudo;
 
-  @NotBlank(message = "L'email ne peut pas être vide.")
-  @Email(
-      message =
-          "Le format de l'email est invalide.") // Validation du format de l'email par Hibernate
-  // Validator
   @Column(nullable = false, unique = true, length = 100) // Contraintes de la base de données
   private String email;
 
