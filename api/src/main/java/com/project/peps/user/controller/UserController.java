@@ -39,14 +39,14 @@ public class UserController {
     // Get all users
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers() {
-        List<User> users = userService.findAll();
+        List<User> users = userService.findAllUsers();
         return ResponseEntity.ok(userMapper.toResponseList(users));
     }
 
     // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
-        User user = userService.findById(id);
+        User user = userService.findUserById(id);
         return ResponseEntity.ok(userMapper.toResponse(user));
     }
 
@@ -54,7 +54,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest userRequest) {
         User user = userMapper.toEntity(userRequest);
-        User savedUser = userService.save(user);
+        User savedUser = userService.createUser(user);
         return new ResponseEntity<>(userMapper.toResponse(savedUser), HttpStatus.CREATED);
     }
 

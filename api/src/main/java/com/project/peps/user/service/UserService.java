@@ -7,13 +7,13 @@ import com.project.peps.user.model.User;
 
 public interface UserService {
     
-    List<User> findAll();
+    List<User> findAllUsers();
 
-    User findById(Long id);
+    User findUserById(Long id);
 
-    User findByEmail(String email);
+    User findUserByEmail(String email);
 
-    User save(User user);
+    User createUser(User user);
 
     User updateUser(Long id, UserRequest userRequest);
 
