@@ -1,0 +1,11 @@
+<div class="p-6 m-auto text-center border-2 rounded-2xl">
+  <h2 class="font-bold text-2xl">Liste des recettes</h2>
+
+  <ul>
+    @for (recipe of recipes$ | async; track recipe.id) {
+      <li class="my-4">
+        <app-recipe-card />
+      </li>
+    }
+  </ul>
+</div>

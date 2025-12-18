@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Pâtes carbonara",
+    "description": "Un grand classique italien à base d'œufs, de pancetta et de parmesan.",
+    "durationMinutes": 20,
+    "ingredients": ["pâtes", "œufs", "pancetta", "parmesan"]
+  },
+  {
+    "id": 2,
+    "name": "Salade de quinoa",
+    "description": "Une salade fraîche et colorée, idéale pour l'été.",
+    "durationMinutes": 15,
+    "ingredients": ["quinoa", "tomates", "avocat", "feta"]
+  },
+  {
+    "id": 3,
+    "name": "Poulet au curry",
+    "description": "Recette exotique parfumée au lait de coco.",
+    "durationMinutes": 15,
+    "ingredients": ["poulet", "lait de coco", "curry", "riz"]
+  }
+]

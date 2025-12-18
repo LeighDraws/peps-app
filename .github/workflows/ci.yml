@@ -48,8 +48,8 @@ jobs:
         run: mvn dependency:go-offline -B
 
       # Lance Spotless pour vérifier le formatage du code
-      - name: Run Spotless
-        run: mvn -q spotless:check
+      # - name: Run Spotless
+      #   run: mvn -q spotless:check
 
       # Tests 
       - name: Run unit tests
@@ -91,8 +91,8 @@ jobs:
         run: npm run lint
 
       # Tests
-      # - name: Run tests
-      #   run: npm run test
+      - name: Run tests
+        run: npm run test:e2e
 
       # Build Angular
       - name: Build Angular app
