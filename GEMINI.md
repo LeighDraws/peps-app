@@ -66,6 +66,32 @@ Les packages techniques globaux (sous `com.project.peps.shared`) :
 
 ---
 
+## 💬 Convention de Nommage et Architecture (Service & Controller)
+
+Respecter strictement les conventions suivantes pour garantir la cohérence avec les modules existants (ex: `User`) :
+
+**1. Architecture Service :**
+* Utiliser le pattern **Interface + Implémentation** (ex: `IngredientService` et `IngredientServiceImpl`).
+* **Responsabilité :** Le Service manipule uniquement des **Entités**, jamais de DTOs (Request/Response).
+* **Nommage des méthodes (Style Repository) :** Utiliser le préfixe `find` pour la lecture.
+    * `findAll()`
+    * `findById(Long id)`
+    * `save(Entity entity)`
+    * `update(Entity entity)`
+    * `deleteById(Long id)`
+
+**2. Architecture Controller :**
+* **Responsabilité :** Le Controller gère la conversion Entité <-> DTO via le Mapper.
+* **Nommage des méthodes (Style REST/Getter) :** Utiliser le préfixe `get` pour la lecture.
+    * `getAllIngredients()`
+    * `getIngredientById(Long id)`
+    * `createIngredient(...)`
+    * `updateIngredient(...)`
+    * `deleteIngredientById(Long id)`
+
+
+---
+
 ## 🗄 Base de données
 
 * **SGBD** : PostgreSQL
