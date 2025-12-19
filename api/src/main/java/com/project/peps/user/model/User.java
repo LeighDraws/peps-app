@@ -21,13 +21,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
+@Table(name = "users")
 public class User {
 
   @Id
