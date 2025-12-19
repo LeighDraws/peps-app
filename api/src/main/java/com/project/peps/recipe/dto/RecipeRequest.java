@@ -1,5 +1,6 @@
 package com.project.peps.recipe.dto;
 
+import com.project.peps.recipe.model.Category;
 import com.project.peps.recipe.model.Difficulty;
 import com.project.peps.recipe.model.PriceRange;
 
@@ -26,7 +27,7 @@ public class RecipeRequest {
 
     private Integer preparationDuration;
 
-    private String category;
+    private Category category;
 
     private PriceRange priceRange;
 

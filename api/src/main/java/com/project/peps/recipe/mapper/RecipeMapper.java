@@ -54,7 +54,7 @@ public class RecipeMapper {
         recipeResponse.setDescription(recipe.getDescription());
         recipeResponse.setImageUrl(recipe.getImageUrl());
         recipeResponse.setPreparationDuration(recipe.getPreparationDuration());
-        recipeResponse.setCategory(recipe.getCategory());
+        recipeResponse.setCategory(recipe.getCategory() != null ? recipe.getCategory().name() : null);
         recipeResponse.setPriceRange(recipe.getPriceRange() != null ? recipe.getPriceRange().name() : null);
         recipeResponse.setDifficulty(recipe.getDifficulty() != null ? recipe.getDifficulty().name() : null);
         if (recipe.getCountry() != null) {

@@ -50,8 +50,9 @@ public class Recipe {
     @Column(name = "preparation_duration")
     private Integer preparationDuration;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private String category;
+    private Category category;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "price_range")
