@@ -18,7 +18,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,7 +38,6 @@ public class Recipe {
     @Column(name = "recipe_id")
     private Long id;
 
-    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
