@@ -54,16 +54,24 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest userRequest) {
         User user = userMapper.toEntity(userRequest);
-        User savedUser = userService.createUser(user);
+        User savedUser = userService.save(user);
         return new ResponseEntity<>(userMapper.toResponse(savedUser), HttpStatus.CREATED);
     }
 
     // Update user
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUser(
-            @PathVariable Long id, @Valid @RequestBody UserRequest userRequest) {
-        User updatedUser = userService.updateUser(id, userRequest);
-        return ResponseEntity.ok(userMapper.toResponse(updatedUser));
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest userRequest) {
+        // 1. Récupérer l'existant (C'est le Service qui fait le "find")
+        User existingUser = userService.findUserById(id);
+
+        // 2. Mettre à jour les champs de l'entité avec ceux du DTO (C'est le Mapper qui travaille)
+        userMapper.updateUserFromRequest(userRequest, existingUser);
+
+        // 3. Sauvegarder l'entité mise à jour (C'est le Service qui sauvegarde)
+        User savedUser = userService.save(existingUser);
+
+        // 4. Renvoyer la réponse mappée
+        return ResponseEntity.ok(userMapper.toResponse(savedUser));
     }
 
     // Delete user

@@ -1,11 +1,13 @@
 package com.project.peps.user.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Component;
+
 import com.project.peps.user.dto.UserRequest;
 import com.project.peps.user.dto.UserResponse;
 import com.project.peps.user.model.User;
-import org.springframework.stereotype.Component;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
@@ -35,6 +37,23 @@ public class UserMapper {
         userResponse.setCreatedAt(user.getCreatedAt());
         userResponse.setUpdatedAt(user.getUpdatedAt());
         return userResponse;
+    }
+
+    // Méthode qui met à jour une entité existante sans toucher à l'ID
+    public void updateUserFromRequest(UserRequest request, User entity) {
+        if (request == null || entity == null) {
+            return;
+        }
+        
+        entity.setPseudo(request.getPseudo());
+        entity.setEmail(request.getEmail());
+        entity.setAvatarUrl(request.getAvatarUrl());
+        
+        // Gestion du mot de passe (si présent dans la request)
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            entity.setPassword(request.getPassword()); 
+            // TODO : Gérer l'encodage du mot de passe dans un service approprié
+        }
     }
 
     public List<UserResponse> toResponseList(List<User> users) {

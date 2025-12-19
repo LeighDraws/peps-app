@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.project.peps.shared.exception.ResourceNotFoundException;
-import com.project.peps.user.dto.UserRequest;
 import com.project.peps.user.model.User;
 import com.project.peps.user.repository.UserRepository;
 
@@ -36,18 +35,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) {
+    public User save(User user) {
         return userRepository.save(user);
-    }
-
-    @Override
-    public User updateUser(Long id, UserRequest userRequest) {
-        User existingUser = findUserById(id);
-        existingUser.setPseudo(userRequest.getPseudo());
-        existingUser.setEmail(userRequest.getEmail());
-        existingUser.setPassword(userRequest.getPassword()); // TODO: Add password encoding
-        existingUser.setAvatarUrl(userRequest.getAvatarUrl());
-        return userRepository.save(existingUser);
     }
 
     @Override
