@@ -11,43 +11,66 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgresdata:/var/lib/postgresql/data # Volume pour stocker les données. nom_du_volume:emplacement_dans_le_container           
+      - postgresdata:/var/lib/postgresql/data # volume pour stocker les données. nom_du_volume:emplacement_dans_le_container      
+      - ./db-scripts:/docker-entrypoint-initdb.d/ # chemin des scripts SQL pour l'initialisation de la base de données          
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'    # ne pas dépasser 50% d'un cœur CPU
+          memory: 512M   # plafond de mémoire vive à 512 Mo
+        reservations:
+          cpus: '0.1'    # garantir au moins 10% d'un cœur
+          memory: 128M   # garantir au moins 128 Mo au démarrage  
 
   api:
     build:
-      context: ./api # Chemin vers le Dockerfile de l'API
-      target: dev # Spécifie l'étape de build à utiliser
+      context: ./api # chemin vers le Dockerfile de l'API
+      target: dev # spécifie l'étape de build à utiliser
     container_name: peps-api
     ports:
       - "8080:8080"
-    depends_on: # Nom du service duquel on dépend
+    depends_on: # nom du service duquel on dépend
       - postgres
     restart: unless-stopped
     environment: 
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
-      DB_HOST: postgres # Nom du service de la base de données
+      DB_HOST: postgres # nom du service de la base de données
       DB_PORT: 5432
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
       DB_URL: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
     volumes:
-      - ./api:/app # monte ton code source
-      - ~/.m2:/root/.m2 # Pour persister le cache Maven
+      - ./api:/app # monte le code source
+      - ~/.m2:/root/.m2 # pour persister le cache Maven
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'    # autorise 1 cœur entier pour Java
+          memory: 1G     # limite à 1 Go de RAM 
+        reservations:
+          memory: 512M   # réserve 512 Mo pour être sûr qu'il démarre bien
 
   client:
     build:
-      context: ./client # Chemin vers le Dockerfile du client
-      target: dev
+      context: ./client # chemin vers le Dockerfile du client
+      target: dev # étape de build 
     container_name: peps-client
     volumes:
-      - ./client:/app:cached # monte ton code source
+      - ./client:/app:cached # monte le code source
       - client_node_modules:/app/node_modules
     ports:
       - "4200:4200"
     depends_on:
       - api
     command: ["npm", "start"]
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'    # la compilation Angular demande du CPU
+          memory: 1G     
+        reservations:
+          memory: 256M
 
 volumes:
   postgresdata:

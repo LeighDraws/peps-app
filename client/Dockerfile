@@ -53,3 +53,4 @@ EXPOSE 80
 ENTRYPOINT ["nginx", "-c", "/etc/nginx/nginx.conf"]
 
 CMD ["-g", "daemon off;"]
+
