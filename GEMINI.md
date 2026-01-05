@@ -189,7 +189,7 @@ Structure type des dossiers (`src/`) :
 * **HTTP** : Services dédiés dans `entities/{entity}/service`.
 * **Typage** : Interfaces modèles dans `entities/{entity}/model`.
 * **Réactivité** : Privilégier les **Signals** Angular.
-* **Mocks** : Utiliser des fichiers JSON pour le dev hors ligne si nécessaire.
+* **Injection** : Préférer inject() plutôt que l'insertion dans le constructor 
 
 ---
 
@@ -226,6 +226,7 @@ Structure type des dossiers (`src/`) :
 * Ne jamais supprimer ou modifier du code existant sans l’indiquer explicitement.
 * Ne jamais inventer de dépendances.
 * Ne pas proposer de NGModules (Utiliser **Standalone Components**).
+* Ne jamais ajouter de dépendances pom.xml ou nodes_modules sans mon accord et sans l'indiquer explicitement.
 
 ## ✅ Attentes
 
