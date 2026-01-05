@@ -3,6 +3,7 @@ package com.project.peps.step.controller;
 import com.project.peps.shared.exception.ResourceNotFoundException;
 import com.project.peps.recipe.model.Recipe;
 import com.project.peps.recipe.repository.RecipeRepository;
+import com.project.peps.step.dto.StepReorderRequest;
 import com.project.peps.step.dto.StepRequest;
 import com.project.peps.step.dto.StepResponse;
 import com.project.peps.step.mapper.StepMapper;
@@ -75,5 +76,14 @@ public class StepController {
                 .map(stepMapper::toDto)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(steps);
+    }
+
+    @PutMapping("/reorder")
+    public ResponseEntity<List<StepResponse>> reorderSteps(@Valid @RequestBody List<StepReorderRequest> reorderRequests) {
+        List<Step> updatedSteps = stepService.reorderSteps(reorderRequests);
+        List<StepResponse> stepResponses = updatedSteps.stream()
+                .map(stepMapper::toDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(stepResponses);
     }
 }

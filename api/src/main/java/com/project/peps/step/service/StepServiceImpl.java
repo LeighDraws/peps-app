@@ -1,5 +1,6 @@
 package com.project.peps.step.service;
 
+import com.project.peps.step.dto.StepReorderRequest;
 import com.project.peps.shared.exception.ResourceNotFoundException;
 import com.project.peps.recipe.model.Recipe;
 import com.project.peps.recipe.repository.RecipeRepository;
@@ -7,7 +8,9 @@ import com.project.peps.step.model.Step;
 import com.project.peps.step.repository.StepRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,5 +56,18 @@ public class StepServiceImpl implements StepService {
         Recipe recipe = recipeRepository.findById(recipeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Recipe not found with id: " + recipeId));
         return stepRepository.findByRecipe_Id(recipeId);
+    }
+
+    @Override
+    @Transactional
+    public List<Step> reorderSteps(List<StepReorderRequest> reorderRequests) {
+        List<Step> updatedSteps = new ArrayList<>();
+        for (StepReorderRequest request : reorderRequests) {
+            Step step = stepRepository.findById(request.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Step not found with id: " + request.getId()));
+            step.setStepNumber(request.getStepNumber());
+            updatedSteps.add(step);
+        }
+        return stepRepository.saveAll(updatedSteps);
     }
 }
