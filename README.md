@@ -9,15 +9,15 @@ L’objectif : simplifier la création de menus équilibrés et inspirants au qu
 ## 🧭 Sommaire
 
 1. [🌿 Présentation](#🌿-présentation)
-2. [Diagrammes](#diagrammes)
-3. [Structure du projet](#📁-structure-du-projet)
-4. [Technologies utilisées](#️🔧-technologies-utilisées)
-5. [Installation et configuration](#⚙️-installation-et-configuration)
-6. [Lancement du projet](#🚀-lancement-du-projet)
-7. [Architecture des services](#🏗️-architecture-des-services)
-8. [Intégration continue (CI)](#🤖-intégration-continue-ci)
-9. [Tests](#🧪-tests)
-10. [Roadmap](#🗺️-roadmap)
+2. [📊 Diagrammes](#diagrammes)
+3. [📁 Structure du projet](#📁-structure-du-projet)
+4. [🔧 Technologies utilisées](#️🔧-technologies-utilisées)
+5. [⚙️ Installation et configuration](#⚙️-installation-et-configuration)
+6. [🚀 Lancement du projet](#🚀-lancement-du-projet)
+7. [🏗️ Architecture des services](#🏗️-architecture-des-services)
+8. [🤖 Intégration continue (CI)](#🤖-intégration-continue-ci)
+9. [🧪 Tests](#🧪-tests)
+10. [🗺️ Roadmap](#🗺️-roadmap)
 
 
 

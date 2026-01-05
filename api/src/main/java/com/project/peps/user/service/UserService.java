@@ -2,20 +2,19 @@ package com.project.peps.user.service;
 
 import java.util.List;
 
-import com.project.peps.user.dto.UserRequest;
 import com.project.peps.user.model.User;
 
 public interface UserService {
     
-    List<User> findAll();
+    // Pas d'utilisation de DTO ici, le service travaille avec les entités 100% concentré sur la logique métier
 
-    User findById(Long id);
+    List<User> findAllUsers();
 
-    User findByEmail(String email);
+    User findUserById(Long id);
 
-    User save(User user);
+    User findUserByEmail(String email);
 
-    User updateUser(Long id, UserRequest userRequest);
+    User save(User user); // Cette méthode peut être utilisée pour create et update
 
     User deleteById(Long id) ;
 }

@@ -53,37 +53,112 @@ Les packages techniques globaux (sous `com.project.peps.shared`) :
 
 ## 📐 Conventions backend
 
-- **Lombok** :
-  - **DTOs** : `@Data` autorisé et encouragé.
-  - **Entités** : ❌ `@Data` INTERDIT. Utiliser `@Getter`, `@Setter`, et `@ToString` (en excluant les relations Lazy).
-  - **Constructeurs** : `@NoArgsConstructor` obligatoire pour JPA.
-* **Injection** : Par constructeur uniquement (pas de `@Autowired` sur les champs).
-* **Entités** : JPA pur, noms de tables explicites si nécessaire.
-* **Controller** : Pas de logique métier, délègue immédiatement au Service.
-* **DTO** : Systématiques pour les entrées/sorties d'API. Jamais d'entité JPA exposée directement.
-* **Validation** : Utiliser `jakarta.validation` (`@Valid`, `@NotNull`, etc.) dans les DTOs.
-* **Exceptions** : Les erreurs métier doivent lancer des exceptions personnalisées gérées par `GlobalExceptionHandler`.
+### 1. Entités (Model)
+
+* **Annotations obligatoires** :
+* `@Entity`, `@Table(name = "...")`
+* `@Getter`, `@Setter`, `@ToString` (Exclure les relations Lazy du ToString).
+* `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor` (Pour le pattern Builder et JPA).
+
+
+* **Champs d'audit obligatoires** : Toutes les entités doivent inclure la gestion automatique des dates :
+```java
+@CreationTimestamp
+@Column(name = "created_at", updatable = false)
+private LocalDateTime createdAt;
+
+@UpdateTimestamp
+@Column(name = "updated_at")
+private LocalDateTime updatedAt;
+
+```
+
+
+
+### 2. DTOs
+
+* Utiliser `@Data` et `@Builder`.
+* Systématiques pour les entrées/sorties d'API. Jamais d'entité JPA exposée directement.
+* Validation via `jakarta.validation` (`@Valid`, `@NotBlank`, etc.).
+
+### 3. Mappers
+
+* **Création d'objets** : Utiliser impérativement le **Builder** (`.builder().build()`) plutôt que `new Object()`.
+* **Méthode d'Update** : Inclure une méthode `void` pour mettre à jour une entité existante à partir d'un DTO (évite la duplication de code dans le Service).
+* *Exemple de pattern Mapper attendu :*
+```java
+public static User toEntity(UserRequest request) {
+    return User.builder()
+        .pseudo(request.getPseudo())
+        .email(request.getEmail())
+        .build();
+}
+
+// Méthode de mise à jour (Update Logic)
+public static void updateEntityFromRequest(UserRequest request, User entity) {
+    if (request == null || entity == null) return;
+
+    entity.setPseudo(request.getPseudo());
+    entity.setEmail(request.getEmail());
+    // Gestion conditionnelle (ex: password seulement si non null)
+    if (request.getPassword() != null && !request.getPassword().isBlank()) {
+        entity.setPassword(request.getPassword());
+    }
+}
+
+```
+
+
+
+### 4. Service Layer
+
+* **Injection** : Par constructeur uniquement (pas de `@Autowired`).
+* **Logique d'Update** : Ne pas créer de méthode `update()` spécifique dans l'interface Repository. Utiliser `findById()` -> Mapper (`updateEntityFromRequest`) -> `save()`.
 
 ---
 
-## 🗄 Base de données
+## 💬 Convention de Nommage (Service & Controller)
 
-* **SGBD** : PostgreSQL
-* **Configuration** : `application.properties` charge les variables d'environnement (`DB_URL`, `DB_USER`).
-* **DDL** : `spring.jpa.hibernate.ddl-auto=update` (en dev).
-* **Docker** : La base tourne dans un conteneur nommé `peps-bdd`.
+Respecter strictement les conventions suivantes :
+
+**1. Architecture Service :**
+
+* Pattern **Interface + Implémentation** (`UserService`, `UserServiceImpl`).
+* **Responsabilité :** Manipule uniquement des **Entités**.
+* **Nommage des méthodes (Style Repository) :**
+* `findAll()`
+* `findById(Long id)`
+* `save(Entity entity)` (Utilisé pour Create ET Update)
+* `deleteById(Long id)`
+
+
+
+**2. Architecture Controller :**
+
+* **Responsabilité :** Conversion Entité <-> DTO via le Mapper.
+* **Nommage des méthodes (Style REST/Getter) :**
+* `getAllIngredients()`
+* `getIngredientById(Long id)`
+* `createIngredient(...)`
+* `updateIngredient(...)`
+* `deleteIngredientById(Long id)`
+
+
 
 ---
 
-## 🧪 Tests backend
+## 🗄 Base de données & Docker
 
-* **Unitaires** : JUnit 5 + Mockito (`spring-boot-starter-test`).
-* **Focus** : Tester la logique des Services et les mappings.
+* **SGBD** : PostgreSQL 16
+* **Docker** : Conteneur nommé `peps-bdd`.
+* **Config** : `application.properties` charge les variables d'env (`DB_URL`, `DB_USER`).
 
 ---
 
 # =========================
+
 # 🌐 FRONTEND — Angular
+
 # =========================
 
 ## 🛠 Stack frontend
@@ -118,6 +193,7 @@ Structure type des dossiers (`src/`) :
 * **Typage** : Interfaces modèles dans `entities/{entity}/model`.
 * **Réactivité** : Privilégier les **Signals** Angular (nouveauté v17+) ou `RxJS` avec `AsyncPipe`.
 * **Mocks** : Utiliser des fichiers JSON ou des services mock (ex: `recipe-mock.service.ts`) pour le développement hors ligne.
+* **Injection** : Préférer inject() plutôt que l'insertion dans le constructor 
 
 ---
 
@@ -159,6 +235,7 @@ Structure type des dossiers (`src/`) :
 * Ne jamais inventer de dépendances (vérifier `package.json` et `pom.xml` avant d'importer).
 * Ne pas proposer de composants Angular avec Modules (NGModules) -> Utiliser **Standalone Components**.
 * Ne pas mélanger les responsabilités (ex: un appel HTTP direct dans un Component).
+* Ne jamais ajouter de dépendances pom.xml ou nodes_modules sans mon accord et sans l'indiquer explicitement.
 
 ---
 

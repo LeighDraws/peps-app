@@ -39,14 +39,14 @@ public class UserController {
     // Get all users
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers() {
-        List<User> users = userService.findAll();
+        List<User> users = userService.findAllUsers();
         return ResponseEntity.ok(userMapper.toResponseList(users));
     }
 
     // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
-        User user = userService.findById(id);
+        User user = userService.findUserById(id);
         return ResponseEntity.ok(userMapper.toResponse(user));
     }
 
@@ -60,10 +60,18 @@ public class UserController {
 
     // Update user
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> updateUser(
-            @PathVariable Long id, @Valid @RequestBody UserRequest userRequest) {
-        User updatedUser = userService.updateUser(id, userRequest);
-        return ResponseEntity.ok(userMapper.toResponse(updatedUser));
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequest userRequest) {
+        // 1. Récupérer l'existant (C'est le Service qui fait le "find")
+        User existingUser = userService.findUserById(id);
+
+        // 2. Mettre à jour les champs de l'entité avec ceux du DTO (C'est le Mapper qui travaille)
+        userMapper.updateUserFromRequest(userRequest, existingUser);
+
+        // 3. Sauvegarder l'entité mise à jour (C'est le Service qui sauvegarde)
+        User savedUser = userService.save(existingUser);
+
+        // 4. Renvoyer la réponse mappée
+        return ResponseEntity.ok(userMapper.toResponse(savedUser));
     }
 
     // Delete user
