@@ -53,63 +53,112 @@ Les packages techniques globaux (sous `com.project.peps.shared`) :
 
 ## 📐 Conventions backend
 
-- **Lombok** :
-  - **DTOs** : `@Data` autorisé et encouragé.
-  - **Entités** : ❌ `@Data` INTERDIT. Utiliser `@Getter`, `@Setter`, et `@ToString` (en excluant les relations Lazy).
-  - **Constructeurs** : `@NoArgsConstructor` obligatoire pour JPA.
-* **Injection** : Par constructeur uniquement (pas de `@Autowired` sur les champs).
-* **Entités** : JPA pur, noms de tables explicites si nécessaire.
-* **Controller** : Pas de logique métier, délègue immédiatement au Service.
-* **DTO** : Systématiques pour les entrées/sorties d'API. Jamais d'entité JPA exposée directement.
-* **Validation** : Utiliser `jakarta.validation` (`@Valid`, `@NotNull`, etc.) dans les DTOs.
-* **Exceptions** : Les erreurs métier doivent lancer des exceptions personnalisées gérées par `GlobalExceptionHandler`.
+### 1. Entités (Model)
+
+* **Annotations obligatoires** :
+* `@Entity`, `@Table(name = "...")`
+* `@Getter`, `@Setter`, `@ToString` (Exclure les relations Lazy du ToString).
+* `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor` (Pour le pattern Builder et JPA).
+
+
+* **Champs d'audit obligatoires** : Toutes les entités doivent inclure la gestion automatique des dates :
+```java
+@CreationTimestamp
+@Column(name = "created_at", updatable = false)
+private LocalDateTime createdAt;
+
+@UpdateTimestamp
+@Column(name = "updated_at")
+private LocalDateTime updatedAt;
+
+```
+
+
+
+### 2. DTOs
+
+* Utiliser `@Data` et `@Builder`.
+* Systématiques pour les entrées/sorties d'API. Jamais d'entité JPA exposée directement.
+* Validation via `jakarta.validation` (`@Valid`, `@NotBlank`, etc.).
+
+### 3. Mappers
+
+* **Création d'objets** : Utiliser impérativement le **Builder** (`.builder().build()`) plutôt que `new Object()`.
+* **Méthode d'Update** : Inclure une méthode `void` pour mettre à jour une entité existante à partir d'un DTO (évite la duplication de code dans le Service).
+* *Exemple de pattern Mapper attendu :*
+```java
+public static User toEntity(UserRequest request) {
+    return User.builder()
+        .pseudo(request.getPseudo())
+        .email(request.getEmail())
+        .build();
+}
+
+// Méthode de mise à jour (Update Logic)
+public static void updateEntityFromRequest(UserRequest request, User entity) {
+    if (request == null || entity == null) return;
+
+    entity.setPseudo(request.getPseudo());
+    entity.setEmail(request.getEmail());
+    // Gestion conditionnelle (ex: password seulement si non null)
+    if (request.getPassword() != null && !request.getPassword().isBlank()) {
+        entity.setPassword(request.getPassword());
+    }
+}
+
+```
+
+
+
+### 4. Service Layer
+
+* **Injection** : Par constructeur uniquement (pas de `@Autowired`).
+* **Logique d'Update** : Ne pas créer de méthode `update()` spécifique dans l'interface Repository. Utiliser `findById()` -> Mapper (`updateEntityFromRequest`) -> `save()`.
 
 ---
 
-## 💬 Convention de Nommage et Architecture (Service & Controller)
+## 💬 Convention de Nommage (Service & Controller)
 
-Respecter strictement les conventions suivantes pour garantir la cohérence avec les modules existants (ex: `User`) :
+Respecter strictement les conventions suivantes :
 
 **1. Architecture Service :**
-* Utiliser le pattern **Interface + Implémentation** (ex: `IngredientService` et `IngredientServiceImpl`).
-* **Responsabilité :** Le Service manipule uniquement des **Entités**, jamais de DTOs (Request/Response).
-* **Nommage des méthodes (Style Repository) :** Utiliser le préfixe `find` pour la lecture.
-    * `findAll()`
-    * `findById(Long id)`
-    * `save(Entity entity)`
-    * `update(Entity entity)`
-    * `deleteById(Long id)`
+
+* Pattern **Interface + Implémentation** (`UserService`, `UserServiceImpl`).
+* **Responsabilité :** Manipule uniquement des **Entités**.
+* **Nommage des méthodes (Style Repository) :**
+* `findAll()`
+* `findById(Long id)`
+* `save(Entity entity)` (Utilisé pour Create ET Update)
+* `deleteById(Long id)`
+
+
 
 **2. Architecture Controller :**
-* **Responsabilité :** Le Controller gère la conversion Entité <-> DTO via le Mapper.
-* **Nommage des méthodes (Style REST/Getter) :** Utiliser le préfixe `get` pour la lecture.
-    * `getAllIngredients()`
-    * `getIngredientById(Long id)`
-    * `createIngredient(...)`
-    * `updateIngredient(...)`
-    * `deleteIngredientById(Long id)`
+
+* **Responsabilité :** Conversion Entité <-> DTO via le Mapper.
+* **Nommage des méthodes (Style REST/Getter) :**
+* `getAllIngredients()`
+* `getIngredientById(Long id)`
+* `createIngredient(...)`
+* `updateIngredient(...)`
+* `deleteIngredientById(Long id)`
 
 
----
-
-## 🗄 Base de données
-
-* **SGBD** : PostgreSQL
-* **Configuration** : `application.properties` charge les variables d'environnement (`DB_URL`, `DB_USER`).
-* **DDL** : `spring.jpa.hibernate.ddl-auto=update` (en dev).
-* **Docker** : La base tourne dans un conteneur nommé `peps-bdd`.
 
 ---
 
-## 🧪 Tests backend
+## 🗄 Base de données & Docker
 
-* **Unitaires** : JUnit 5 + Mockito (`spring-boot-starter-test`).
-* **Focus** : Tester la logique des Services et les mappings.
+* **SGBD** : PostgreSQL 16
+* **Docker** : Conteneur nommé `peps-bdd`.
+* **Config** : `application.properties` charge les variables d'env (`DB_URL`, `DB_USER`).
 
 ---
 
 # =========================
+
 # 🌐 FRONTEND — Angular
+
 # =========================
 
 ## 🛠 Stack frontend
@@ -117,24 +166,21 @@ Respecter strictement les conventions suivantes pour garantir la cohérence avec
 * **Framework** : Angular 20.3.x (Standalone Components)
 * **Langage** : TypeScript strict
 * **Style** : TailwindCSS 4.x + DaisyUI 5.x
-* **Build** : Angular CLI (basé sur esbuild/vite)
+* **Build** : Angular CLI (esbuild/vite)
 
 ---
 
-## 🏗 Architecture frontend
-
-Architecture **Feature-Sliced Design (FSD)** adaptée.
+## 🏗 Architecture frontend (FSD Adapté)
 
 Structure type des dossiers (`src/`) :
 
-1. **`app/`** : Configuration globale, layout racine, providers globaux (ex: `app.config.ts`, `app.routes.ts`).
-2. **`pages/`** : Les vues complètes accessibles par route (ex: `home.page`). Ne contient pas de logique métier complexe, sert d'assembleur.
-3. **`features/`** : Slices fonctionnels contenant l'UI intelligente et les interactions (ex: `recipes/recipe-form`, `recipes/recipe-list`).
-4. **`entities/`** : Modèles de données et logique d'accès API (ex: `recipe/model`, `recipe/service`, `recipe/data`).
-5. **`shared/`** : Composants UI réutilisables "dumb" (boutons, inputs) et utilitaires (ex: `components/sidenav`).
+1. **`app/`** : Config globale, providers, routes.
+2. **`pages/`** : Vues complètes (ex: `home.page`). Assembleurs, peu de logique.
+3. **`features/`** : Slices fonctionnels UI + Interactions (ex: `recipes/recipe-form`).
+4. **`entities/`** : Modèles de données et API (ex: `recipe/model`, `recipe/service`).
+5. **`shared/`** : Composants UI réutilisables "dumb" et utilitaires.
 
-❌ Éviter les imports circulaires entre couches (Pages > Features > Entities > Shared).
-❌ Pas de logique métier dans les composants UI de `shared`.
+❌ Éviter les imports circulaires. Pas de logique métier dans `shared`.
 
 ---
 
@@ -142,25 +188,23 @@ Structure type des dossiers (`src/`) :
 
 * **HTTP** : Services dédiés dans `entities/{entity}/service`.
 * **Typage** : Interfaces modèles dans `entities/{entity}/model`.
-* **Réactivité** : Privilégier les **Signals** Angular (nouveauté v17+) ou `RxJS` avec `AsyncPipe`.
-* **Mocks** : Utiliser des fichiers JSON ou des services mock (ex: `recipe-mock.service.ts`) pour le développement hors ligne.
+* **Réactivité** : Privilégier les **Signals** Angular.
+* **Injection** : Préférer inject() plutôt que l'insertion dans le constructor 
 
 ---
 
 ## 🎨 UI / UX
 
-* **Design System** : DaisyUI pour les composants (btn, card, navbar).
-* **Layout** : Flexbox et Grid via les classes utilitaires Tailwind.
-* **Icônes** : FontAwesome ou SVG inline.
-* **Police** : PeanutButter (titres), Roboto/System (texte).
+* **Design System** : DaisyUI.
+* **Layout** : Flexbox/Grid via Tailwind.
+* **Police** : PeanutButter (titres), Roboto (texte).
 
 ---
 
 ## 🧪 Tests frontend
 
-* **E2E** : Playwright (`test:e2e`). Les tests sont dans `e2e/`.
-* **Unitaires** : Jasmine/Karma (`ng test`).
-* **Cible** : Tester les parcours critiques (création de recette, login) via Playwright.
+* **E2E** : Playwright (`e2e/`).
+* **Unitaires** : Jasmine/Karma.
 
 ---
 
@@ -175,22 +219,17 @@ Structure type des dossiers (`src/`) :
 * Répondre en français.
 * Ton clair, structuré, professionnel.
 * Fournir le code complet des fichiers modifiés si le changement est complexe.
-* Expliquer le "Pourquoi" des choix architecturaux (ex: pourquoi placer ce fichier dans `entities` et pas `features`).
-
----
+* Expliquer le "Pourquoi" des choix architecturaux.
 
 ## 🚫 Interdictions
 
 * Ne jamais supprimer ou modifier du code existant sans l’indiquer explicitement.
-* Ne jamais inventer de dépendances (vérifier `package.json` et `pom.xml` avant d'importer).
-* Ne pas proposer de composants Angular avec Modules (NGModules) -> Utiliser **Standalone Components**.
-* Ne pas mélanger les responsabilités (ex: un appel HTTP direct dans un Component).
-
----
+* Ne jamais inventer de dépendances.
+* Ne pas proposer de NGModules (Utiliser **Standalone Components**).
+* Ne jamais ajouter de dépendances pom.xml ou nodes_modules sans mon accord et sans l'indiquer explicitement.
 
 ## ✅ Attentes
 
 * Proposer des solutions réalistes et compilables.
 * Vérifier la compatibilité des versions (Java 21, Angular 20).
-* Toujours penser cohérence backend ↔ frontend (ex: si on change le DTO Java, rappeler de mettre à jour l'interface TypeScript).
-
+* Assurer la cohérence backend ↔ frontend (DTO Java = Interface TS).
