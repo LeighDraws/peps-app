@@ -82,5 +82,26 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    
+    // Relation OneToMany avec Step
+    @Builder.Default // Force le builder a prendre en compte l'initialisation de la lsite
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Step> steps = new ArrayList<>(); // On initialise toujours la liste pour éviter le NullPointerException
+
+    /**
+     * Méthode utilitaire pour ajouter une étape et maintenir la cohérence des deux côtés
+     */
+    public void addStep(Step step) {
+        steps.add(step);
+        step.setRecipe(this); // ici on lie l'étape à la recette courante
+    }
+
+    /**
+     * Méthode utilitaire pour retirer une étape
+     */
+    public void removeStep(Step step) {
+        steps.remove(step);
+        step.setRecipe(null);
+    }
 
 }

@@ -1,5 +1,10 @@
 package com.project.peps.step.model;
 
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.project.peps.recipe.model.Recipe;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -14,6 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString(exclude = "recipe")
 @Table(name = "steps")
 public class Step {
 
@@ -31,20 +38,18 @@ public class Step {
     @Column(name = "image_url")
     private String imageUrl;
 
-    // Fetch LAZY = il ne charge la recette que lorsque c'est nécessaire càd si on execute step.getRecipe().getName() par exemple (normalement pas besoin sur les steps)
+    // Fetch LAZY = il ne charge la recette que lorsque c'est nécessaire càd si on
+    // execute step.getRecipe().getName() par exemple (normalement pas besoin sur
+    // les steps)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
 
-    // Redéfinition de la méthode toString pour éviter les problèmes de récursion infinie
-    @Override
-    public String toString() {
-        return "Step{" +
-               "id=" + id +
-               ", stepNumber=" + stepNumber +
-               ", instruction='" + instruction + "'" +
-               ", imageUrl='" + imageUrl + "'" +
-               // Pas de recipe ici pour éviter la récursion infinie (stack overflow) + problèmes de performance
-               '}';
-    }
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 }
