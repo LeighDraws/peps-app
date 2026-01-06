@@ -32,14 +32,17 @@ public class MenuHasRecipeServiceImpl implements MenuHasRecipeService {
             throw new IllegalArgumentException("Recipe is already in the menu");
         }
 
+        // Récupération du menu et de la recette par leur ID
         Menu menu = menuService.findMenuById(menuId);
         Recipe recipe = recipeService.findRecipeById(recipeId);
 
+        // Recreation de l'association MenuHasRecipe (ne peut pas être fait dans le mapper)
         MenuHasRecipe menuHasRecipe = MenuHasRecipe.builder()
                 .menu(menu)
                 .recipe(recipe)
                 .build();
 
+        // Enrigistrement de l'association dans la base de données
         return menuHasRecipeRepository.save(menuHasRecipe);
     }
 

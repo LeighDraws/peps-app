@@ -11,10 +11,9 @@ import com.project.peps.menuhasrecipe.model.MenuHasRecipe;
 @Component
 public class MenuHasRecipeMapper {
 
-    // Note: toEntity method typically requires fetching Menu and Recipe entities from DB, 
-    // so the logic is usually handled in the service/controller where we have access to repositories.
-    // However, we can have a basic mapper here.
-    
+    // Pas de méthode toEntity car cette entité est créée via les services MenuService et RecipeService
+    // Le mapper n'a pas accès à la logique métier nécessaire pour créer cette entité
+
     public MenuHasRecipeResponse toResponse(MenuHasRecipe menuHasRecipe) {
         if (menuHasRecipe == null) {
             return null;
