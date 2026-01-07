@@ -53,9 +53,9 @@ public class StepServiceImpl implements StepService {
 
     @Override
     public List<Step> findByRecipeId(Long recipeId) {
-        Recipe recipe = recipeRepository.findById(recipeId)
+        recipeRepository.findById(recipeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Recipe not found with id: " + recipeId));
-        return stepRepository.findByRecipe_Id(recipeId);
+        return stepRepository.findByRecipeId(recipeId);
     }
 
     @Override
