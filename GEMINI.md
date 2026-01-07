@@ -166,21 +166,24 @@ Respecter strictement les conventions suivantes :
 * **Framework** : Angular 20.3.x (Standalone Components)
 * **Langage** : TypeScript strict
 * **Style** : TailwindCSS 4.x + DaisyUI 5.x
-* **Build** : Angular CLI (esbuild/vite)
+* **Build** : Angular CLI (basé sur esbuild/vite)
 
 ---
 
-## 🏗 Architecture frontend (FSD Adapté)
+## 🏗 Architecture frontend
+
+Architecture **Feature-Sliced Design (FSD)** adaptée.
 
 Structure type des dossiers (`src/`) :
 
-1. **`app/`** : Config globale, providers, routes.
-2. **`pages/`** : Vues complètes (ex: `home.page`). Assembleurs, peu de logique.
-3. **`features/`** : Slices fonctionnels UI + Interactions (ex: `recipes/recipe-form`).
-4. **`entities/`** : Modèles de données et API (ex: `recipe/model`, `recipe/service`).
-5. **`shared/`** : Composants UI réutilisables "dumb" et utilitaires.
+1. **`app/`** : Configuration globale, layout racine, providers globaux (ex: `app.config.ts`, `app.routes.ts`).
+2. **`pages/`** : Les vues complètes accessibles par route (ex: `home.page`). Ne contient pas de logique métier complexe, sert d'assembleur.
+3. **`features/`** : Slices fonctionnels contenant l'UI intelligente et les interactions (ex: `recipes/recipe-form`, `recipes/recipe-list`).
+4. **`entities/`** : Modèles de données et logique d'accès API (ex: `recipe/model`, `recipe/service`, `recipe/data`).
+5. **`shared/`** : Composants UI réutilisables "dumb" (boutons, inputs) et utilitaires (ex: `components/sidenav`).
 
-❌ Éviter les imports circulaires. Pas de logique métier dans `shared`.
+❌ Éviter les imports circulaires entre couches (Pages > Features > Entities > Shared).
+❌ Pas de logique métier dans les composants UI de `shared`.
 
 ---
 
@@ -188,23 +191,26 @@ Structure type des dossiers (`src/`) :
 
 * **HTTP** : Services dédiés dans `entities/{entity}/service`.
 * **Typage** : Interfaces modèles dans `entities/{entity}/model`.
-* **Réactivité** : Privilégier les **Signals** Angular.
+* **Réactivité** : Privilégier les **Signals** Angular (nouveauté v17+) ou `RxJS` avec `AsyncPipe`.
+* **Mocks** : Utiliser des fichiers JSON ou des services mock (ex: `recipe-mock.service.ts`) pour le développement hors ligne.
 * **Injection** : Préférer inject() plutôt que l'insertion dans le constructor 
 
 ---
 
 ## 🎨 UI / UX
 
-* **Design System** : DaisyUI.
-* **Layout** : Flexbox/Grid via Tailwind.
-* **Police** : PeanutButter (titres), Roboto (texte).
+* **Design System** : DaisyUI pour les composants (btn, card, navbar).
+* **Layout** : Flexbox et Grid via les classes utilitaires Tailwind.
+* **Icônes** : FontAwesome ou SVG inline.
+* **Police** : PeanutButter (titres), Roboto/System (texte).
 
 ---
 
 ## 🧪 Tests frontend
 
-* **E2E** : Playwright (`e2e/`).
-* **Unitaires** : Jasmine/Karma.
+* **E2E** : Playwright (`test:e2e`). Les tests sont dans `e2e/`.
+* **Unitaires** : Jasmine/Karma (`ng test`).
+* **Cible** : Tester les parcours critiques (création de recette, login) via Playwright.
 
 ---
 
@@ -219,17 +225,23 @@ Structure type des dossiers (`src/`) :
 * Répondre en français.
 * Ton clair, structuré, professionnel.
 * Fournir le code complet des fichiers modifiés si le changement est complexe.
-* Expliquer le "Pourquoi" des choix architecturaux.
+* Expliquer le "Pourquoi" des choix architecturaux (ex: pourquoi placer ce fichier dans `entities` et pas `features`).
+
+---
 
 ## 🚫 Interdictions
 
 * Ne jamais supprimer ou modifier du code existant sans l’indiquer explicitement.
-* Ne jamais inventer de dépendances.
-* Ne pas proposer de NGModules (Utiliser **Standalone Components**).
+* Ne jamais inventer de dépendances (vérifier `package.json` et `pom.xml` avant d'importer).
+* Ne pas proposer de composants Angular avec Modules (NGModules) -> Utiliser **Standalone Components**.
+* Ne pas mélanger les responsabilités (ex: un appel HTTP direct dans un Component).
 * Ne jamais ajouter de dépendances pom.xml ou nodes_modules sans mon accord et sans l'indiquer explicitement.
+
+---
 
 ## ✅ Attentes
 
 * Proposer des solutions réalistes et compilables.
 * Vérifier la compatibilité des versions (Java 21, Angular 20).
-* Assurer la cohérence backend ↔ frontend (DTO Java = Interface TS).
+* Toujours penser cohérence backend ↔ frontend (ex: si on change le DTO Java, rappeler de mettre à jour l'interface TypeScript).
+
