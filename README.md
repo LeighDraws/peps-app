@@ -32,11 +32,17 @@ Le projet vise à devenir un outil pratique pour mieux manger, économiser du te
 
 ## 📊 Diagrammes
 
+### Modèle de BDD Merise
+
+![merise](/diagrams/merise.png)
+
 ### Diagramme d'Activité
 
-![diagramme d'activité](diagrams\diagram-activité.png)
+![diagramme d'activité](/diagrams/diagram-activité.pngdiagrams\diagram-activité.png)
 
 ### Diagramme de Cas d'utilisation
+
+![diagramme de cas d'utilisation](/diagrams/diagram-cas-utilisation.png)
 
 ### Diagramme de Séquence
 
