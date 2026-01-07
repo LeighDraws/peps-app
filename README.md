@@ -155,9 +155,7 @@ Les trois services principaux sont :
   * `dev` → exécution locale avec `localhost`
   * `prod` → build pour déploiement distant
 
-Routes actuellement disponibles :
-
-* `GET /api/health` → Vérifie la santé de l’API
+* Swagger accessible sur l'url : `http://localhost:8080/api-docs-ui` 
 
 ---
 
@@ -222,11 +220,27 @@ Le workflow GitHub Actions (`.github/workflows/ci.yml`) automatise la vérificat
 
 ## 🗺️ Roadmap
 
-[ ] Déploiement \
+✅ Déploiement \
     - ✅ BDD Neon \
     - ✅ API Render \
-    - [ ] Vercel
+    - ✅ Vercel
 
-
-
-
+✅ BACK - Entités créées:
+    - user
+    - tag
+    - step
+    - recipe
+    - menu
+    - ingredient
+    - country
+    - user-save-recipe
+    - recipe-has-tag
+    - recipe-has-ingredient
+    - menu-has-recipe 
+  
+* BACK :
+    - Auhtentification JWT
+    - Hashage MDP
+    - Securité 
+    - MàJ tests unitaires
+    - Tests d'API avec Karate

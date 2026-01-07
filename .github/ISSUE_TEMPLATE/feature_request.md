@@ -14,11 +14,6 @@ Description courte en 1-2 phrases de ce qu'on veut implémenter.
 ## 🎯 Objectif
 Quel problème on résout ou quelle amélioration on apporte ?
 
-## ✅ Critères d'Acceptation
-- [ ] La fonctionnalité fait X
-- [ ] L'utilisateur peut Y  
-- [ ] Le système répond Z
-
 ## 🔧 Tâches Techniques
 - [ ] Créer le modèle/schema
 - [ ] Implémenter l'endpoint API
