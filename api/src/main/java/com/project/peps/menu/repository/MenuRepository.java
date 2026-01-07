@@ -9,4 +9,6 @@ import com.project.peps.menu.model.Menu;
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     List<Menu> findByUserId(Long userId);
+
+    void deleteByUserId(Long userId);
 }
