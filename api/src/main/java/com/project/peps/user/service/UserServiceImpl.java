@@ -3,7 +3,9 @@ package com.project.peps.user.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.project.peps.menu.repository.MenuRepository;
 import com.project.peps.shared.exception.ResourceNotFoundException;
 import com.project.peps.user.model.User;
 import com.project.peps.user.repository.UserRepository;
@@ -12,9 +14,11 @@ import com.project.peps.user.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final MenuRepository menuRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, MenuRepository menuRepository) {
         this.userRepository = userRepository;
+        this.menuRepository = menuRepository;
     }
 
     @Override
@@ -40,9 +44,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User deleteById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
+        
+        // Manual cascade delete for menus
+        menuRepository.deleteByUserId(id);
+        
         userRepository.deleteById(id);
         return user;
     }

@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface StepRepository extends JpaRepository<Step, Long> {
-    List<Step> findByRecipe_Id(Long recipeId);
+    List<Step> findByRecipeId(Long recipeId);
 }
