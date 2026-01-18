@@ -54,6 +54,10 @@ jobs:
       # Tests 
       - name: Run unit tests
         run: mvn test
+        env:
+            DB_URL: ${{ secrets.DB_URL }}
+            DB_USER: ${{ secrets.DB_USER }}
+            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       # Audit sécurité 
       # - name: Dependency vulnerability check
