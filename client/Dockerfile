@@ -35,7 +35,7 @@ COPY . .
 RUN npm run build
 
 # Étape 2 : servir l'application avec un serveur Nginx
-FROM nginx:1.29-alpine
+FROM nginx:1.29.1-alpine
 
 WORKDIR /usr/share/nginx/html
 

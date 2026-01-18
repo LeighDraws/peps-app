@@ -8,7 +8,7 @@ public class ResourceNotFoundException extends RuntimeException {
 
     // Constructeur avec 3 paramètres pour personnaliser le message d'erreur à utiliser en priorité
     public ResourceNotFoundException(String resourceName, String fieldName, Object fieldValue) {
-        super(String.format("%s not found with %s : '%s'", resourceName, fieldName, fieldValue));
+        super(String.format("%s not found with %s %s", resourceName, fieldName, fieldValue));
     }
 
     // Constructeur avec un seul paramètre message pour plus de flexibilité
