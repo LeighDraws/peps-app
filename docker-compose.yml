@@ -63,6 +63,7 @@ services:
       - "4200:4200"
     depends_on:
       - api
+    restart: always
     command: ["npm", "start"]
     deploy:
       resources:
