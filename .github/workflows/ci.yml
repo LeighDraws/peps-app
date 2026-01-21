@@ -5,9 +5,11 @@ on:
   push:
     branches:
       - main
+      - dev
   pull_request:
     branches:
       - main
+      - dev
 
 # Définit les jobs à exécuter
 jobs:
@@ -47,17 +49,10 @@ jobs:
       - name: Install Dependencies
         run: mvn dependency:go-offline -B
 
-      # Lance Spotless pour vérifier le formatage du code
-      # - name: Run Spotless
-      #   run: mvn -q spotless:check
-
       # Tests 
       - name: Run unit tests
         run: mvn test
 
-      # Audit sécurité 
-      # - name: Dependency vulnerability check
-      #   run: mvn org.owasp:dependency-check-maven:check -Dformat=ALL
 
   # === JOB 2 : FRONTEND ===
   frontend:
@@ -152,30 +147,17 @@ jobs:
             });
 
 
-  # === DEPLOY ===
-  # deploy:
-  #   name: Deploy to Render & Vercel
-  #   runs-on: ubuntu-latest
-  #   needs: [backend, frontend]
-  #   if: github.ref == 'refs/heads/main'
+# === DEPLOY JOB ===
+  deploy:
+    name: Deploy API to Render
+    runs-on: ubuntu-latest
+    needs: [backend, frontend, docker]
+    
+    if: github.ref == 'refs/heads/main'
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Trigger Render Deployment
+        # Curl envoie une requête POST au lien secret pour dire à Render de se mettre à jour
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
-  #     # --- DEPLOY API ---
-  #     - name: Trigger Render deploy
-  #       run: |
-  #         curl -X POST "$RENDER_DEPLOY_HOOK_URL"
-  #       env:
-  #         RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
-  #     # --- DEPLOY FRONT ---
-  #     - name: Deploy frontend to Vercel
-  #       uses: amondnet/vercel-action@v25
-  #       with:
-  #         vercel-token: ${{ secrets.VERCEL_TOKEN }}
-  #         vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-  #         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-  #         working-directory: ./client
-  #         prod: true
