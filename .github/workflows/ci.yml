@@ -81,13 +81,16 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       # Linter
       - name: Run linter
         run: npm run lint
 
       # Tests
       - name: Run tests
-        run: npm run test:e2e
+        run: npx playwright test
 
       # Build Angular
       - name: Build Angular app
