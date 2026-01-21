@@ -8,7 +8,7 @@ L’objectif : simplifier la création de menus équilibrés et inspirants au qu
 
 ## 🧭 Sommaire
 
-1. [🌿 Présentation](#🌿-présentation)
+1. [🌿 Présentation](#🌿présentation)
 2. [📊 Diagrammes](#diagrammes)
 3. [📁 Structure du projet](#📁-structure-du-projet)
 4. [🔧 Technologies utilisées](#️🔧-technologies-utilisées)
