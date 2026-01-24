@@ -11,8 +11,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgresdata:/var/lib/postgresql/data # volume pour stocker les données. nom_du_volume:emplacement_dans_le_container      
-      - ./db-scripts:/docker-entrypoint-initdb.d/ # chemin des scripts SQL pour l'initialisation de la base de données          
+      - postgresdata:/var/lib/postgresql/data # volume pour stocker les données. nom_du_volume:emplacement_dans_le_container          
     deploy:
       resources:
         limits:
