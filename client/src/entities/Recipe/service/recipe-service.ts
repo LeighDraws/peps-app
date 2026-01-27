@@ -1,34 +1,35 @@
 import { inject, Injectable } from '@angular/core';
-import { IRecipeService } from './IRecipeService';
-import { RecipeMockService } from './mock-service/recipe-mock-service';
-import { USE_MOCK } from './config';
-import { RecipeApiService } from './api-service/recipe-api-service';
 import { Observable } from 'rxjs';
 import { Recipe } from '../model/recipe';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RecipeService implements IRecipeService {
-  private service: IRecipeService;
+export class RecipeService {
+  private readonly API_URL: string = environment.apiUrl;
+  private readonly ENDPOINT = '/recipes';
 
-  constructor() {
-    this.service = USE_MOCK ? inject(RecipeMockService) : inject(RecipeApiService);
-  }
+  private http = inject(HttpClient);
 
   getAllRecipes(): Observable<Recipe[]> {
-    return this.service.getAllRecipes();
+    return this.http.get<Recipe[]>(`${this.API_URL}${this.ENDPOINT}`);
   }
 
-  createRecipe(recipe: Recipe): Observable<Recipe> {
-    return this.service.createRecipe(recipe);
+  getRecipeById(id: string): Observable<Recipe> {
+    return this.http.get<Recipe>(`${this.API_URL}${this.ENDPOINT}/${id}`);
   }
 
-  // create(recipe: Recipe): Observable<Recipe> {
-  //   return this.service.create(recipe);
-  // }
+  createRecipe(recipe: Omit<Recipe, 'id'>): Observable<Recipe> {
+    return this.http.post<Recipe>(`${this.API_URL}${this.ENDPOINT}`, recipe);
+  }
 
-  // delete(id: number): Observable<{ success: boolean }> {
-  //   return this.service.delete(id);
-  // }
+  updateRecipe(id: string, recipe: Recipe): Observable<Recipe> {
+    return this.http.put<Recipe>(`${this.API_URL}${this.ENDPOINT}/${id}`, recipe);
+  }
+
+  deleteRecipe(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}${this.ENDPOINT}/${id}`);
+  }
 }

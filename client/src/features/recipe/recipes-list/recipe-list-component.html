@@ -4,7 +4,7 @@
   <ul>
     @for (recipe of recipes$ | async; track recipe.id) {
       <li class="my-4">
-        <app-recipe-card />
+        <app-recipe-card [recipe]="recipe" />
       </li>
     }
   </ul>
