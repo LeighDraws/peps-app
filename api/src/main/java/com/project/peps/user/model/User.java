@@ -42,11 +42,11 @@ public class User {
   private String email;
 
   // Nullable car inutile si connexion via OAuth (Google/Microsoft)
-  @Column(name = "password", nullable = true)
+  @Column(name = "password", nullable = true, length = 2048)
   private String password;
 
   // URL de l'image
-  @Column(name = "avatar_url")
+  @Column(name = "avatar_url", length = 2048)
   private String avatarUrl;
 
   // Pour savoir si c'est un compte LOCAL, GOOGLE, MICROSOFT

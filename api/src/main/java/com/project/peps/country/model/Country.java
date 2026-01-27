@@ -33,6 +33,7 @@ public class Country {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(length = 2048)
     private  String imageUrl;
 
     @CreationTimestamp
