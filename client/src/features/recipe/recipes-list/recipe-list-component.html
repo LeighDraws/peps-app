@@ -1,7 +1,7 @@
 <div>
   <h2 class="font-bold text-2xl">Liste des recettes</h2>
 
-  <div class="grid grid-cols-4 gap-4 bg-blue-300">
+  <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 bg-blue-300">
     @for (recipe of recipes$ | async; track recipe.id) {
       <app-recipe-card [recipe]="recipe" />
     }
