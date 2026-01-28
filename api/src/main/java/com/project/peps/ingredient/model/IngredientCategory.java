@@ -8,5 +8,8 @@ public enum IngredientCategory {
     CEREAL,
     DAIRY,
     SPICE,
+    SWEETENER,
+    OIL,
+    ALCOHOL,
     OTHER
 }

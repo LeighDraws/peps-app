@@ -5,7 +5,7 @@ INSERT INTO users (user_id, pseudo, email, password, avatar_url, auth_provider, 
 (3, 'SpiceMaster', 'spice@example.com', 'password3', 'https://images.pexels.com/photos/10899488/pexels-photo-10899488.jpeg', 'GOOGLE', NOW(), NOW())
 ON CONFLICT (user_id) DO NOTHING;
 
--- Insertion de 3 pays
+-- Insertion de 15 pays
 INSERT INTO countries (id, name, image_url, created_at, updated_at) VALUES
 (1, 'France', 'https://cdn-icons-png.flaticon.com/128/197/197560.png', NOW(), NOW()),
 (2, 'Italie', 'https://www.flaticon.com/free-icon/italy_197626', NOW(), NOW()),
@@ -24,7 +24,7 @@ INSERT INTO countries (id, name, image_url, created_at, updated_at) VALUES
 (15, 'Royaume-Uni', 'https://www.flaticon.com/free-icon/united-kingdom_197485', NOW(), NOW())
 ON CONFLICT (id) DO NOTHING;
 
--- Insertion de 3 ingrédients
+-- Insertion de 10 ingrédients
 INSERT INTO ingredients (id, name, category, created_at, updated_at) VALUES
 (1, 'Poulet', 'MEAT', NOW(), NOW()),
 (2, 'Tomate', 'VEGETABLE', NOW(), NOW()),
@@ -45,17 +45,17 @@ INSERT INTO tags (id, name, created_at, updated_at) VALUES
 (3, 'Umami', NOW(), NOW())
 ON CONFLICT (id) DO NOTHING;
 
--- Insertion de 3 recettes
+-- Insertion de 6 recettes
 INSERT INTO recipes (recipe_id, name, description, image_url, preparation_duration, category, price_range, difficulty, country_id, user_id, created_at, updated_at) VALUES
 (1, 'Poulet basquaise', 'Un plat traditionnel du Pays basque.', 'https://recettes.precuttech.com/wp-content/uploads/2025/02/poulet-basquaise-cookeo-1.jpeg', 30, 'MEAT', 'NORMAL', 'EASY', 1, 1, NOW(), NOW()),
 (2, 'Pâtes à la carbonara', 'La fameuse recette italienne.', 'https://www.gustini.fr/blog/wp-content/uploads/2024/02/rezept-41.jpg', 20, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
 (3, 'Tarte au sucre', 'Un dessert simple et délicieux du Nord.', 'https://images.radio-canada.ca/v1/alimentation/recette/16x9/tarte-sucre-82143.jpg', 15, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW()),
 (4, 'Poulet rôti', 'Un plat traditionnel du Pays basque.', 'https://www.apero-bordeaux.fr/wp-content/uploads/2024/02/20240216_65cfa1ce1fa54.jpg', 45, 'MEAT', 'NORMAL', 'NORMAL', 1, 1, NOW(), NOW()),
-(5, 'Butter Chicker', 'La fameuse recette Indienne.', 'https://thegreenquest.org/fr/wp-content/uploads/sites/2/2024/02/butter-chicken-cauliglower_the-greenquest-3-sur-4.jpg', 25, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
+(5, 'Butter Chicken', 'La fameuse recette Indienne.', 'https://thegreenquest.org/fr/wp-content/uploads/sites/2/2024/02/butter-chicken-cauliglower_the-greenquest-3-sur-4.jpg', 25, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
 (6, 'Tarte au citron', 'Un dessert.', 'https://assets.afcdn.com/recipe/20140121/63377_w1024h1024c1cx1100cy1412cxt0cyt0cxb2796cyb3567.webp', 20, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW())
 ON CONFLICT (recipe_id) DO NOTHING;
 
--- Insertion des étapes pour les recettes
+-- Insertion des étapes pour les recettes (IDs renumérotés pour être uniques)
 INSERT INTO steps (step_id, recipe_id, step_number, instruction, created_at, updated_at) VALUES
 -- Poulet basquaise (recette 1)
 (1, 1, 1, 'Découpez les poivrons et les oignons en lanières.', NOW(), NOW()),
@@ -71,18 +71,10 @@ INSERT INTO steps (step_id, recipe_id, step_number, instruction, created_at, upd
 (9, 3, 2, 'Étalez la pâte dans un moule à tarte.', NOW(), NOW()),
 (10, 3, 3, 'Garnissez avec du beurre et du sucre, puis enfournez à 180°C pendant 20 minutes.', NOW(), NOW()),
 -- Poulet rôti (recette 4)
-(6, 4, 1, 'Préchauffez le four à 200°C.', NOW(), NOW()),
-(7, 4, 2, 'Assaisonnez le poulet avec du sel, du poivre et des herbes.', NOW(), NOW()),
-(8, 4, 3, 'Placez le poulet dans un plat et enfournez pendant 45 minutes.', NOW(), NOW()),
-(9, 4, 4, 'Servez chaud.', NOW(), NOW())
--- Pâtes carbonara (recette 2)
-(4, 2, 1, 'Faites cuire les pâtes selon les instructions du paquet.', NOW(), NOW()),
-(5, 2, 2, 'Pendant ce temps, coupez le guanciale en lardons et faites-le dorer à la poêle.', NOW(), NOW()),
-(6, 2, 3, 'Dans un bol, mélangez les jaunes d''œufs, le pecorino, le sel et le poivre. Ajoutez les pâtes cuites et le guanciale. Servez immédiatement.', NOW(), NOW()),
--- Tarte au sucre (recette 3)
-(7, 3, 1, 'Préparez la pâte et laissez-la lever.', NOW(), NOW()),
-(8, 3, 2, 'Étalez la pâte dans un moule à tarte.', NOW(), NOW()),
-(9, 3, 3, 'Garnissez avec du beurre et du sucre, puis enfournez à 180°C pendant 20 minutes.', NOW(), NOW())
+(11, 4, 1, 'Préchauffez le four à 200°C.', NOW(), NOW()),
+(12, 4, 2, 'Assaisonnez le poulet avec du sel, du poivre et des herbes.', NOW(), NOW()),
+(13, 4, 3, 'Placez le poulet dans un plat et enfournez pendant 45 minutes.', NOW(), NOW()),
+(14, 4, 4, 'Servez chaud.', NOW(), NOW())
 ON CONFLICT (step_id) DO NOTHING;
 
 -- Insertion de 3 menus
@@ -97,7 +89,6 @@ INSERT INTO recipe_has_ingredient (id, recipe_id, ingredient_id, quantity, measu
 -- Poulet basquaise (recette 1) utilise Poulet (ingrédient 1) et Tomate (ingrédient 2)
 (1, 1, 1, 4, 'PIECE', NOW(), NOW()),
 (2, 1, 2, 500, 'GRAM', NOW(), NOW()),
-
 -- Pâtes carbonara (recette 2) utilise Farine (ingrédient 3) pour les pâtes fraîches
 (3, 2, 3, 300, 'GRAM', NOW(), NOW())
 ON CONFLICT (id) DO NOTHING;
@@ -106,10 +97,8 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO recipe_has_tag (id, recipe_id, tag_id, created_at, updated_at) VALUES
 -- Poulet basquaise (recette 1) est "Facile" (tag 1)
 (1, 1, 1, NOW(), NOW()),
-
 -- Pâtes carbonara (recette 2) est "Facile" (tag 1)
 (2, 2, 1, NOW(), NOW()),
-
 -- Tarte au sucre (recette 3) est "Sucré" (tag 3) et "Facile" (tag 1)
 (3, 3, 3, NOW(), NOW()),
 (4, 3, 1, NOW(), NOW())
@@ -119,10 +108,8 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO menu_has_recipe (id, menu_id, recipe_id, created_at, updated_at) VALUES
 -- Le "Menu de la semaine" (menu 1) contient le Poulet basquaise (recette 1)
 (1, 1, 1, NOW(), NOW()),
-
 -- Le "Dîner Italien" (menu 2) contient les Pâtes carbonara (recette 2)
 (2, 2, 2, NOW(), NOW()),
-
 -- Le "Brunch du Dimanche" (menu 3) contient la Tarte au sucre (recette 3)
 (3, 3, 3, NOW(), NOW())
 ON CONFLICT (id) DO NOTHING;
@@ -131,23 +118,21 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO user_save_recipe (id, user_id, recipe_id, created_at, updated_at) VALUES
 -- "MamaRosa" (user 2) sauvegarde le "Poulet basquaise" (recette 1)
 (1, 2, 1, NOW(), NOW()),
-
 -- "ChefGusto" (user 1) sauvegarde les "Pâtes à la carbonara" (recette 2)
 (2, 1, 2, NOW(), NOW()),
-
 -- "SpiceMaster" (user 3) sauvegarde la "Tarte au sucre" (recette 3)
 (3, 3, 3, NOW(), NOW())
 ON CONFLICT (id) DO NOTHING;
 
--- Gestion des IDs
-SELECT setval(pg_get_serial_sequence('users', 'user_id'), (SELECT MAX(user_id) FROM users), true);
-SELECT setval(pg_get_serial_sequence('countries', 'id'), (SELECT MAX(id) FROM countries), true);
-SELECT setval(pg_get_serial_sequence('ingredients', 'id'), (SELECT MAX(id) FROM ingredients), true);
-SELECT setval(pg_get_serial_sequence('tags', 'id'), (SELECT MAX(id) FROM tags), true);
-SELECT setval(pg_get_serial_sequence('recipes', 'recipe_id'), (SELECT MAX(recipe_id) FROM recipes), true);
-SELECT setval(pg_get_serial_sequence('steps', 'step_id'), (SELECT MAX(step_id) FROM steps), true);
-SELECT setval(pg_get_serial_sequence('menus', 'menu_id'), (SELECT MAX(menu_id) FROM menus), true);
-SELECT setval(pg_get_serial_sequence('recipe_has_ingredient', 'id'), (SELECT MAX(id) FROM recipe_has_ingredient), true);
-SELECT setval(pg_get_serial_sequence('recipe_has_tag', 'id'), (SELECT MAX(id) FROM recipe_has_tag), true);
-SELECT setval(pg_get_serial_sequence('menu_has_recipe', 'id'), (SELECT MAX(id) FROM menu_has_recipe), true);
-SELECT setval(pg_get_serial_sequence('user_save_recipe', 'id'), (SELECT MAX(id) FROM user_save_recipe), true);
+-- Gestion des IDs (Mise à jour des séquences)
+SELECT setval(pg_get_serial_sequence('users', 'user_id'), COALESCE((SELECT MAX(user_id) FROM users), 1), true);
+SELECT setval(pg_get_serial_sequence('countries', 'id'), COALESCE((SELECT MAX(id) FROM countries), 1), true);
+SELECT setval(pg_get_serial_sequence('ingredients', 'id'), COALESCE((SELECT MAX(id) FROM ingredients), 1), true);
+SELECT setval(pg_get_serial_sequence('tags', 'id'), COALESCE((SELECT MAX(id) FROM tags), 1), true);
+SELECT setval(pg_get_serial_sequence('recipes', 'recipe_id'), COALESCE((SELECT MAX(recipe_id) FROM recipes), 1), true);
+SELECT setval(pg_get_serial_sequence('steps', 'step_id'), COALESCE((SELECT MAX(step_id) FROM steps), 1), true);
+SELECT setval(pg_get_serial_sequence('menus', 'menu_id'), COALESCE((SELECT MAX(menu_id) FROM menus), 1), true);
+SELECT setval(pg_get_serial_sequence('recipe_has_ingredient', 'id'), COALESCE((SELECT MAX(id) FROM recipe_has_ingredient), 1), true);
+SELECT setval(pg_get_serial_sequence('recipe_has_tag', 'id'), COALESCE((SELECT MAX(id) FROM recipe_has_tag), 1), true);
+SELECT setval(pg_get_serial_sequence('menu_has_recipe', 'id'), COALESCE((SELECT MAX(id) FROM menu_has_recipe), 1), true);
+SELECT setval(pg_get_serial_sequence('user_save_recipe', 'id'), COALESCE((SELECT MAX(id) FROM user_save_recipe), 1), true);
