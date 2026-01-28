@@ -35,7 +35,7 @@ INSERT INTO ingredients (id, name, category, created_at, updated_at) VALUES
 (7, 'Poivron', 'VEGETABLE', NOW(), NOW()),
 (8, 'Oignon', 'VEGETABLE', NOW(), NOW()),
 (9, 'Vin blanc', 'ALCOHOL', NOW(), NOW()),
-(10, 'Guanciale', 'MEAT', NOW(), NOW()),
+(10, 'Guanciale', 'MEAT', NOW(), NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Insertion de 3 tags
