@@ -9,28 +9,50 @@ ON CONFLICT (user_id) DO NOTHING;
 INSERT INTO countries (id, name, image_url, created_at, updated_at) VALUES
 (1, 'France', 'https://cdn-icons-png.flaticon.com/128/197/197560.png', NOW(), NOW()),
 (2, 'Italie', 'https://www.flaticon.com/free-icon/italy_197626', NOW(), NOW()),
-(3, 'Mexique', 'https://www.flaticon.com/free-icon/mexico_197397', NOW(), NOW())
+(3, 'Mexique', 'https://www.flaticon.com/free-icon/mexico_197397', NOW(), NOW()),
+(4, 'Japon', 'https://www.flaticon.com/free-icon/japan_197604', NOW(), NOW()),
+(5, 'Inde', 'https://www.flaticon.com/free-icon/india_197402', NOW(), NOW()),
+(6, 'Chine', 'https://www.flaticon.com/free-icon/china_197375', NOW(), NOW()),
+(7, 'Espagne', 'https://www.flaticon.com/free-icon/spain_197625', NOW(), NOW()),
+(8, 'Grèce', 'https://www.flaticon.com/free-icon/greece_197606', NOW(), NOW()),
+(9, 'Maroc', 'https://www.flaticon.com/free-icon/morocco_197405', NOW(), NOW()),
+(10, 'Thaïlande', 'https://www.flaticon.com/free-icon/thailand_197418', NOW(), NOW()),
+(11, 'Turquie', 'https://www.flaticon.com/free-icon/turkey_197599', NOW(), NOW()),
+(12, 'Brésil', 'https://www.flaticon.com/free-icon/brazil_197386', NOW(), NOW()),
+(13, 'Allemagne', 'https://www.flaticon.com/free-icon/germany_197571', NOW(), NOW()),
+(14, 'États-Unis', 'https://www.flaticon.com/free-icon/united-states-of-america_197484', NOW(), NOW()),
+(15, 'Royaume-Uni', 'https://www.flaticon.com/free-icon/united-kingdom_197485', NOW(), NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Insertion de 3 ingrédients
 INSERT INTO ingredients (id, name, category, created_at, updated_at) VALUES
 (1, 'Poulet', 'MEAT', NOW(), NOW()),
 (2, 'Tomate', 'VEGETABLE', NOW(), NOW()),
-(3, 'Farine', 'CEREAL', NOW(), NOW())
+(3, 'Farine', 'CEREAL', NOW(), NOW()),
+(4, 'Sucre', 'SWEETENER', NOW(), NOW()),
+(5, 'Œuf', 'DAIRY', NOW(), NOW()),
+(6, 'Huile d''olive', 'OIL', NOW(), NOW()),
+(7, 'Poivron', 'VEGETABLE', NOW(), NOW()),
+(8, 'Oignon', 'VEGETABLE', NOW(), NOW()),
+(9, 'Vin blanc', 'ALCOHOL', NOW(), NOW()),
+(10, 'Guanciale', 'MEAT', NOW(), NOW()),
 ON CONFLICT (id) DO NOTHING;
 
 -- Insertion de 3 tags
 INSERT INTO tags (id, name, created_at, updated_at) VALUES
-(1, 'Facile', NOW(), NOW()),
-(2, 'Végétarien', NOW(), NOW()),
-(3, 'Sucré', NOW(), NOW())
+(1, 'Réconfortant', NOW(), NOW()),
+(2, 'Épicé', NOW(), NOW()),
+(3, 'Umami', NOW(), NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Insertion de 3 recettes
 INSERT INTO recipes (recipe_id, name, description, preparation_duration, category, price_range, difficulty, country_id, user_id, created_at, updated_at) VALUES
 (1, 'Poulet basquaise', 'Un plat traditionnel du Pays basque.', 30, 'MEAT', 'NORMAL', 'EASY', 1, 1, NOW(), NOW()),
 (2, 'Pâtes à la carbonara', 'La fameuse recette italienne.', 20, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
-(3, 'Tarte au sucre', 'Un dessert simple et délicieux du Nord.', 15, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW())
+(3, 'Tarte au sucre', 'Un dessert simple et délicieux du Nord.', 15, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW()),
+(4, 'Poulet rôti', 'Un plat traditionnel du Pays basque.', 45, 'MEAT', 'NORMAL', 'NORMAL', 1, 1, NOW(), NOW()),
+(5, 'Butter Chicker', 'La fameuse recette Indienne.', 25, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
+(6, 'Tarte au citron', 'Un dessert.', 20, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW())
 ON CONFLICT (recipe_id) DO NOTHING;
 
 -- Insertion des étapes pour les recettes
@@ -39,12 +61,24 @@ INSERT INTO steps (step_id, recipe_id, step_number, instruction, created_at, upd
 (1, 1, 1, 'Découpez les poivrons et les oignons en lanières.', NOW(), NOW()),
 (2, 1, 2, 'Faites dorer les morceaux de poulet dans une cocotte avec de l''huile d''olive.', NOW(), NOW()),
 (3, 1, 3, 'Ajoutez les poivrons, les oignons, les tomates et le vin blanc. Laissez mijoter 30 minutes.', NOW(), NOW()),
-
+(4, 1, 4, 'Assaisonnez avec du sel, du poivre et des herbes de Provence. Servez chaud.', NOW(), NOW()),
+-- Pâtes carbonara (recette 2)
+(5, 2, 1, 'Faites cuire les pâtes selon les instructions du paquet.', NOW(), NOW()),
+(6, 2, 2, 'Pendant ce temps, coupez le guanciale en lardons et faites-le dorer à la poêle.', NOW(), NOW()),
+(7, 2, 3, 'Dans un bol, mélangez les jaunes d''œufs, le pecorino, le sel et le poivre. Ajoutez les pâtes cuites et le guanciale. Servez immédiatement.', NOW(), NOW()),
+-- Tarte au sucre (recette 3)
+(8, 3, 1, 'Préparez la pâte et laissez-la lever.', NOW(), NOW()),
+(9, 3, 2, 'Étalez la pâte dans un moule à tarte.', NOW(), NOW()),
+(10, 3, 3, 'Garnissez avec du beurre et du sucre, puis enfournez à 180°C pendant 20 minutes.', NOW(), NOW()),
+-- Poulet rôti (recette 4)
+(6, 4, 1, 'Préchauffez le four à 200°C.', NOW(), NOW()),
+(7, 4, 2, 'Assaisonnez le poulet avec du sel, du poivre et des herbes.', NOW(), NOW()),
+(8, 4, 3, 'Placez le poulet dans un plat et enfournez pendant 45 minutes.', NOW(), NOW()),
+(9, 4, 4, 'Servez chaud.', NOW(), NOW())
 -- Pâtes carbonara (recette 2)
 (4, 2, 1, 'Faites cuire les pâtes selon les instructions du paquet.', NOW(), NOW()),
 (5, 2, 2, 'Pendant ce temps, coupez le guanciale en lardons et faites-le dorer à la poêle.', NOW(), NOW()),
 (6, 2, 3, 'Dans un bol, mélangez les jaunes d''œufs, le pecorino, le sel et le poivre. Ajoutez les pâtes cuites et le guanciale. Servez immédiatement.', NOW(), NOW()),
-
 -- Tarte au sucre (recette 3)
 (7, 3, 1, 'Préparez la pâte et laissez-la lever.', NOW(), NOW()),
 (8, 3, 2, 'Étalez la pâte dans un moule à tarte.', NOW(), NOW()),
