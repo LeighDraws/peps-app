@@ -1,14 +1,14 @@
 <div class="card bg-base-100 w-96 shadow-sm">
   <figure>
-    <img src="https://cdn.pixabay.com/photo/2022/06/02/18/22/ramen-7238665_1280.jpg" alt="Shoes" />
+    <img [src]="recipe.imageUrl" alt="{{ recipe.name }}" class="h-60 w-full object-cover object-center" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">Ramen</h2>
-    <p class="text-left text-gray-500">by Pep's</p>
+    <h2 class="card-title">{{ recipe.name }}</h2>
+    <p class="text-left text-gray-500">by {{ recipe.user?.pseudo }}</p>
     <div class="card-actions gap-2 flex-wrap">
-      <div class="badge badge-soft badge-primary">🌍 Japan</div>
-      <div class="badge badge-soft badge-primary">⌛ 30 mins</div>
-      <div class="badge badge-soft badge-primary">🔥 Easy</div>
+      <div class="badge badge-soft badge-primary">🌍 {{ recipe.country?.name }}</div>
+      <div class="badge badge-soft badge-primary">⌛ {{ recipe.preparationDuration }} mins</div>
+      <div class="badge badge-soft badge-primary">🔥 {{ recipe.difficulty }}</div>
     </div>
     <div class="card-actions justify-end">
       <button class="cursor-pointer">
