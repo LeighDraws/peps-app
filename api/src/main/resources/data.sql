@@ -46,13 +46,13 @@ INSERT INTO tags (id, name, created_at, updated_at) VALUES
 ON CONFLICT (id) DO NOTHING;
 
 -- Insertion de 3 recettes
-INSERT INTO recipes (recipe_id, name, description, preparation_duration, category, price_range, difficulty, country_id, user_id, created_at, updated_at) VALUES
-(1, 'Poulet basquaise', 'Un plat traditionnel du Pays basque.', 30, 'MEAT', 'NORMAL', 'EASY', 1, 1, NOW(), NOW()),
-(2, 'Pâtes à la carbonara', 'La fameuse recette italienne.', 20, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
-(3, 'Tarte au sucre', 'Un dessert simple et délicieux du Nord.', 15, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW()),
-(4, 'Poulet rôti', 'Un plat traditionnel du Pays basque.', 45, 'MEAT', 'NORMAL', 'NORMAL', 1, 1, NOW(), NOW()),
-(5, 'Butter Chicker', 'La fameuse recette Indienne.', 25, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
-(6, 'Tarte au citron', 'Un dessert.', 20, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW())
+INSERT INTO recipes (recipe_id, name, description, image_url, preparation_duration, category, price_range, difficulty, country_id, user_id, created_at, updated_at) VALUES
+(1, 'Poulet basquaise', 'Un plat traditionnel du Pays basque.', 'https://recettes.precuttech.com/wp-content/uploads/2025/02/poulet-basquaise-cookeo-1.jpeg', 30, 'MEAT', 'NORMAL', 'EASY', 1, 1, NOW(), NOW()),
+(2, 'Pâtes à la carbonara', 'La fameuse recette italienne.', 'https://www.gustini.fr/blog/wp-content/uploads/2024/02/rezept-41.jpg', 20, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
+(3, 'Tarte au sucre', 'Un dessert simple et délicieux du Nord.', 'https://images.radio-canada.ca/v1/alimentation/recette/16x9/tarte-sucre-82143.jpg', 15, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW()),
+(4, 'Poulet rôti', 'Un plat traditionnel du Pays basque.', 'https://www.apero-bordeaux.fr/wp-content/uploads/2024/02/20240216_65cfa1ce1fa54.jpg', 45, 'MEAT', 'NORMAL', 'NORMAL', 1, 1, NOW(), NOW()),
+(5, 'Butter Chicker', 'La fameuse recette Indienne.', 'https://thegreenquest.org/fr/wp-content/uploads/sites/2/2024/02/butter-chicken-cauliglower_the-greenquest-3-sur-4.jpg', 25, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
+(6, 'Tarte au citron', 'Un dessert.', 'https://assets.afcdn.com/recipe/20140121/63377_w1024h1024c1cx1100cy1412cxt0cyt0cxb2796cyb3567.webp', 20, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW())
 ON CONFLICT (recipe_id) DO NOTHING;
 
 -- Insertion des étapes pour les recettes
