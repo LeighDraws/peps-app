@@ -21,12 +21,23 @@ export class RecipeHasIngredientService {
     return this.http.get<RecipeHasIngredient>(`${this.API_URL}${this.ENDPOINT}/${id}`);
   }
 
-  createRecipeHasIngredient(recipeHasIngredient: Omit<RecipeHasIngredient, 'id'>): Observable<RecipeHasIngredient> {
-    return this.http.post<RecipeHasIngredient>(`${this.API_URL}${this.ENDPOINT}`, recipeHasIngredient);
+  createRecipeHasIngredient(
+    recipeHasIngredient: Omit<RecipeHasIngredient, 'id'>,
+  ): Observable<RecipeHasIngredient> {
+    return this.http.post<RecipeHasIngredient>(
+      `${this.API_URL}${this.ENDPOINT}`,
+      recipeHasIngredient,
+    );
   }
 
-  updateRecipeHasIngredient(id: number, recipeHasIngredient: RecipeHasIngredient): Observable<RecipeHasIngredient> {
-    return this.http.put<RecipeHasIngredient>(`${this.API_URL}${this.ENDPOINT}/${id}`, recipeHasIngredient);
+  updateRecipeHasIngredient(
+    id: number,
+    recipeHasIngredient: RecipeHasIngredient,
+  ): Observable<RecipeHasIngredient> {
+    return this.http.put<RecipeHasIngredient>(
+      `${this.API_URL}${this.ENDPOINT}/${id}`,
+      recipeHasIngredient,
+    );
   }
 
   deleteRecipeHasIngredient(id: number): Observable<void> {

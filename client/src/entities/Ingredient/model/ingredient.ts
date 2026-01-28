@@ -1,12 +1,12 @@
 export enum IngredientCategory {
-    MEAT = 'MEAT',
-    FISH = 'FISH',
-    VEGETABLE = 'VEGETABLE',
-    FRUIT = 'FRUIT',
-    CEREAL = 'CEREAL',
-    DAIRY = 'DAIRY',
-    SPICE = 'SPICE',
-    OTHER = 'OTHER'
+  MEAT = 'MEAT',
+  FISH = 'FISH',
+  VEGETABLE = 'VEGETABLE',
+  FRUIT = 'FRUIT',
+  CEREAL = 'CEREAL',
+  DAIRY = 'DAIRY',
+  SPICE = 'SPICE',
+  OTHER = 'OTHER',
 }
 
 export interface Ingredient {

@@ -35,18 +35,13 @@ export class RecipeForm {
   onSubmit() {
     // if (this.recipeForm.valid) {
     //   const formValue = this.recipeForm.value;
-
-      
-
     //   console.log('Submitting recipe:', recipe);
-
     //   this.recipeService.createRecipe(recipe).subscribe(() => {
     //     this.snackBar.open('Recette ajoutée avec succès 🎉', 'Fermer', {
     //       duration: 3000,
     //       horizontalPosition: 'center',
     //       verticalPosition: 'bottom',
     //     });
-
     //     this.recipeForm.reset();
     //   });
     // }
