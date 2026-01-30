@@ -4,10 +4,12 @@ import { catchError, map, Observable } from 'rxjs';
 import { Recipe } from 'src/entities/Recipe/model/recipe';
 import { RecipeService } from 'src/entities/Recipe/service/recipe-service';
 import { RecipeCard } from '../recipe-card/recipe-card';
+import { Modal } from 'src/shared/components/modal/modal';
+import { ButtonFilter } from 'src/shared/components/button-filter/button-filter';
 
 @Component({
   selector: 'app-recipe-list-component',
-  imports: [CommonModule, RecipeCard],
+  imports: [CommonModule, RecipeCard, Modal, ButtonFilter],
   templateUrl: './recipe-list-component.html',
   styleUrl: './recipe-list-component.css',
 })
