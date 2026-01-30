@@ -1,8 +1,7 @@
-<button class="btn" onclick="modal.showModal()">open modal</button>
-<dialog id="modal" class="modal">
+<dialog #modal (close)="onClose()" class="modal">
   <div class="modal-box items-center text-center">
-    <h2 class="text-lg font-bold">Titre Ici !</h2>
-    <p class="py-4">Some text ? Pas sur</p>
+    <h2 class="text-lg font-bold">{{ title }}</h2>
+    <ng-content></ng-content>
   </div>
   <form method="dialog" class="modal-backdrop">
     <button>close</button>
