@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-recipe-filter',
   imports: [],
   templateUrl: './recipe-filter.html',
-  styleUrl: './recipe-filter.css'
+  styleUrl: './recipe-filter.css',
 })
-export class RecipeFilter {
-
-}
+export class RecipeFilter {}
