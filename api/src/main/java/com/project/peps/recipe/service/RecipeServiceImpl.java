@@ -1,12 +1,12 @@
 package com.project.peps.recipe.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.project.peps.recipe.model.Recipe;
 import com.project.peps.recipe.repository.RecipeRepository;
 import com.project.peps.shared.exception.ResourceNotFoundException;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -18,8 +18,13 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<Recipe> findAllRecipes() {
+    public List<Recipe> findAll() {
         return recipeRepository.findAll();
+    }
+
+    @Override
+    public List<Recipe> findAll(Specification<Recipe> spec) {
+        return recipeRepository.findAll(spec);
     }
 
     @Override
