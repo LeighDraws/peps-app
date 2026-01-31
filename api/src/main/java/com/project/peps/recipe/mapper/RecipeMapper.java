@@ -4,15 +4,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
-
+import com.project.peps.country.mapper.CountryMapper;
 import com.project.peps.country.model.Country;
 import com.project.peps.recipe.dto.RecipeRequest;
 import com.project.peps.recipe.dto.RecipeResponse;
 import com.project.peps.recipe.model.Recipe;
+import com.project.peps.user.dto.UserResponse;
+import com.project.peps.user.mapper.UserMapper;
 import com.project.peps.user.model.User;
 
 @Component
 public class RecipeMapper {
+
+    private final CountryMapper countryMapper;
+
+    private final UserMapper userMapper;
+
+    public RecipeMapper(UserMapper userMapper, CountryMapper countryMapper) {
+        this.userMapper = userMapper;
+        this.countryMapper = countryMapper;
+    }
 
     public Recipe toRecipe(RecipeRequest recipeRequest) {
         if (recipeRequest == null) {
@@ -58,10 +69,10 @@ public class RecipeMapper {
         recipeResponse.setPriceRange(recipe.getPriceRange() != null ? recipe.getPriceRange().name() : null);
         recipeResponse.setDifficulty(recipe.getDifficulty() != null ? recipe.getDifficulty().name() : null);
         if (recipe.getCountry() != null) {
-            recipeResponse.setCountryId(recipe.getCountry().getId());
+            recipeResponse.setCountry(countryMapper.toCountryResponse(recipe.getCountry()));
         }
         if (recipe.getUser() != null) {
-            recipeResponse.setUserId(recipe.getUser().getId());
+            recipeResponse.setUser(userMapper.toResponse(recipe.getUser()));
         }
         recipeResponse.setCreatedAt(recipe.getCreatedAt());
         recipeResponse.setUpdatedAt(recipe.getUpdatedAt());
