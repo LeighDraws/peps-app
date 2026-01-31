@@ -1,67 +1,20 @@
 package com.project.peps.user.mapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Component;
-
 import com.project.peps.user.dto.UserRequest;
 import com.project.peps.user.dto.UserResponse;
 import com.project.peps.user.model.User;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import java.util.List;
 
-@Component
-public class UserMapper {
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-    public User toEntity(UserRequest userRequest) {
-        if (userRequest == null) {
-            return null;
-        }
-        User user = new User();
-        user.setPseudo(userRequest.getPseudo());
-        user.setEmail(userRequest.getEmail());
-        // TODO : Encoder le mot de passe avant de l'enregistrer dans la base de données
-        user.setPassword(userRequest.getPassword());
-        user.setAvatarUrl(userRequest.getAvatarUrl());
-        return user;
-    }
+    User toEntity(UserRequest userRequest);
 
-    public UserResponse toResponse(User user) {
-        if (user == null) {
-            return null;
-        }
-        UserResponse userResponse = new UserResponse();
-        userResponse.setId(user.getId());
-        userResponse.setPseudo(user.getPseudo());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setAvatarUrl(user.getAvatarUrl());
-        userResponse.setCreatedAt(user.getCreatedAt());
-        userResponse.setUpdatedAt(user.getUpdatedAt());
-        return userResponse;
-    }
+    UserResponse toResponse(User user);
 
-    // Méthode qui met à jour une entité existante sans toucher à l'ID
-    public void updateUserFromRequest(UserRequest request, User entity) {
-        if (request == null || entity == null) {
-            return;
-        }
-        
-        entity.setPseudo(request.getPseudo());
-        entity.setEmail(request.getEmail());
-        entity.setAvatarUrl(request.getAvatarUrl());
-        
-        // Gestion du mot de passe (si présent dans la request)
-        if (request.getPassword() != null && !request.getPassword().isBlank()) {
-            entity.setPassword(request.getPassword()); 
-            // TODO : Gérer l'encodage du mot de passe dans un service approprié
-        }
-    }
+    void updateUserFromRequest(UserRequest request, @MappingTarget User entity);
 
-    public List<UserResponse> toResponseList(List<User> users) {
-        if (users == null) {
-            return null;
-        }
-        return users.stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
-    }
+    List<UserResponse> toResponseList(List<User> users);
 }
