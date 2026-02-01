@@ -1,8 +1,10 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Recipe } from '../model/recipe';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+
+import { RecipeFilters } from '../model/recipe-filters';
+import { Recipe } from '../model/recipe';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +15,29 @@ export class RecipeService {
 
   private http = inject(HttpClient);
 
-  getAllRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${this.API_URL}${this.ENDPOINT}`);
+  getAllRecipes(filters?: RecipeFilters): Observable<Recipe[]> {
+    let params = new HttpParams();
+    if (filters) {
+      if (filters.countryId) {
+        params = params.append('countryId', filters.countryId.toString());
+      }
+      if (filters.category) {
+        params = params.append('category', filters.category);
+      }
+      if (filters.includedIngredientIds) {
+        filters.includedIngredientIds.forEach((id) => {
+          params = params.append('includedIngredientIds', id.toString());
+        });
+      }
+      if (filters.excludedIngredientIds) {
+        filters.excludedIngredientIds.forEach((id) => {
+          params = params.append('excludedIngredientIds', id.toString());
+        });
+      }
+    }
+    return this.http.get<Recipe[]>(`${this.API_URL}${this.ENDPOINT}`, {
+      params,
+    });
   }
 
   getRecipeById(id: string): Observable<Recipe> {

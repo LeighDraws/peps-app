@@ -8,20 +8,20 @@ ON CONFLICT (user_id) DO NOTHING;
 -- Insertion de 15 pays
 INSERT INTO countries (id, name, image_url, created_at, updated_at) VALUES
 (1, 'France', 'https://cdn-icons-png.flaticon.com/128/197/197560.png', NOW(), NOW()),
-(2, 'Italie', 'https://www.flaticon.com/free-icon/italy_197626', NOW(), NOW()),
-(3, 'Mexique', 'https://www.flaticon.com/free-icon/mexico_197397', NOW(), NOW()),
-(4, 'Japon', 'https://www.flaticon.com/free-icon/japan_197604', NOW(), NOW()),
-(5, 'Inde', 'https://www.flaticon.com/free-icon/india_197402', NOW(), NOW()),
-(6, 'Chine', 'https://www.flaticon.com/free-icon/china_197375', NOW(), NOW()),
-(7, 'Espagne', 'https://www.flaticon.com/free-icon/spain_197625', NOW(), NOW()),
-(8, 'Grèce', 'https://www.flaticon.com/free-icon/greece_197606', NOW(), NOW()),
-(9, 'Maroc', 'https://www.flaticon.com/free-icon/morocco_197405', NOW(), NOW()),
-(10, 'Thaïlande', 'https://www.flaticon.com/free-icon/thailand_197418', NOW(), NOW()),
-(11, 'Turquie', 'https://www.flaticon.com/free-icon/turkey_197599', NOW(), NOW()),
-(12, 'Brésil', 'https://www.flaticon.com/free-icon/brazil_197386', NOW(), NOW()),
-(13, 'Allemagne', 'https://www.flaticon.com/free-icon/germany_197571', NOW(), NOW()),
-(14, 'États-Unis', 'https://www.flaticon.com/free-icon/united-states-of-america_197484', NOW(), NOW()),
-(15, 'Royaume-Uni', 'https://www.flaticon.com/free-icon/united-kingdom_197485', NOW(), NOW())
+(2, 'Italie', 'https://cdn-icons-png.flaticon.com/128/197/197626.png', NOW(), NOW()),
+(3, 'Mexique', 'https://cdn-icons-png.flaticon.com/128/197/197397.png', NOW(), NOW()),
+(4, 'Japon', 'https://cdn-icons-png.flaticon.com/128/197/197604.png', NOW(), NOW()),
+(5, 'Inde', 'https://cdn-icons-png.flaticon.com/128/9906/9906480.png', NOW(), NOW()),
+(6, 'Chine', 'https://cdn-icons-png.flaticon.com/128/197/197375.png', NOW(), NOW()),
+(7, 'Espagne', 'https://cdn-icons-png.flaticon.com/128/9906/9906520.png', NOW(), NOW()),
+(8, 'Grèce', 'https://cdn-icons-png.flaticon.com/128/9906/9906473.png', NOW(), NOW()),
+(9, 'Maroc', 'https://cdn-icons-png.flaticon.com/128/9906/9906494.png', NOW(), NOW()),
+(10, 'Thaïlande', 'https://cdn-icons-png.flaticon.com/128/9906/9906526.png', NOW(), NOW()),
+(11, 'Turquie', 'https://cdn-icons-png.flaticon.com/128/9906/9906530.png', NOW(), NOW()),
+(12, 'Brésil', 'https://cdn-icons-png.flaticon.com/128/197/197386.png', NOW(), NOW()),
+(13, 'Allemagne', 'https://cdn-icons-png.flaticon.com/128/197/197571.png', NOW(), NOW()),
+(14, 'États-Unis', 'https://cdn-icons-png.flaticon.com/128/197/197484.png', NOW(), NOW()),
+(15, 'Royaume-Uni', 'https://cdn-icons-png.flaticon.com/128/9906/9906532.png', NOW(), NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Insertion de 10 ingrédients
@@ -51,7 +51,7 @@ INSERT INTO recipes (recipe_id, name, description, image_url, preparation_durati
 (2, 'Pâtes à la carbonara', 'La fameuse recette italienne.', 'https://www.gustini.fr/blog/wp-content/uploads/2024/02/rezept-41.jpg', 20, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
 (3, 'Tarte au sucre', 'Un dessert simple et délicieux du Nord.', 'https://images.radio-canada.ca/v1/alimentation/recette/16x9/tarte-sucre-82143.jpg', 15, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW()),
 (4, 'Poulet rôti', 'Un plat traditionnel du Pays basque.', 'https://www.apero-bordeaux.fr/wp-content/uploads/2024/02/20240216_65cfa1ce1fa54.jpg', 45, 'MEAT', 'NORMAL', 'NORMAL', 1, 1, NOW(), NOW()),
-(5, 'Butter Chicken', 'La fameuse recette Indienne.', 'https://thegreenquest.org/fr/wp-content/uploads/sites/2/2024/02/butter-chicken-cauliglower_the-greenquest-3-sur-4.jpg', 25, 'MEAT', 'CHEAP', 'EASY', 2, 2, NOW(), NOW()),
+(5, 'Butter Chicken', 'La fameuse recette Indienne.', 'https://thegreenquest.org/fr/wp-content/uploads/sites/2/2024/02/butter-chicken-cauliglower_the-greenquest-3-sur-4.jpg', 25, 'MEAT', 'CHEAP', 'EASY', 5, 3, NOW(), NOW()),
 (6, 'Tarte au citron', 'Un dessert.', 'https://assets.afcdn.com/recipe/20140121/63377_w1024h1024c1cx1100cy1412cxt0cyt0cxb2796cyb3567.webp', 20, 'DESSERT', 'VERY_CHEAP', 'NORMAL', 1, 1, NOW(), NOW())
 ON CONFLICT (recipe_id) DO NOTHING;
 
