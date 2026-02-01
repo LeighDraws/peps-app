@@ -10,7 +10,7 @@ import { Recipe } from 'src/entities/Recipe/model/recipe';
   templateUrl: './recipe-card.html',
   styleUrl: './recipe-card.css',
 })
-export class RecipeCard implements OnInit{
+export class RecipeCard implements OnInit {
   faHeart = faHeart;
   faPlus = faPlusCircle;
   @Input() recipe!: Recipe;
@@ -21,5 +21,4 @@ export class RecipeCard implements OnInit{
     console.log(this.recipe.user?.pseudo);
     this.recipeUser = this.recipe.user?.pseudo || 'Unknown';
   }
-
 }
