@@ -8,9 +8,17 @@
   </figure>
   <div class="card-body">
     <h2 class="card-title">{{ recipe.name }}</h2>
-    <p class="text-left text-gray-500">by {{ recipe.user?.pseudo }}</p>
+    <p class="text-left text-gray-500">Par {{ recipeUser }}</p>
     <div class="card-actions gap-2 flex-wrap">
-      <div class="badge badge-soft badge-primary">🌍 {{ recipe.country?.name }}</div>
+      <div class="badge badge-soft badge-primary">
+        <img
+          *ngIf="recipe.country?.imageUrl"
+          [src]="recipe.country?.imageUrl"
+          alt="{{ recipe.country?.name }} flag"
+          class="inline-block h-4 w-4 object-cover object-center mr-1"
+        />
+        {{ recipe.country?.name }}
+      </div>
       <div class="badge badge-soft badge-primary">⌛ {{ recipe.preparationDuration }} mins</div>
       <div class="badge badge-soft badge-primary">🔥 {{ recipe.difficulty }}</div>
     </div>

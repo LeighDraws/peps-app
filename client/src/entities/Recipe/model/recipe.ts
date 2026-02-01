@@ -15,9 +15,9 @@ export enum Category {
 }
 
 export enum Difficulty {
-  EASY = 'Easy',
-  NORMAL = 'Normal',
-  HARD = 'Hard',
+  EASY = 'Facile',
+  NORMAL = 'Moyen',
+  HARD = 'Difficile',
 }
 
 export enum PriceRange {
