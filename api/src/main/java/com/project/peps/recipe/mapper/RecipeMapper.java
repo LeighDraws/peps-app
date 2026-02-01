@@ -1,106 +1,30 @@
 package com.project.peps.recipe.mapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Component;
-
-import com.project.peps.country.model.Country;
+import com.project.peps.country.mapper.CountryMapper;
 import com.project.peps.recipe.dto.RecipeRequest;
 import com.project.peps.recipe.dto.RecipeResponse;
 import com.project.peps.recipe.model.Recipe;
-import com.project.peps.user.model.User;
+import com.project.peps.user.mapper.UserMapper;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
-@Component
-public class RecipeMapper {
+import java.util.List;
 
-    public Recipe toRecipe(RecipeRequest recipeRequest) {
-        if (recipeRequest == null) {
-            return null;
-        }
+@Mapper(componentModel = "spring", uses = {UserMapper.class, CountryMapper.class})
+public interface RecipeMapper {
 
-        Recipe recipe = new Recipe();
-        recipe.setName(recipeRequest.getName());
-        recipe.setDescription(recipeRequest.getDescription());
-        recipe.setImageUrl(recipeRequest.getImageUrl());
-        recipe.setPreparationDuration(recipeRequest.getPreparationDuration());
-        recipe.setCategory(recipeRequest.getCategory());
-        recipe.setPriceRange(recipeRequest.getPriceRange());
-        recipe.setDifficulty(recipeRequest.getDifficulty());
+    @Mapping(source = "countryId", target = "country.id")
+    @Mapping(source = "userId", target = "user.id")
+    Recipe toRecipe(RecipeRequest recipeRequest);
 
-        if (recipeRequest.getCountryId() != null) {
-            Country country = new Country();
-            country.setId(recipeRequest.getCountryId());
-            recipe.setCountry(country);
-        }
+    @Mapping(source = "country", target = "country")
+    @Mapping(source = "user", target = "user")
+    RecipeResponse toRecipeResponse(Recipe recipe);
 
-        if (recipeRequest.getUserId() != null) {
-            User user = new User();
-            user.setId(recipeRequest.getUserId());
-            recipe.setUser(user);
-        }
+    @Mapping(source = "countryId", target = "country.id")
+    @Mapping(source = "userId", target = "user.id")
+    void updateRecipeFromRequest(RecipeRequest request, @MappingTarget Recipe entity);
 
-        return recipe;
-    }
-
-    public RecipeResponse toRecipeResponse(Recipe recipe) {
-        if (recipe == null) {
-            return null;
-        }
-
-        RecipeResponse recipeResponse = new RecipeResponse();
-        recipeResponse.setId(recipe.getId());
-        recipeResponse.setName(recipe.getName());
-        recipeResponse.setDescription(recipe.getDescription());
-        recipeResponse.setImageUrl(recipe.getImageUrl());
-        recipeResponse.setPreparationDuration(recipe.getPreparationDuration());
-        recipeResponse.setCategory(recipe.getCategory() != null ? recipe.getCategory().name() : null);
-        recipeResponse.setPriceRange(recipe.getPriceRange() != null ? recipe.getPriceRange().name() : null);
-        recipeResponse.setDifficulty(recipe.getDifficulty() != null ? recipe.getDifficulty().name() : null);
-        if (recipe.getCountry() != null) {
-            recipeResponse.setCountryId(recipe.getCountry().getId());
-        }
-        if (recipe.getUser() != null) {
-            recipeResponse.setUserId(recipe.getUser().getId());
-        }
-        recipeResponse.setCreatedAt(recipe.getCreatedAt());
-        recipeResponse.setUpdatedAt(recipe.getUpdatedAt());
-
-        return recipeResponse;
-    }
-
-    public void updateRecipeFromRequest(RecipeRequest request, Recipe entity) {
-        if (request == null || entity == null) {
-            return;
-        }
-
-        entity.setName(request.getName());
-        entity.setDescription(request.getDescription());
-        entity.setImageUrl(request.getImageUrl());
-        entity.setPreparationDuration(request.getPreparationDuration());
-        entity.setCategory(request.getCategory());
-        entity.setPriceRange(request.getPriceRange());
-        entity.setDifficulty(request.getDifficulty());
-
-        if (request.getCountryId() != null) {
-            Country country = new Country();
-            country.setId(request.getCountryId());
-            entity.setCountry(country);
-        }
-
-        if (request.getUserId() != null) {
-            User user = new User();
-            user.setId(request.getUserId());
-            entity.setUser(user);
-        }
-    }
-
-    public List<RecipeResponse> toRecipeResponseList(List<Recipe> recipes) {
-        if (recipes == null) {
-            return null;
-        }
-        return recipes.stream()
-                .map(this::toRecipeResponse)
-                .collect(Collectors.toList());
-    }
+    List<RecipeResponse> toRecipeResponseList(List<Recipe> recipes);
 }

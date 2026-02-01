@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { Recipe } from 'src/entities/Recipe/model/recipe';
 import { RecipeService } from 'src/entities/Recipe/service/recipe-service';
 import { RecipeCard } from '../recipe-card/recipe-card';
@@ -21,10 +21,12 @@ export class RecipeListComponent implements OnInit {
   // A l'initialisation du composant, on récupère toutes les recettes depuis le service
   ngOnInit(): void {
     this.recipes$ = this.recipeService.getAllRecipes().pipe(
+      map((recipes) => recipes || []),
       catchError((err) => {
         console.error('Error fetching recipes', err);
         throw err;
       }),
     );
+    console.log(this.recipes$.subscribe((data) => console.log(data)));
   }
 }

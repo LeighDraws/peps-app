@@ -2,6 +2,9 @@ package com.project.peps.recipe.dto;
 
 import java.time.LocalDateTime;
 
+import com.project.peps.country.dto.CountryResponse;
+import com.project.peps.user.dto.UserResponse;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,8 +26,8 @@ public class RecipeResponse {
     private String category;
     private String priceRange;
     private String difficulty;
-    private Long countryId;
-    private Long userId;
+    private CountryResponse country;
+    private UserResponse user;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

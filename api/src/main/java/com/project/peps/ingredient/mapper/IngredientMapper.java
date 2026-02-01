@@ -3,37 +3,15 @@ package com.project.peps.ingredient.mapper;
 import com.project.peps.ingredient.dto.IngredientRequest;
 import com.project.peps.ingredient.dto.IngredientResponse;
 import com.project.peps.ingredient.model.Ingredient;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
-@Component
-public class IngredientMapper {
+@Mapper(componentModel = "spring")
+public interface IngredientMapper {
 
-    public IngredientResponse toIngredientResponse(Ingredient ingredient) {
-        if (ingredient == null) {
-            return null;
-        }
-        return IngredientResponse.builder()
-                .id(ingredient.getId())
-                .name(ingredient.getName())
-                .category(ingredient.getCategory())
-                .build();
-    }
+    IngredientResponse toIngredientResponse(Ingredient ingredient);
 
-    public Ingredient toIngredient(IngredientRequest ingredientRequest) {
-        if (ingredientRequest == null) {
-            return null;
-        }
-        return Ingredient.builder()
-                .name(ingredientRequest.getName())
-                .category(ingredientRequest.getCategory())
-                .build();
-    }
+    Ingredient toIngredient(IngredientRequest ingredientRequest);
 
-    public void updateIngredientFromRequest(IngredientRequest request, Ingredient ingredient) {
-        if (request == null || ingredient == null) {
-            return;
-        }
-        ingredient.setName(request.getName());
-        ingredient.setCategory(request.getCategory());
-    }
+    void updateIngredientFromRequest(IngredientRequest request, @MappingTarget Ingredient ingredient);
 }

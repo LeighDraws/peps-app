@@ -4,34 +4,23 @@ import com.project.peps.recipe.model.Recipe;
 import com.project.peps.step.dto.StepRequest;
 import com.project.peps.step.dto.StepResponse;
 import com.project.peps.step.model.Step;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
-@Component
-public class StepMapper {
+@Mapper(componentModel = "spring")
+public interface StepMapper {
 
-    public Step toEntity(StepRequest stepRequest, Recipe recipe) {
-        return Step.builder()
-                .stepNumber(stepRequest.getStepNumber())
-                .instruction(stepRequest.getInstruction())
-                .imageUrl(stepRequest.getImageUrl())
-                .recipe(recipe)
-                .build();
-    }
+    @Mapping(source = "stepRequest.imageUrl", target = "imageUrl")
+    @Mapping(source = "recipe", target = "recipe")
+    @Mapping(target = "id", ignore = true)
+    Step toEntity(StepRequest stepRequest, Recipe recipe);
 
-    public StepResponse toDto(Step step) {
-        return StepResponse.builder()
-                .id(step.getId())
-                .stepNumber(step.getStepNumber())
-                .instruction(step.getInstruction())
-                .imageUrl(step.getImageUrl())
-                .recipeId(step.getRecipe().getId())
-                .build();
-    }
+    @Mapping(source = "recipe.id", target = "recipeId")
+    StepResponse toDto(Step step);
 
-    public void updateStepFromDto(StepRequest stepRequest, Step step, Recipe recipe) {
-        step.setStepNumber(stepRequest.getStepNumber());
-        step.setInstruction(stepRequest.getInstruction());
-        step.setImageUrl(stepRequest.getImageUrl());
-        step.setRecipe(recipe);
-    }
+    @Mapping(source = "stepRequest.imageUrl", target = "imageUrl")
+    @Mapping(source = "recipe", target = "recipe")
+    @Mapping(target = "id", ignore = true)
+    void updateStepFromDto(StepRequest stepRequest, @MappingTarget Step step, Recipe recipe);
 }

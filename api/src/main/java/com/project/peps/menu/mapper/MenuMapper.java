@@ -1,55 +1,23 @@
 package com.project.peps.menu.mapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Component;
-
 import com.project.peps.menu.dto.MenuRequest;
 import com.project.peps.menu.dto.MenuResponse;
 import com.project.peps.menu.model.Menu;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
-@Component
-public class MenuMapper {
+import java.util.List;
 
-    public Menu toEntity(MenuRequest request) {
-        if (request == null) {
-            return null;
-        }
-        return Menu.builder()
-                .name(request.getName())
-                .date(request.getDate())
-                .build();
-    }
+@Mapper(componentModel = "spring")
+public interface MenuMapper {
 
-    public MenuResponse toResponse(Menu menu) {
-        if (menu == null) {
-            return null;
-        }
-        return MenuResponse.builder()
-                .id(menu.getId())
-                .name(menu.getName())
-                .date(menu.getDate())
-                .userId(menu.getUser() != null ? menu.getUser().getId() : null)
-                .createdAt(menu.getCreatedAt())
-                .updatedAt(menu.getUpdatedAt())
-                .build();
-    }
+    Menu toEntity(MenuRequest request);
 
-    public void updateEntityFromRequest(MenuRequest request, Menu entity) {
-        if (request == null || entity == null) {
-            return;
-        }
-        entity.setName(request.getName());
-        entity.setDate(request.getDate());
-    }
+    @Mapping(source = "user.id", target = "userId")
+    MenuResponse toResponse(Menu menu);
 
-    public List<MenuResponse> toResponseList(List<Menu> menus) {
-        if (menus == null) {
-            return null;
-        }
-        return menus.stream()
-                .map(this::toResponse)
-                .collect(Collectors.toList());
-    }
+    void updateEntityFromRequest(MenuRequest request, @MappingTarget Menu entity);
+
+    List<MenuResponse> toResponseList(List<Menu> menus);
 }

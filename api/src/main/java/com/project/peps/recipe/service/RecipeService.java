@@ -1,12 +1,16 @@
 package com.project.peps.recipe.service;
 
+import com.project.peps.recipe.model.Recipe;
+import org.springframework.data.jpa.domain.Specification;
+
 import java.util.List;
 
-import com.project.peps.recipe.model.Recipe;
 
 public interface RecipeService {
 
-    List<Recipe> findAllRecipes();
+    List<Recipe> findAll();
+
+    List<Recipe> findAll(Specification<Recipe> spec);
 
     Recipe findRecipeById(Long id);
 

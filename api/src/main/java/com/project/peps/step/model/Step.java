@@ -35,7 +35,7 @@ public class Step {
     @Column(name = "instruction", columnDefinition = "TEXT", nullable = false)
     private String instruction;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", length = 2048)
     private String imageUrl;
 
     // Fetch LAZY = il ne charge la recette que lorsque c'est nécessaire càd si on

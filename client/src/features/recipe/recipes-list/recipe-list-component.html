@@ -1,11 +1,9 @@
-<div class="p-6 m-auto text-center border-2 rounded-2xl">
-  <h2 class="font-bold text-2xl">Liste des recettes</h2>
+<div>
+  <h2 class="font-bold text-2xl text-left">Toutes les recettes</h2>
 
-  <ul>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
     @for (recipe of recipes$ | async; track recipe.id) {
-      <li class="my-4">
-        <app-recipe-card />
-      </li>
+      <app-recipe-card [recipe]="recipe" />
     }
-  </ul>
+  </div>
 </div>
