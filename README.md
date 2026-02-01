@@ -58,6 +58,7 @@ peps/
 ├── api/            # Backend (Spring Boot 3, Java 21)
 ├── client/         # Frontend (Angular 20)
 ├── .github/        # Workflows GitHub Actions (CI)
+├── db-scripts
 ├── docker-compose.yml
 └── .env.sample
 ```
