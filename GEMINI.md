@@ -191,7 +191,7 @@ Structure type des dossiers (`src/`) :
 
 * **HTTP** : Services dédiés dans `entities/{entity}/service`.
 * **Typage** : Interfaces modèles dans `entities/{entity}/model`.
-* **Réactivité** : Privilégier les **Signals** Angular (nouveauté v17+) ou `RxJS` avec `AsyncPipe`.
+* **Réactivité** : Privilégier les **Signals** Angular (nouveauté v17+) ou `RxJS` avec `AsyncPipe` et éviter l'utilisation des `BehaviorSubject`.
 * **Mocks** : Utiliser des fichiers JSON ou des services mock (ex: `recipe-mock.service.ts`) pour le développement hors ligne.
 * **Injection** : Préférer inject() plutôt que l'insertion dans le constructor 
 
