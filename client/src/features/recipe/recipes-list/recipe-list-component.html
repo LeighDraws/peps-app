@@ -4,7 +4,7 @@
   <app-recipe-filter></app-recipe-filter>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-    @for (recipe of recipes$ | async; track recipe.id) {
+    @for (recipe of recipes(); track recipe.id) {
       <app-recipe-card [recipe]="recipe" />
     }
   </div>

@@ -1,5 +1,37 @@
 <div class="flex flex-wrap gap-2 my-4">
-  <app-button-filter label="Régime Alimentaire" [icon]="utensilsIcon"></app-button-filter>
-  <app-button-filter label="Pays" [icon]="earthIcon"></app-button-filter>
+  <app-button-filter
+    label="Régime Alimentaire"
+    [icon]="utensilsIcon"
+    (click)="openModal('CATEGORY')"
+  ></app-button-filter>
+  <app-button-filter
+    label="Pays"
+    [icon]="earthIcon"
+    (click)="openModal('COUNTRY')"
+  ></app-button-filter>
   <app-button-filter label="Goûts" [icon]="carrotIcon"></app-button-filter>
 </div>
+
+<app-modal [title]="modalTitle">
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+    <div formArrayName="items" class="grid grid-cols-2 gap-4 mt-4">
+      <div
+        *ngFor="let item of items.controls; let i = index"
+        [formGroupName]="i"
+        class="form-control"
+      >
+        <label class="label cursor-pointer">
+          <span class="label-text">{{
+            currentFilterType === 'COUNTRY' ? item.value.value.name : item.value.value
+          }}</span>
+          <input type="checkbox" formControlName="selected" class="checkbox" />
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-action">
+      <button type="button" (click)="close()" class="btn">Annuler</button>
+      <button type="submit" class="btn btn-primary">Confirmer</button>
+    </div>
+  </form>
+</app-modal>
