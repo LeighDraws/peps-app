@@ -22,7 +22,7 @@
       >
         <label class="label cursor-pointer">
           <span class="label-text">{{
-            currentFilterType === 'COUNTRY' ? item.value.value.name : item.value.value
+            currentFilterType === 'COUNTRY' ? item.value.value.name : item.value.value.label
           }}</span>
           <input type="checkbox" formControlName="selected" class="checkbox" />
         </label>
@@ -31,7 +31,7 @@
 
     <div class="modal-action">
       <button type="button" (click)="close()" class="btn">Annuler</button>
-      <button type="submit" class="btn btn-primary">Confirmer</button>
+      <button type="submit" class="btn btn-primary">Appliquer</button>
     </div>
   </form>
 </app-modal>

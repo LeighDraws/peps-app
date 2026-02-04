@@ -64,13 +64,16 @@ export class RecipeFilter {
         });
     } else if (filterType === 'CATEGORY') {
       this.modalTitle = 'Choix de régime alimentaire';
-      const categories = Object.values(Category);
+      const categories = Object.keys(Category).map((key) => ({
+        key,
+        label: Category[key as keyof typeof Category],
+      }));
       this.populateFormArray(categories);
       this.modal.open();
     }
   }
 
-  private populateFormArray(items: Country[] | string[]) {
+  private populateFormArray(items: (Country | { key: string; label: string })[]) {
     items.forEach((item) => {
       this.items.push(
         this.fb.group({
@@ -91,7 +94,7 @@ export class RecipeFilter {
       if (this.currentFilterType === 'COUNTRY') {
         filters = { countryId: (selectedItem.value as Country).id };
       } else if (this.currentFilterType === 'CATEGORY') {
-        filters = { category: selectedItem.value as Category };
+        filters = { category: selectedItem.value.key as Category };
       }
       this.recipeService.loadRecipes(filters);
     } else {
