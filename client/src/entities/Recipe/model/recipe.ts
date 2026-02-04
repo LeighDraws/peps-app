@@ -1,18 +1,7 @@
 import { Country } from 'src/entities/Country/model/country';
 import { IStep } from '../../Step/model/step';
 import { User } from 'src/entities/User/model/user';
-
-export enum Category {
-  VEGAN = 'Vegan',
-  VEGETARIAN = 'Vegetarian',
-  MEAT = 'Meat',
-  SEAFOOD = 'Seafood',
-  GLUTENFREE = 'Gluten Free',
-  DESSERT = 'Dessert',
-  BEVERAGE = 'Beverage',
-  SNACK = 'Snack',
-  OTHER = 'Other',
-}
+import { Category } from './recipe-filters';
 
 export enum Difficulty {
   EASY = 'Facile',
