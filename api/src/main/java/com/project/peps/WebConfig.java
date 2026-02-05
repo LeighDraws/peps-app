@@ -11,7 +11,9 @@ public class WebConfig implements WebMvcConfigurer {
   public void addCorsMappings(CorsRegistry registry) {
     registry
         .addMapping("/**")
-        .allowedOrigins("http://localhost:4200", "http://localhost:5432")
-        .allowedMethods("*");
+        .allowedOrigins("http://localhost:4200", "http://localhost:5432", "https://peps-app.vercel.app") 
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        .allowedHeaders("Content-Type", "Authorization")
+        .maxAge(3600);
   }
 }

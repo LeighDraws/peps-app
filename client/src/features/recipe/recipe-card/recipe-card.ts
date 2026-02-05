@@ -17,8 +17,6 @@ export class RecipeCard implements OnInit {
   recipeUser = '';
 
   ngOnInit(): void {
-    console.log(this.recipe);
-    console.log(this.recipe.user?.pseudo);
     this.recipeUser = this.recipe.user?.pseudo || 'Unknown';
   }
 }
