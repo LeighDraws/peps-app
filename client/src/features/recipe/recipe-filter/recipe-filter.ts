@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  ViewChild,
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -62,7 +68,7 @@ export class RecipeFilter {
         .pipe(take(1))
         .subscribe((countries) => {
           this.populateFormArray(countries);
-          this.cd.detectChanges(); 
+          this.cd.detectChanges();
           this.modal.open();
         });
     } else if (filterType === 'CATEGORY') {
@@ -72,7 +78,7 @@ export class RecipeFilter {
         label: Category[key as keyof typeof Category],
       }));
       this.populateFormArray(categories);
-      this.cd.detectChanges(); 
+      this.cd.detectChanges();
       this.modal.open();
     } else if (filterType === 'TASTE') {
       // Implémentation pour les goûts à venir
