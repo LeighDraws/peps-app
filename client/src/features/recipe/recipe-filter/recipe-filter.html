@@ -9,12 +9,20 @@
     [icon]="earthIcon"
     (click)="openModal('COUNTRY')"
   ></app-button-filter>
-  <app-button-filter label="Goûts" [icon]="carrotIcon"></app-button-filter>
+  <app-button-filter
+    label="Goûts"
+    [icon]="carrotIcon"
+    (click)="openModal('TASTE')"
+  ></app-button-filter>
 </div>
 
 <app-modal [title]="modalTitle">
   <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
-    <div formArrayName="items" class="grid grid-cols-2 gap-4 mt-4">
+    <div
+      *ngIf="currentFilterType === 'COUNTRY' || currentFilterType === 'CATEGORY'"
+      formArrayName="items"
+      class="grid grid-cols-2 gap-4 mt-4"
+    >
       <div
         *ngFor="let item of items.controls; let i = index"
         [formGroupName]="i"
@@ -26,6 +34,46 @@
           }}</span>
           <input type="checkbox" formControlName="selected" class="checkbox" />
         </label>
+      </div>
+    </div>
+
+    <div *ngIf="currentFilterType === 'TASTE'">
+      <input
+        type="text"
+        [formControl]="searchControl"
+        placeholder="Rechercher un ingrédient..."
+        class="input input-bordered w-full my-2"
+      />
+      <div class="max-h-60 overflow-y-auto border p-2 rounded-md">
+        <button
+          *ngFor="let ingredient of filteredIngredients$ | async"
+          class="btn btn-sm m-1"
+          [class.btn-success]="getIngredientState(ingredient) === 'INCLUDED'"
+          [class.btn-error]="getIngredientState(ingredient) === 'EXCLUDED'"
+          (click)="toggleIngredient(ingredient)"
+        >
+          {{ ingredient.name }}
+        </button>
+      </div>
+
+      <div class="mt-4 border-t pt-4">
+        <h4 class="font-bold">Ingrédients sélectionnés :</h4>
+        <div class="flex flex-wrap gap-2 mt-2">
+          <button
+            *ngFor="let selected of selectedIngredients()"
+            class="btn btn-sm m-1"
+            [class.btn-success]="selected.state === 'INCLUDED'"
+            [class.btn-error]="selected.state === 'EXCLUDED'"
+            (click)="toggleIngredient(selected.ingredient)"
+          >
+            {{ selected.ingredient.name }}
+            <span *ngIf="selected.state === 'INCLUDED'">✅</span>
+            <span *ngIf="selected.state === 'EXCLUDED'">❌</span>
+          </button>
+          <span *ngIf="selectedIngredients.length === 0" class="text-gray-500"
+            >Aucun ingrédient sélectionné.</span
+          >
+        </div>
       </div>
     </div>
 
