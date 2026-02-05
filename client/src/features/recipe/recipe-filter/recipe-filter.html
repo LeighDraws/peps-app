@@ -46,6 +46,7 @@
       />
       <div class="max-h-60 overflow-y-auto border p-2 rounded-md">
         <button
+          type="button"
           *ngFor="let ingredient of filteredIngredients$ | async"
           class="btn btn-sm m-1"
           [class.btn-success]="getIngredientState(ingredient) === 'INCLUDED'"
@@ -60,6 +61,7 @@
         <h4 class="font-bold">Ingrédients sélectionnés :</h4>
         <div class="flex flex-wrap gap-2 mt-2">
           <button
+            type="button"
             *ngFor="let selected of selectedIngredients()"
             class="btn btn-sm m-1"
             [class.btn-success]="selected.state === 'INCLUDED'"

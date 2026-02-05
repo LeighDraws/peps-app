@@ -188,42 +188,38 @@ export class RecipeFilter implements OnInit {
   }
 
   applyFilters() {
-    const selectedItem = this.filterForm.value.items.find(
-      (item: { selected: boolean }) => item.selected,
-    );
+    let filters: RecipeFilters = {};
 
-    if (selectedItem) {
-      let filters: RecipeFilters = {};
-      if (this.currentFilterType === 'COUNTRY') {
-        filters = { countryId: (selectedItem.value as Country).id };
-      } else if (this.currentFilterType === 'CATEGORY') {
-        filters = { category: selectedItem.value.key as Category };
-      } else if (this.currentFilterType === 'TASTE') {
-        const includedIngredientIds = this.selectedIngredients()
-          .filter((item) => item.state === 'INCLUDED')
-          .map((item) => item.ingredient.id);
-        const excludedIngredientIds = this.selectedIngredients()
-          .filter((item) => item.state === 'EXCLUDED')
-          .map((item) => item.ingredient.id);
+    if (this.currentFilterType === 'TASTE') {
+      const includedIngredientIds = this.selectedIngredients()
+        .filter((item) => item.state === 'INCLUDED')
+        .map((item) => item.ingredient.id);
+      const excludedIngredientIds = this.selectedIngredients()
+        .filter((item) => item.state === 'EXCLUDED')
+        .map((item) => item.ingredient.id);
 
+      // Only apply taste filters if there are actually included or excluded ingredients
+      if (includedIngredientIds.length > 0 || excludedIngredientIds.length > 0) {
         filters = { includedIngredientIds, excludedIngredientIds };
       }
-      this.recipeService.loadRecipes(filters);
+      // If selectedIngredients is empty, filters object will remain empty, effectively clearing taste filters
     } else {
-      // If no specific filter type is handled or no item is selected, load all recipes
-      // For TASTE filter, if selectedIngredients is empty, this will effectively clear taste filters
-      if (this.currentFilterType === 'TASTE' && this.selectedIngredients.length > 0) {
-        const includedIngredientIds = this.selectedIngredients()
-          .filter((item) => item.state === 'INCLUDED')
-          .map((item) => item.ingredient.id);
-        const excludedIngredientIds = this.selectedIngredients()
-          .filter((item) => item.state === 'EXCLUDED')
-          .map((item) => item.ingredient.id);
-        this.recipeService.loadRecipes({ includedIngredientIds, excludedIngredientIds });
-      } else {
-        this.recipeService.loadRecipes();
+      // COUNTRY or CATEGORY filters
+      const selectedItem = this.filterForm.value.items.find(
+        (item: { selected: boolean }) => item.selected,
+      );
+
+      if (selectedItem) {
+        if (this.currentFilterType === 'COUNTRY') {
+          filters = { countryId: (selectedItem.value as Country).id };
+        } else if (this.currentFilterType === 'CATEGORY') {
+          filters = { category: selectedItem.value.key as Category };
+        }
       }
     }
+
+    // Always call loadRecipes with the determined filters (or an empty object if no filter was applied)
+    this.recipeService.loadRecipes(filters);
     this.close();
   }
 
