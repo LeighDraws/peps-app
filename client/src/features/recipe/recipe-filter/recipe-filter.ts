@@ -18,7 +18,16 @@ import {
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faCarrot, faEarthAmerica, faUtensils } from '@fortawesome/free-solid-svg-icons';
-import { debounceTime, distinctUntilChanged, map, Observable, of, take, combineLatest, startWith } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  Observable,
+  of,
+  take,
+  combineLatest,
+  startWith,
+} from 'rxjs';
 import { Country } from 'src/entities/Country/model/country';
 import { CountryService } from 'src/entities/Country/service/country.service';
 import { Ingredient } from 'src/entities/Ingredient/model/ingredient';
@@ -86,19 +95,19 @@ export class RecipeFilter implements OnInit {
     const searchTerm$ = this.searchControl.valueChanges.pipe(
       startWith(''), // Emit empty string on initialization
       debounceTime(300),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
 
     this.filteredIngredients$ = combineLatest([this.allIngredients$, searchTerm$]).pipe(
       map(([allIngredients, searchTerm]) => {
         if (searchTerm && searchTerm.length > 0) {
           const lowerCaseSearchTerm = searchTerm.toLowerCase();
-          return allIngredients.filter(ingredient =>
-            ingredient.name.toLowerCase().includes(lowerCaseSearchTerm)
+          return allIngredients.filter((ingredient) =>
+            ingredient.name.toLowerCase().includes(lowerCaseSearchTerm),
           );
         }
         return allIngredients; // Show all ingredients if search term is empty or short
-      })
+      }),
     );
   }
 
