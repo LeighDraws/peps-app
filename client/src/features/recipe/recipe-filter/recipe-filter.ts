@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -24,6 +24,7 @@ import { ModalComponent } from 'src/shared/components/modal/modal';
   ],
   templateUrl: './recipe-filter.html',
   styleUrl: './recipe-filter.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeFilter {
   @ViewChild(ModalComponent) modal!: ModalComponent;
@@ -32,6 +33,7 @@ export class RecipeFilter {
   private fb = inject(FormBuilder);
   private countryService = inject(CountryService);
   private recipeService = inject(RecipeService);
+  private cd = inject(ChangeDetectorRef);
 
   // Icones
   carrotIcon: IconDefinition = faCarrot;
@@ -39,7 +41,7 @@ export class RecipeFilter {
   utensilsIcon: IconDefinition = faUtensils;
 
   modalTitle = '';
-  currentFilterType: 'COUNTRY' | 'CATEGORY' | null = null;
+  currentFilterType: 'COUNTRY' | 'CATEGORY' | 'TASTE' | null = null;
   // Formulaire réactif pour les filtres
   filterForm: FormGroup = this.fb.group({
     items: this.fb.array([]),
@@ -49,7 +51,7 @@ export class RecipeFilter {
     return this.filterForm.get('items') as FormArray;
   }
 
-  openModal(filterType: 'COUNTRY' | 'CATEGORY') {
+  openModal(filterType: 'COUNTRY' | 'CATEGORY' | 'TASTE') {
     this.currentFilterType = filterType;
     this.items.clear();
 
@@ -60,6 +62,7 @@ export class RecipeFilter {
         .pipe(take(1))
         .subscribe((countries) => {
           this.populateFormArray(countries);
+          this.cd.detectChanges(); 
           this.modal.open();
         });
     } else if (filterType === 'CATEGORY') {
@@ -69,7 +72,10 @@ export class RecipeFilter {
         label: Category[key as keyof typeof Category],
       }));
       this.populateFormArray(categories);
+      this.cd.detectChanges(); 
       this.modal.open();
+    } else if (filterType === 'TASTE') {
+      // Implémentation pour les goûts à venir
     }
   }
 
