@@ -26,16 +26,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final UserRepository userRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Désactive la protection CSRF
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint)) // Ajoute le point d'entrée d'authentification personnalisé
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/health").permitAll() // Autorise l'accès à /api/health pour tous
                         .requestMatchers("/api/auth/**").permitAll() // Autorise l'accès à /api/auth/** pour tous
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll() // Autorise les requêtes GET sur /api/recipes pour tous
                         .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
                 )
                 .sessionManagement(session -> session
