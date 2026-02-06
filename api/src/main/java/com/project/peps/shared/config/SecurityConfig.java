@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/health").permitAll() // Autorise l'accès à /api/health pour tous
                         .requestMatchers("/api/auth/**").permitAll() // Autorise l'accès à /api/auth/** pour tous
-                        .requestMatchers(HttpMethod.GET, "/api/recipes/**").permitAll() // Autorise les requêtes GET sur /api/recipes pour tous
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
                 )
                 .sessionManagement(session -> session
