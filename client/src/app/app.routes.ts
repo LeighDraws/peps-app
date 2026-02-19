@@ -7,6 +7,7 @@ export const routes: Routes = [
   { path: 'home', title: "Pep's | Home", component: HomePage },
   { path: 'recipes', title: "Pep's | Recipes", component: RecipeListComponent },
   { path: 'menus', title: "Pep's | Menus", component: HomePage },
-  { path: 'settings', title: "Pep's | Settings", component: HomePage },
+  { path: 'profile', title: "Pep's | Profile", component: HomePage },
+  { path: 'login', title: "Pep's | Login", component: HomePage },
   { path: 'logout', title: "Pep's | Logout", component: HomePage },
 ];
