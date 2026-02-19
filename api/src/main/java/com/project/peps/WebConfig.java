@@ -14,6 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
         .allowedOrigins("http://localhost:4200", "http://localhost:5432", "https://peps-app.vercel.app") 
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
         .allowedHeaders("Content-Type", "Authorization")
+        .allowCredentials(true)
         .maxAge(3600);
   }
 }

@@ -1,6 +1,5 @@
 package com.project.peps.auth.service;
 
-import com.project.peps.auth.dto.AuthResponse;
 import com.project.peps.auth.dto.LoginRequest;
 import com.project.peps.auth.dto.RegisterRequest;
 import com.project.peps.shared.config.JwtService;
@@ -25,7 +24,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     // Méthode pour l'inscription d'un utilisateur, prend un RegisterRequest et retourne un AuthResponse avec le token JWT
-    public AuthResponse register(RegisterRequest request) {
+    public String register(RegisterRequest request) {
         User user = User.builder()
                 .pseudo(request.getPseudo())
                 .email(request.getEmail())
@@ -37,13 +36,11 @@ public class AuthService {
         userRepository.save(user);
         // Génération du token JWT pour l'utilisateur nouvellement inscrit
         var jwtToken = jwtService.generateToken(user);
-        return AuthResponse.builder()
-                .token(jwtToken)
-                .build();
+        return jwtToken;
     }
 
     // Méthode pour la connexion d'un utilisateur, prend un LoginRequest et retourne un AuthResponse avec le token JWT
-    public AuthResponse login(LoginRequest request) {
+    public String login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -55,8 +52,6 @@ public class AuthService {
                 .orElseThrow(); // L'exception est gérée par Spring Security en cas d'échec de l'authentification
         // Génération du token JWT pour l'utilisateur connecté
         var jwtToken = jwtService.generateToken(user);
-        return AuthResponse.builder()
-                .token(jwtToken)
-                .build();
+        return jwtToken;
     }
 }

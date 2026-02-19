@@ -4,6 +4,7 @@ import com.project.peps.user.model.User;
 import com.project.peps.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -31,20 +34,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response, // La réponse HTTP sortante
             FilterChain filterChain // Permet de passer la requête au prochain filtre de la chaîne
     ) throws ServletException, IOException {
-        // Récupère l'en-tête "Authorization" de la requête
-        final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
 
-        // Vérifie si l'en-tête "Authorization" est manquant ou ne commence pas par "Bearer "
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            // Si c'est le cas, passe au filtre suivant sans authentification
+        // Try to extract JWT from "jwt" cookie
+        Optional<String> jwtCookie = Optional.ofNullable(request.getCookies())
+                .flatMap(cookies -> Arrays.stream(cookies)
+                        .filter(cookie -> "jwt".equals(cookie.getName()))
+                        .map(Cookie::getValue)
+                        .findFirst());
+
+        if (jwtCookie.isEmpty()) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Extrait le token JWT (la partie après "Bearer ")
-        jwt = authHeader.substring(7);
+        jwt = jwtCookie.get();
         // Extrait l'e-mail de l'utilisateur à partir du token JWT
         userEmail = jwtService.extractUsername(jwt);
 
