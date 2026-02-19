@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -15,7 +15,12 @@ export class RecipeService {
 
   private http = inject(HttpClient);
 
-  getAllRecipes(filters?: RecipeFilters): Observable<Recipe[]> {
+  // Création d'un signal pour stocker la liste des recettes (un signal modifiable seulement pour le service et un signal en lecture seule pour les autres composants)
+  private _recipes: WritableSignal<Recipe[]> = signal([]);
+  public readonly recipes = this._recipes.asReadonly();
+
+  // Méthode privée pour récupérer toutes les recettes avec des filtres optionnels, ne peut pas être appelée depuis l'extérieur du service
+  private _getAllRecipes(filters?: RecipeFilters): Observable<Recipe[]> {
     let params = new HttpParams();
     if (filters) {
       if (filters.countryId) {
@@ -37,6 +42,14 @@ export class RecipeService {
     }
     return this.http.get<Recipe[]>(`${this.API_URL}${this.ENDPOINT}`, {
       params,
+    });
+  }
+
+  // Méthode publique pour charger toutes les recettes avec des filtres optionnels et mettre à jour le signal interne
+  loadRecipes(filters?: RecipeFilters): void {
+    this._getAllRecipes(filters).subscribe({
+      next: (recipes) => this._recipes.set(recipes),
+      error: (err) => console.error('Error loading recipes:', err),
     });
   }
 

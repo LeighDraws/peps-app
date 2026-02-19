@@ -1,0 +1,25 @@
+# Ignore everything from git
+.git
+.gitignore
+
+# Maven
+target/
+.mvn/
+pom.xml.versionsBackup
+release.properties
+
+# IDEs
+.idea/
+.project
+.classpath
+.settings/
+.vscode/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

@@ -1,6 +1,6 @@
 name: CI / CD Peps App
 
-# Le WORKFLOW se déclenche sur un push ou PR vers main uniquement
+# Le WORKFLOW se déclenche sur un push ou PR vers main et dev uniquement
 on:
   push:
     branches:

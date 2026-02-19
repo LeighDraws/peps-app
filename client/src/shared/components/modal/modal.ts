@@ -18,6 +18,7 @@ export class ModalComponent {
   }
 
   onClose(): void {
+    this.dialog.nativeElement.close();
     this.closeModal.emit();
   }
 }

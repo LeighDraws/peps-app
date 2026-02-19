@@ -226,18 +226,38 @@ Le workflow GitHub Actions (`.github/workflows/ci.yml`) automatise la vérificat
     - ✅ API Render \
     - ✅ Vercel
 
-✅ BACK - Entités créées:
-    - user
-    - tag
-    - step
-    - recipe
-    - menu
-    - ingredient
-    - country
-    - user-save-recipe
-    - recipe-has-tag
-    - recipe-has-ingredient
-    - menu-has-recipe 
+✅ BACK - Entités créées: \
+    - user \
+    - tag \
+    - step \
+    - recipe \
+    - menu\
+    - ingredient\
+    - country\
+    - user-save-recipe\
+    - recipe-has-tag\
+    - recipe-has-ingredient\
+    - menu-has-recipe
+
+✅ BACK - Fonctionnalités créées :
+  * **Feature filter recipes**
+    - Logique de tri par filtre sur les recettes
+    - Création d'un DTO recipefilters
+    - Utilisation des Specifications JPA pour la gestions des paramètres de filtres
+
+✅ FRONT - Fonctionnalités créées :
+  * **Feature filter recipes**
+    - Filtre sur Country et Category dans la liste de recette
+    - Filtre complexe sur les goûts (tri par ingrédients)
+
+❌ FRONT - Manquant :
+  * **Feature filter recipes**
+    - Gestion "pas de recettes trouvées"
+    - Filtres additionnables (filtrer par pays + category + taste)
+    - Créer un composant qui affiche les filtres actuels
+  * **Feature create recipes**
+  * **Feature search recipes**
+
   
 * BACK :
     - Auhtentification JWT

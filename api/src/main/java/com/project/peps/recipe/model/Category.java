@@ -4,7 +4,7 @@ public enum Category {
     VEGAN,
     VEGETARIAN,
     MEAT,
-    SEAFOOD,
+    NO_FISH,
     GLUTENFREE,
     DESSERT,
     BEVERAGE,
