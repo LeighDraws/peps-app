@@ -9,8 +9,7 @@ import { AuthService } from 'src/entities/User/service/auth.service';
   styleUrl: './app.css',
 })
 export class App implements OnInit {
-
-  private authService = inject(AuthService); 
+  private authService = inject(AuthService);
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe({
@@ -22,5 +21,4 @@ export class App implements OnInit {
       },
     });
   }
-
 }
