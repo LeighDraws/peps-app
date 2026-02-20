@@ -8,13 +8,36 @@
 
     <p class="mt-2 text-center">Connectez-vous à votre compte</p>
 
-    <form>
+    <form (ngSubmit)="onSubmit()">
+      @if (errorMessage()) {
+        <div class="alert alert-error text-sm py-2 mt-4 rounded-md">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-current shrink-0 h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
       <div class="w-full mt-4">
         <input
           class="block w-full px-6 py-3 mt-2 input focus:ring-2 focus:ring-primary focus:outline-none"
           type="email"
+          name="email"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event); onInputChange()"
           placeholder="Adresse email"
           aria-label="Email Address"
+          required
         />
       </div>
 
@@ -22,8 +45,12 @@
         <input
           class="block w-full px-6 py-3 mt-2 input focus:ring-2 focus:ring-primary focus:outline-none"
           type="password"
+          name="password"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event); onInputChange()"
           placeholder="Mot de passe"
           aria-label="Password"
+          required
         />
       </div>
 
@@ -31,8 +58,13 @@
         <!-- <a href="#" class="text-sm">Mot de passe oublié ?</a> -->
 
         <button
+          type="submit"
+          [disabled]="isLoading()"
           class="px-6 py-2 text-sm btn btn-soft btn-primary font-medium tracking-wide transition-colors duration-300 transform"
         >
+          @if (isLoading()) {
+            <span class="loading loading-spinner loading-xs"></span>
+          }
           Se connecter
         </button>
       </div>
