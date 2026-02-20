@@ -11,7 +11,7 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       @if (errorMessage()) {
         <div class="alert alert-error text-sm py-2 mt-4">
-            <fa-icon [icon]="faCircleXmark"></fa-icon>
+          <fa-icon [icon]="faCircleXmark"></fa-icon>
           <span>{{ errorMessage() }}</span>
         </div>
       }

@@ -12,7 +12,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   styleUrl: './login.css',
 })
 export class Login {
-
   faCircleXmark = faCircleXmark;
 
   private readonly authService = inject(AuthService);

@@ -12,7 +12,6 @@ import { AuthService } from 'src/entities/User/service/auth.service';
   styleUrl: './register.css',
 })
 export class Register {
-
   faCircleXmark = faCircleXmark;
 
   private readonly fb = inject(FormBuilder);
