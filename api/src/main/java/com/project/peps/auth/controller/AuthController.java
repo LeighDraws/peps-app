@@ -1,5 +1,6 @@
 package com.project.peps.auth.controller;
 
+import com.project.peps.auth.dto.AuthResponse;
 import com.project.peps.auth.dto.LoginRequest;
 import com.project.peps.auth.dto.RegisterRequest;
 import com.project.peps.auth.service.AuthService;
@@ -12,6 +13,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,21 +42,35 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(
+    public ResponseEntity<AuthResponse> register(
             @Valid @RequestBody RegisterRequest request,
             HttpServletResponse response) {
-        String jwtToken = authService.register(request);
-        addJwtToCookie(jwtToken, response);
-        return ResponseEntity.ok().build();
+        AuthResponse authResponse = authService.register(request);
+        addJwtToCookie(authResponse.getToken(), response);
+        return ResponseEntity.ok(authResponse);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(
+    public ResponseEntity<AuthResponse> login(
             @Valid @RequestBody LoginRequest request,
             HttpServletResponse response) {
-        String jwtToken = authService.login(request);
-        addJwtToCookie(jwtToken, response);
-        return ResponseEntity.ok().build();
+        AuthResponse authResponse = authService.login(request);
+        addJwtToCookie(authResponse.getToken(), response);
+        return ResponseEntity.ok(authResponse);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        ResponseCookie cookie = ResponseCookie.from("jwt", "")
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(0)
+                .build();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .build();
     }
 
     @GetMapping("/me")
