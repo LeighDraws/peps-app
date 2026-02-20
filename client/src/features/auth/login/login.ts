@@ -2,14 +2,19 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../entities/User/service/auth.service';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, FontAwesomeModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
+
+  faCircleXmark = faCircleXmark;
+
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
