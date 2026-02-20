@@ -18,6 +18,7 @@ export class Register {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
+  // Définit les validations pour le formulaire d'inscription
   registerForm: FormGroup = this.fb.group({
     pseudo: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
