@@ -64,18 +64,33 @@
   </li>
 
   <!-- List item -->
-  <li>
-    <button
-      class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
-      data-tip="Paramètres"
-      [routerLink]="['/settings']"
-      [routerLinkActive]="['active-link']"
-    >
-      <!-- Settings icon -->
-      <fa-icon [icon]="faGears" class="my-1.5 text-xl inline-block"></fa-icon>
-      <span class="my-1.5 is-drawer-close:hidden">Paramètres</span>
-    </button>
-  </li>
+  @if (authService.isLoaded()) {
+    @if (authService.isAuthenticated()) {
+      <li>
+        <button
+          class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Profil"
+          [routerLink]="['/profile']"
+          [routerLinkActive]="['active-link']"
+        >
+          <fa-icon [icon]="faUser" class="my-1.5 text-xl inline-block"></fa-icon>
+          <span class="my-1.5 is-drawer-close:hidden">Profil</span>
+        </button>
+      </li>
+    } @else {
+      <li>
+        <button
+          class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Profil"
+          [routerLink]="['/login']"
+          [routerLinkActive]="['active-link']"
+        >
+          <fa-icon [icon]="faArrowRightToBracket" class="my-1.5 text-xl inline-block"></fa-icon>
+          <span class="my-1.5 is-drawer-close:hidden">Se connecter</span>
+        </button>
+      </li>
+    }
+  }
 
   <!-- List item -->
   <li class="">
@@ -86,7 +101,7 @@
       [routerLinkActive]="['active-link']"
     >
       <!-- Settings icon -->
-      <fa-icon [icon]="faArrowRightFromBracket" class="my-1.5 text-xl inline-block"></fa-icon>
+      <fa-icon [icon]="faPowerOff" class="my-1.5 text-xl inline-block"></fa-icon>
       <span class="my-1.5 is-drawer-close:hidden">Deconnexion</span>
     </button>
   </li>
