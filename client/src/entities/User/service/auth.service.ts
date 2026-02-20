@@ -48,6 +48,7 @@ export class AuthService {
       }),
       finalize(() => {
         this.isLoadedSignal.set(true);
+        console.log('AuthService: getCurrentUser completed, isLoaded set to true');
       }),
     );
   }
