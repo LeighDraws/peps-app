@@ -2,7 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { LoginRequest, RegisterRequest } from '../model/auth.model';
+import { AuthResponse, LoginRequest, RegisterRequest } from '../model/auth.model';
 import { User } from '../model/user';
 
 @Injectable({
@@ -20,16 +20,28 @@ export class AuthService {
   // Signal qui renvoie TRUE si l'utilisateur est connecté
   public isAuthenticated = computed(() => !!this.currentUserSignal());
 
-  login(credentials: LoginRequest): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/login`, credentials);
+  login(credentials: LoginRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
+      tap((response) => {
+        this.currentUserSignal.set(response.user);
+      }),
+    );
   }
 
-  register(userData: RegisterRequest): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/register`, userData);
+  register(userData: RegisterRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, userData).pipe(
+      tap((response) => {
+        this.currentUserSignal.set(response.user);
+      }),
+    );
   }
 
   logout(): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/logout`, {});
+    return this.http.post<void>(`${this.apiUrl}/logout`, {}).pipe(
+      tap(() => {
+        this.currentUserSignal.set(null);
+      }),
+    );
   }
 
   /**
