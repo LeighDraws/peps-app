@@ -32,7 +32,7 @@ Le projet vise à devenir un outil pratique pour mieux manger, économiser du te
 
 ## 📊 Diagrammes
 
-### Modèle de BDD Merise
+### Modèle MPD Merise
 
 ![merise](diagrams/merise_bdd.png)
 
@@ -44,7 +44,9 @@ Le projet vise à devenir un outil pratique pour mieux manger, économiser du te
 
 ![diagramme de cas d'utilisation](diagrams/diagram-use-case.png)
 
-### Diagramme de Séquence
+### Diagramme de Séquence pour la fonctionnalité Filtres de Recettes
+
+![diagramme de séquence](diagrams/diagram-sequence-filter.png)
 
 ### Diagramme de Classe
 
