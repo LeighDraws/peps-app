@@ -2,7 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AuthResponse, LoginRequest, RegisterRequest } from '../model/auth.model';
+import { LoginRequest, RegisterRequest } from '../model/auth.model';
 import { User } from '../model/user';
 
 @Injectable({
@@ -20,18 +20,18 @@ export class AuthService {
   // Signal qui renvoie TRUE si l'utilisateur est connecté
   public isAuthenticated = computed(() => !!this.currentUserSignal());
 
-  login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
+  login(credentials: LoginRequest): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/login`, credentials).pipe(
       tap((response) => {
-        this.currentUserSignal.set(response.user);
+        this.currentUserSignal.set(response);
       }),
     );
   }
 
-  register(userData: RegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, userData).pipe(
+  register(userData: RegisterRequest): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/register`, userData).pipe(
       tap((response) => {
-        this.currentUserSignal.set(response.user);
+        this.currentUserSignal.set(response);
       }),
     );
   }
@@ -42,6 +42,10 @@ export class AuthService {
         this.currentUserSignal.set(null);
       }),
     );
+  }
+
+  refreshToken(): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/refresh`, {});
   }
 
   /**

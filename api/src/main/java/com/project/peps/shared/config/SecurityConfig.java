@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/health").permitAll() // Autorise l'accès à /api/health pour tous
                         .requestMatchers("/api/auth/**").permitAll() // Autorise l'accès à /api/auth/** pour tous
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll() // Autorise les requêtes GET sur /api/recipes pour tous
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll() // Autorise les requêtes GET sur /api/** pour tous
                         .requestMatchers("/api-docs-ui/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll() // Autorise l'accès à la documentation API pour tous
                         .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
                 )

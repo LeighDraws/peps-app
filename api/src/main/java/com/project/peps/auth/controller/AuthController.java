@@ -1,6 +1,5 @@
 package com.project.peps.auth.controller;
 
-import com.project.peps.auth.dto.AuthResponse;
 import com.project.peps.auth.dto.LoginRequest;
 import com.project.peps.auth.dto.RegisterRequest;
 import com.project.peps.auth.service.AuthService;
@@ -9,12 +8,9 @@ import com.project.peps.user.mapper.UserMapper;
 import com.project.peps.user.model.User;
 import com.project.peps.user.service.UserService;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,45 +28,24 @@ public class AuthController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    private void addJwtToCookie(String jwtToken, HttpServletResponse response) {
-        Cookie cookie = new Cookie("jwt", jwtToken);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true); // set to true in production
-        cookie.setPath("/");
-        cookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
-        response.addCookie(cookie);
-    }
-
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(
-            @Valid @RequestBody RegisterRequest request,
-            HttpServletResponse response) {
-        AuthResponse authResponse = authService.register(request);
-        addJwtToCookie(authResponse.getToken(), response);
-        return ResponseEntity.ok(authResponse);
+    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request) {
+        return authService.register(request);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(
-            @Valid @RequestBody LoginRequest request,
-            HttpServletResponse response) {
-        AuthResponse authResponse = authService.login(request);
-        addJwtToCookie(authResponse.getToken(), response);
-        return ResponseEntity.ok(authResponse);
+    public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest request) {
+        return authService.login(request);
     }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout() {
-        ResponseCookie cookie = ResponseCookie.from("jwt", "")
-                .httpOnly(true)
-                .secure(true)
-                .path("/")
-                .maxAge(0)
-                .build();
+        return authService.logout();
+    }
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .build();
+    @PostMapping("/refresh")
+    public ResponseEntity<Void> refreshToken(HttpServletRequest request) {
+        return authService.refreshToken(request);
     }
 
     @GetMapping("/me")

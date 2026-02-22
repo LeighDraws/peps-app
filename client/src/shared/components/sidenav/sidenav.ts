@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faHome,
@@ -17,7 +17,7 @@ import { AuthService } from 'src/entities/User/service/auth.service';
   templateUrl: './sidenav.html',
   styleUrl: './sidenav.css',
 })
-export class Sidenav implements OnInit {
+export class Sidenav {
   faHome = faHome;
   faBook = faBook;
   faCalendarDays = faCalendarDays;
@@ -28,24 +28,16 @@ export class Sidenav implements OnInit {
   protected authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  ngOnInit(): void {
-    console.log(this.authService.isLoaded());
-  }
-
   logout() {
     this.authService.logout().subscribe({
       next: () => {
-        // Force le rechargement des informations de l'utilisateur pour mettre à jour l'état
-        this.authService.getCurrentUser().subscribe(() => {
-          this.router.navigate(['/home']);
-        });
+        // Le signal a déjà été mis à null par le service
+        console.log('Déconnexion réussie');
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Logout failed', err);
-        // Même en cas d'erreur, on tente de rafraîchir et de rediriger
-        this.authService.getCurrentUser().subscribe(() => {
-          this.router.navigate(['/home']);
-        });
+        this.router.navigate(['/home']);
       },
     });
   }

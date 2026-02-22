@@ -35,6 +35,14 @@ public class JwtService {
     @Value("${application.security.jwt.refresh-token.expiration}")
     private long refreshExpiration;
 
+    public long getJwtExpiration() {
+        return jwtExpiration;
+    }
+
+    public long getRefreshExpiration() {
+        return refreshExpiration;
+    }
+
     // Extrait le nom (username mais pas pseudo, on utilisera l'email) depuis le token JWT
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
