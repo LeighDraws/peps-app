@@ -32,6 +32,8 @@ services:
       - postgres
     restart: unless-stopped
     environment: 
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_EXPIRATION: ${JWT_EXPIRATION}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
       DB_HOST: postgres # nom du service de la base de données
       DB_PORT: 5432
