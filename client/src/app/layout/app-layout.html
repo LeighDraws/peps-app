@@ -22,7 +22,9 @@
 
             <!-- Message d'Accueil -->
             <div class="px-4">
-              <p class="font-fancy text-4xl text-center items-center">Welcome, Yaël ! 👋</p>
+              <p class="font-fancy text-4xl text-center items-center">
+                Welcome, {{ authService.currentUser()?.pseudo || 'Guest' }} ! 👋
+              </p>
             </div>
           </div>
 
@@ -33,11 +35,11 @@
           </label>
 
           <!-- Avatar -->
-          <div class="avatar">
-            <div class="w-12 md:w-14 rounded-full">
+          <div class="avatar cursor-pointer" [routerLink]="['/profile']">
+            <div class="w-12 md:w-14 rounded-full ring-2 ring-primary ring-offset-base-100 ring-offset-2">
               <img
                 alt="avatar profile picture"
-                src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp"
+                [src]="authService.currentUser()?.avatarUrl || 'https://img.daisyui.com/images/profile/demo/yellingcat@192.webp'"
               />
             </div>
           </div>

@@ -1,6 +1,9 @@
 package com.project.peps.user.dto;
 
 import java.time.LocalDateTime;
+
+import com.project.peps.user.model.AuthProvider;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +21,7 @@ public class UserResponse {
     private String pseudo;
     private String email;
     private String avatarUrl;
+    private AuthProvider authProvider;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
