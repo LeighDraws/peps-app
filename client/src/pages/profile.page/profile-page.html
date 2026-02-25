@@ -5,7 +5,9 @@
       <div class="avatar mb-6">
         <div class="w-32 rounded-full ring-4 ring-primary ring-offset-base-100 ring-offset-2">
           <img
-            [src]="user()?.avatarUrl || 'https://img.daisyui.com/images/profile/demo/yellingcat@192.webp'"
+            [src]="
+              user()?.avatarUrl || 'https://img.daisyui.com/images/profile/demo/yellingcat@192.webp'
+            "
             alt="User avatar"
           />
         </div>
@@ -20,14 +22,18 @@
       <!-- INFOS DÉTAILLÉES -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full text-left">
         <div class="flex flex-col gap-1">
-          <span class="text-xs font-bold uppercase tracking-wider text-secondary">Membre depuis</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-secondary"
+            >Membre depuis</span
+          >
           <p class="font-main font-medium text-lg">
             {{ user()?.createdAt | date: 'longDate' }}
           </p>
         </div>
 
         <div class="flex flex-col gap-1">
-          <span class="text-xs font-bold uppercase tracking-wider text-secondary">Méthode d'inscription</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-secondary"
+            >Méthode d'inscription</span
+          >
           <p class="font-main font-medium text-lg lowercase">
             {{ user()?.authProvider }}
           </p>
@@ -36,12 +42,8 @@
 
       <!-- ACTIONS -->
       <div class="card-actions justify-end mt-12 w-full gap-4">
-        <button class="btn btn-outline btn-primary px-6">
-          Modifier les infos
-        </button>
-        <button class="btn btn-primary px-8 shadow-md">
-          Paramètres
-        </button>
+        <button class="btn btn-outline btn-primary px-6">Modifier les infos</button>
+        <button class="btn btn-primary px-8 shadow-md">Paramètres</button>
       </div>
     </div>
   </div>

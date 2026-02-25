@@ -16,7 +16,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   { path: 'menus', title: "Pep's | Mes Menus", component: HomePage, canActivate: [authGuard] },
-  { path: 'profile', title: "Pep's | Mon Profil", component: ProfilePage, canActivate: [authGuard] },
+  {
+    path: 'profile',
+    title: "Pep's | Mon Profil",
+    component: ProfilePage,
+    canActivate: [authGuard],
+  },
   { path: 'login', title: "Pep's | Se Connecter", component: LoginPage },
   { path: 'register', title: "Pep's | S'inscrire", component: RegisterPage },
 ];

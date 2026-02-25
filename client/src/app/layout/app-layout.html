@@ -36,10 +36,15 @@
 
           <!-- Avatar -->
           <div class="avatar cursor-pointer" [routerLink]="['/profile']">
-            <div class="w-12 md:w-14 rounded-full ring-2 ring-primary ring-offset-base-100 ring-offset-2">
+            <div
+              class="w-12 md:w-14 rounded-full ring-2 ring-primary ring-offset-base-100 ring-offset-2"
+            >
               <img
                 alt="avatar profile picture"
-                [src]="authService.currentUser()?.avatarUrl || 'https://img.daisyui.com/images/profile/demo/yellingcat@192.webp'"
+                [src]="
+                  authService.currentUser()?.avatarUrl ||
+                  'https://img.daisyui.com/images/profile/demo/yellingcat@192.webp'
+                "
               />
             </div>
           </div>
