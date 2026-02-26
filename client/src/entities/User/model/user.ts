@@ -1,7 +1,7 @@
 export enum AuthProvider {
-  LOCAL = 'LOCAL',
-  GOOGLE = 'GOOGLE',
-  MICROSOFT = 'MICROSOFT',
+  LOCAL = 'Local',
+  GOOGLE = 'Google',
+  MICROSOFT = 'Microsoft',
 }
 
 export interface User {

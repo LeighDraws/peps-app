@@ -1,0 +1,43 @@
+<!-- HEADER MILIEU -->
+<!-- Peut être découpé en composant -->
+<nav class="navbar w-full my-3 md:px-6! justify-between">
+  <div class="flex flex-row items-center">
+    <label for="left-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+      <!-- Sidebar toggle icon -->
+      <fa-icon
+        [icon]="faCaretLeft"
+        class="inline is-drawer-close:hidden md:text-lg text-primary"
+      ></fa-icon>
+    </label>
+
+    <!-- Message d'Accueil -->
+    <div class="px-4">
+      <p class="font-fancy text-4xl text-center items-center">
+        Welcome, {{ authService.currentUser()?.pseudo || 'Guest' }} ! 👋
+      </p>
+    </div>
+  </div>
+
+  <!-- Barre de recherche -->
+  <label class="hidden md:inline input drop-shadow-sm">
+    <fa-icon [icon]="faSearch" class="mx-2 text-primary"></fa-icon>
+    <input type="search" required placeholder="Search" />
+  </label>
+
+  @if (authService.currentUser()) {
+    <!-- Avatar -->
+    <div class="avatar cursor-pointer" [routerLink]="['/profile']">
+      <div class="w-12 md:w-14 rounded-full ring-2 ring-primary ring-offset-base-100 ring-offset-2">
+        <img
+          alt="avatar profile picture"
+          [src]="
+            authService.currentUser()?.avatarUrl ||
+            'https://img.daisyui.com/images/profile/demo/yellingcat@192.webp'
+          "
+        />
+      </div>
+    </div>
+  } @else {
+    <button class="btn btn-primary" [routerLink]="['/login']">Se connecter</button>
+  }
+</nav>
