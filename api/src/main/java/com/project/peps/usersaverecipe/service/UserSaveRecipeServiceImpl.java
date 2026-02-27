@@ -8,7 +8,6 @@ import com.project.peps.recipe.model.Recipe;
 import com.project.peps.recipe.service.RecipeService;
 import com.project.peps.user.model.User;
 import com.project.peps.user.repository.UserRepository;
-import com.project.peps.usersaverecipe.dto.UserSaveRecipeRequest;
 import com.project.peps.usersaverecipe.model.UserSaveRecipe;
 import com.project.peps.usersaverecipe.repository.UserSaveRecipeRepository;
 import com.project.peps.shared.exception.ResourceNotFoundException;
@@ -29,14 +28,15 @@ public class UserSaveRecipeServiceImpl implements UserSaveRecipeService {
     }
 
     @Override
-    public UserSaveRecipe saveRecipe(UserSaveRecipeRequest request) {
-        if (userSaveRecipeRepository.existsByUserIdAndRecipeId(request.getUserId(), request.getRecipeId())) {
+    public UserSaveRecipe saveRecipe(Long recipeId, String userEmail) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", userEmail));
+
+        if (userSaveRecipeRepository.existsByUserIdAndRecipeId(user.getId(), recipeId)) {
             throw new IllegalArgumentException("Recipe is already saved by this user");
         }
 
-        Recipe recipe = recipeService.findRecipeById(request.getRecipeId());
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", request.getUserId()));
+        Recipe recipe = recipeService.findRecipeById(recipeId);
 
         UserSaveRecipe userSaveRecipe = UserSaveRecipe.builder()
                 .user(user)
@@ -47,11 +47,14 @@ public class UserSaveRecipeServiceImpl implements UserSaveRecipeService {
     }
 
     @Override
-    public void unsaveRecipe(Long id) {
-        if (!userSaveRecipeRepository.existsById(id)) {
-            throw new ResourceNotFoundException("UserSaveRecipe", "id", id);
+    public void unsaveRecipe(Long recipeId, String userEmail) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", userEmail));
+
+        if (!userSaveRecipeRepository.existsByUserIdAndRecipeId(user.getId(), recipeId)) {
+            throw new ResourceNotFoundException("UserSaveRecipe", "recipeId", recipeId);
         }
-        userSaveRecipeRepository.deleteById(id);
+        userSaveRecipeRepository.deleteByUserIdAndRecipeId(user.getId(), recipeId);
     }
 
     @Override
