@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { RecipeListComponent } from 'src/features/recipe/recipes-list/recipe-list-component';
 import { LoginPage } from 'src/pages/auth/login-page/login-page';
 import { RegisterPage } from 'src/pages/auth/register-page/register-page';
 import { HomePage } from 'src/pages/home.page/home-page';
 import { ProfilePage } from 'src/pages/profile.page/profile-page';
 import { authGuard } from './guards/auth-guard';
+import { MyRecipesPageComponent } from 'src/pages/my-recipes/my-recipes.page';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,7 +12,7 @@ export const routes: Routes = [
   {
     path: 'recipes',
     title: "Pep's | Mes Recettes",
-    component: RecipeListComponent,
+    component: MyRecipesPageComponent,
     canActivate: [authGuard],
   },
   { path: 'menus', title: "Pep's | Mes Menus", component: HomePage, canActivate: [authGuard] },
