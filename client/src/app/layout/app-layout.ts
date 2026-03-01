@@ -33,7 +33,7 @@ export class AppLayout {
 
   public showHeader = computed(() => {
     const url = this.currentUrl();
-    const hiddenRoutes = ['/login', '/register', '/menus'];
+    const hiddenRoutes = ['/login', '/register', '/menus', '/profile'];
 
     return !hiddenRoutes.some((route) => url.includes(route));
   });
