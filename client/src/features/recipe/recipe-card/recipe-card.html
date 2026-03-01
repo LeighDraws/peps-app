@@ -27,14 +27,13 @@
       } @else {
         <button class="cursor-pointer" (click)="toggleFavorite()">
           <fa-icon
-            (icon)="(faHeart)"
-            class="text-xl"
-            [ngClass]="{ 'text-red-500': isFavorite, 'text-primary': !isFavorite }"
+            [icon]="isFavorite ? faHeart : faHeartRegular"
+            class="text-xl text-secondary hover:text-secondary transition-colors duration-200"
           ></fa-icon>
         </button>
-        <button class="cursor-pointer">
-          <fa-icon (icon)="(faPlus)" class="text-xl text-accent"></fa-icon>
-        </button>
+        <!-- <button class="cursor-pointer">
+          <fa-icon [icon]="faPlus" class="text-xl text-accent"></fa-icon>
+        </button> -->
       }
     </div>
   </div>

@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faHeart, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { Recipe } from 'src/entities/Recipe/model/recipe';
 import { AuthService } from 'src/entities/User/service/auth.service';
 
@@ -15,6 +16,7 @@ import { AuthService } from 'src/entities/User/service/auth.service';
 export class RecipeCard {
   faHeart = faHeart;
   faPlus = faPlusCircle;
+  faHeartRegular = faHeartRegular;
 
   @Input() recipe!: Recipe;
   @Input() isFavorite = false;
@@ -33,5 +35,6 @@ export class RecipeCard {
       return;
     }
     this.favoriteClick.emit();
+    console.log('RecipeCard: favoriteClick emitted for recipe ID', this.recipe.id);
   }
 }
