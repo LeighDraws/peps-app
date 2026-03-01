@@ -23,12 +23,18 @@
       <div class="badge badge-soft badge-primary">🔥 {{ recipe.difficulty }}</div>
     </div>
     <div class="card-actions justify-end">
-      <button class="cursor-pointer">
-        <fa-icon [icon]="faHeart" class="text-xl text-primary"></fa-icon>
-      </button>
-      <button class="cursor-pointer">
-        <fa-icon [icon]="faPlus" class="text-xl text-accent"></fa-icon>
-      </button>
+      @if (!isAuthenticated()) {
+      } @else {
+        <button class="cursor-pointer" (click)="toggleFavorite()">
+          <fa-icon
+            [icon]="isFavorite ? faHeart : faHeartRegular"
+            class="text-xl text-secondary hover:text-secondary transition-colors duration-200"
+          ></fa-icon>
+        </button>
+        <!-- <button class="cursor-pointer">
+          <fa-icon [icon]="faPlus" class="text-xl text-accent"></fa-icon>
+        </button> -->
+      }
     </div>
   </div>
 </div>

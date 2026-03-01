@@ -12,16 +12,18 @@
 
     <!-- Message d'Accueil -->
     <div class="px-4">
-      <p class="font-fancy text-4xl text-center items-center">
-        Welcome, {{ authService.currentUser()?.pseudo || 'Guest' }} ! 👋
+      <p class="w-40 md:w-full font-fancy text-4xl text-center items-center">
+        Bienvenue, {{ authService.currentUser()?.pseudo || 'Visiteur' }} ! 👋
       </p>
     </div>
   </div>
 
   <!-- Barre de recherche -->
-  <label class="hidden md:inline input drop-shadow-sm">
+  <label
+    class="hidden md:flex px-6 py-3 mt-2 input focus-within:border-none focus-within:ring-2 focus-within:ring-primary focus-within:outline-none"
+  >
     <fa-icon [icon]="faSearch" class="mx-2 text-primary"></fa-icon>
-    <input type="search" required placeholder="Search" />
+    <input type="search" required placeholder="Rechercher" />
   </label>
 
   @if (authService.currentUser()) {
@@ -38,6 +40,9 @@
       </div>
     </div>
   } @else {
-    <button class="btn btn-primary" [routerLink]="['/login']">Se connecter</button>
+    <div class="flex gap-3">
+      <button class="btn btn-primary" [routerLink]="['/login']">Se connecter</button>
+      <button class="btn btn-warning" [routerLink]="['/register']">S'inscrire</button>
+    </div>
   }
 </nav>

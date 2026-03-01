@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthService } from 'src/entities/User/service/auth.service';
 
@@ -13,10 +13,14 @@ import { AuthService } from 'src/entities/User/service/auth.service';
 })
 export class Register {
   faCircleXmark = faCircleXmark;
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
 
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+
+  showPassword = signal(false);
 
   // Définit les validations pour le formulaire d'inscription
   registerForm: FormGroup = this.fb.group({
@@ -67,5 +71,9 @@ export class Register {
   // Helper pour faciliter l'accès aux contrôles dans le HTML
   get f() {
     return this.registerForm.controls;
+  }
+
+  togglePassword() {
+    this.showPassword.update((value) => !value);
   }
 }
