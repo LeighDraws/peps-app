@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Sidenav } from 'src/shared/components/sidenav/sidenav';
 import { faSearch, faCaretRight, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-app-layout',
-  imports: [RouterOutlet, Sidenav, FontAwesomeModule, RouterLink, Header],
+  imports: [RouterOutlet, Sidenav, FontAwesomeModule, Header],
   templateUrl: './app-layout.html',
   styleUrl: './app-layout.css',
 })
@@ -33,7 +33,7 @@ export class AppLayout {
 
   public showHeader = computed(() => {
     const url = this.currentUrl();
-    const hiddenRoutes = ['/login', '/register', '/menus'];
+    const hiddenRoutes = ['/login', '/register', '/menus', '/profile'];
 
     return !hiddenRoutes.some((route) => url.includes(route));
   });

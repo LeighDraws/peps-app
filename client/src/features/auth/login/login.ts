@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../entities/User/service/auth.service';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
@@ -13,12 +13,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 })
 export class Login {
   faCircleXmark = faCircleXmark;
+  faEyeSlash = faEyeSlash;
+  faEye = faEye;
 
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
   email = signal('');
   password = signal('');
+  showPassword = signal(false);
   errorMessage = signal<string | null>(null);
   isLoading = signal(false);
 
@@ -61,5 +64,9 @@ export class Login {
     if (this.errorMessage()) {
       this.errorMessage.set(null);
     }
+  }
+
+  togglePassword() {
+    this.showPassword.update((value) => !value);
   }
 }

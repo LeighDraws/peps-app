@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.peps.usersaverecipe.model.UserSaveRecipe;
 
@@ -13,4 +14,7 @@ public interface UserSaveRecipeRepository extends JpaRepository<UserSaveRecipe, 
     List<UserSaveRecipe> findByUserId(Long userId);
     
     boolean existsByUserIdAndRecipeId(Long userId, Long recipeId);
+
+    @Transactional
+    void deleteByUserIdAndRecipeId(Long userId, Long recipeId);
 }
