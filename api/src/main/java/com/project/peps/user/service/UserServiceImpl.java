@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.peps.menu.repository.MenuRepository;
+import com.project.peps.recipe.model.Recipe;
+import com.project.peps.recipe.repository.RecipeRepository;
 import com.project.peps.shared.exception.ResourceNotFoundException;
 import com.project.peps.user.model.User;
 import com.project.peps.user.repository.UserRepository;
@@ -15,10 +17,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final MenuRepository menuRepository;
+    private final RecipeRepository recipeRepository;
 
-    public UserServiceImpl(UserRepository userRepository, MenuRepository menuRepository) {
+    public UserServiceImpl(UserRepository userRepository, MenuRepository menuRepository,
+            RecipeRepository recipeRepository) {
         this.userRepository = userRepository;
         this.menuRepository = menuRepository;
+        this.recipeRepository = recipeRepository;
     }
 
     @Override
@@ -48,10 +53,18 @@ public class UserServiceImpl implements UserService {
     public User deleteById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
-        
+
+        // Avant de supprimer on anonymise les recettes de l'utilisateur pour éviter les
+        // problèmes de contraintes d'intégrité
+        List<Recipe> userRecipes = recipeRepository.findByUserId(id);
+        for (Recipe recipe : userRecipes) {
+            recipe.setUser(null);
+        };
+        recipeRepository.saveAll(userRecipes);
+
         // Manual cascade delete for menus
         menuRepository.deleteByUserId(id);
-        
+
         userRepository.deleteById(id);
         return user;
     }

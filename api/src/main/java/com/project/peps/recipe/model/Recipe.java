@@ -56,7 +56,7 @@ public class Recipe {
     private Integer preparationDuration;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "category")
+    @Column(name = "category", nullable = false)
     private Category category;
 
     @Enumerated(EnumType.STRING)

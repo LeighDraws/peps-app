@@ -17,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +32,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString(exclude = {"user", "recipe"})
-@Table(name = "user_save_recipe")
+@Table(name = "user_save_recipe", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "recipe_id" }) })
 public class UserSaveRecipe {
 
     @Id

@@ -1,5 +1,7 @@
 package com.project.peps.recipe.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -8,4 +10,6 @@ import com.project.peps.recipe.model.Recipe;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecificationExecutor<Recipe> {
+
+   List<Recipe> findByUserId(Long userId);
 }
