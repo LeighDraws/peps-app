@@ -50,7 +50,9 @@ public class TagController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TagResponse> updateTag(@PathVariable Long id, @RequestBody TagRequest tagRequest) {
-        Tag updatedTag = tagService.update(id, tagRequest);
+        Tag existingTag = tagService.findById(id);
+        tagMapper.updateEntityFromRequest(tagRequest, existingTag);
+        Tag updatedTag = tagService.save(existingTag);
         return ResponseEntity.ok(tagMapper.toResponse(updatedTag));
     }
 

@@ -1,9 +1,7 @@
 package com.project.peps.tag.service;
 
-import java.util.List;
-
-import com.project.peps.tag.dto.TagRequest;
 import com.project.peps.tag.model.Tag;
+import java.util.List;
 
 public interface TagService {
 
@@ -12,8 +10,6 @@ public interface TagService {
     Tag findById(Long id);
 
     Tag save(Tag tag);
-
-    Tag update(Long id, TagRequest tagRequest);
 
     void deleteById(Long id);
 }

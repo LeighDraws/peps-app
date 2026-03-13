@@ -63,7 +63,7 @@ public class IngredientController {
         Ingredient ingredient = ingredientService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ingredient with id " + id + " not found"));
 
-        ingredientMapper.updateIngredientFromRequest(ingredientRequest, ingredient);
+        ingredientMapper.updateEntityFromRequest(ingredientRequest, ingredient);
         Ingredient updatedIngredient = ingredientService.update(ingredient);
 
         return ResponseEntity.ok(ingredientMapper.toIngredientResponse(updatedIngredient));

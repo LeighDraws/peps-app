@@ -40,13 +40,16 @@ public class CountryController {
 
     @PostMapping
     public ResponseEntity<CountryResponse> createCountry(@Valid @RequestBody CountryRequest countryRequest) {
-        Country createdCountry = countryService.createCountry(countryRequest);
+        Country country = countryMapper.toCountry(countryRequest);
+        Country createdCountry = countryService.save(country);
         return new ResponseEntity<>(countryMapper.toCountryResponse(createdCountry), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CountryResponse> updateCountry(@PathVariable Long id, @Valid @RequestBody CountryRequest countryRequest) {
-        Country updatedCountry = countryService.updateCountry(id, countryRequest);
+        Country existingCountry = countryService.findCountryById(id);
+        countryMapper.updateEntityFromRequest(countryRequest, existingCountry);
+        Country updatedCountry = countryService.save(existingCountry);
         return ResponseEntity.ok(countryMapper.toCountryResponse(updatedCountry));
     }
 

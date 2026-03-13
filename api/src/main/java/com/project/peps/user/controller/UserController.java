@@ -65,7 +65,7 @@ public class UserController {
         User existingUser = userService.findUserById(id);
 
         // 2. Mettre à jour les champs de l'entité avec ceux du DTO (C'est le Mapper qui travaille)
-        userMapper.updateUserFromRequest(userRequest, existingUser);
+        userMapper.updateEntityFromRequest(userRequest, existingUser);
 
         // 3. Sauvegarder l'entité mise à jour (C'est le Service qui sauvegarde)
         User savedUser = userService.save(existingUser);

@@ -34,13 +34,6 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag update(Long id, TagRequest tagRequest) {
-        Tag existingTag = findById(id);
-        existingTag.setName(tagRequest.getName());
-        return tagRepository.save(existingTag);
-    }
-
-    @Override
     public void deleteById(Long id) {
         tagRepository.deleteById(id);
     }

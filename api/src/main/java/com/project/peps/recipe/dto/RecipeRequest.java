@@ -17,25 +17,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecipeRequest {
-
     @NotBlank(message = "The name cannot be null.")
     private String name;
-
     private String description;
-
     private String imageUrl;
-
     private Integer preparationDuration;
-
     private Category category;
-
     private PriceRange priceRange;
-
     private Difficulty difficulty;
-
     @NotBlank(message = "A country ID must be provided.")
     private Long countryId;
-
     @NotBlank(message = "A user ID must be provided.")
     private Long userId;
 }

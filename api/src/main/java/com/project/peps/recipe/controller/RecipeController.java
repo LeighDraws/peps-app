@@ -52,7 +52,7 @@ public class RecipeController {
     public ResponseEntity<RecipeResponse> updateRecipe(@PathVariable Long id, @RequestBody RecipeRequest recipeRequest) {
         Recipe existingRecipe = recipeService.findRecipeById(id);
 
-        recipeMapper.updateRecipeFromRequest(recipeRequest, existingRecipe);
+        recipeMapper.updateEntityFromRequest(recipeRequest, existingRecipe);
 
         Recipe savedRecipe = recipeService.save(existingRecipe);
 

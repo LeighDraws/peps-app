@@ -1,13 +1,16 @@
 package com.project.peps.menuhasrecipe.mapper;
 
+import com.project.peps.menu.model.Menu;
 import com.project.peps.menuhasrecipe.dto.MenuHasRecipeResponse;
 import com.project.peps.menuhasrecipe.model.MenuHasRecipe;
+import com.project.peps.recipe.model.Recipe;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MenuHasRecipeMapper {
 
     @Mapping(source = "menu.id", target = "menuId")

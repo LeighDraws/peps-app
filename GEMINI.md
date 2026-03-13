@@ -83,29 +83,26 @@ private LocalDateTime updatedAt;
 
 ### 3. Mappers
 
-* **Création d'objets** : Utiliser impérativement le **Builder** (`.builder().build()`) plutôt que `new Object()`.
-* **Méthode d'Update** : Inclure une méthode `void` pour mettre à jour une entité existante à partir d'un DTO (évite la duplication de code dans le Service).
+* **Technologie** : Utiliser exclusivement **MapStruct** (`@Mapper(componentModel = "spring")`).
+* **Injection** : Injection par constructeur dans les contrôleurs.
+* **Méthode de mise à jour** : Utiliser impérativement `@MappingTarget` avec le nommage standardisé `updateEntityFromRequest` pour mettre à jour une entité existante à partir d'un DTO.
 * *Exemple de pattern Mapper attendu :*
 ```java
-public static User toEntity(UserRequest request) {
-    return User.builder()
-        .pseudo(request.getPseudo())
-        .email(request.getEmail())
-        .build();
-}
-
-// Méthode de mise à jour (Update Logic)
-public static void updateEntityFromRequest(UserRequest request, User entity) {
-    if (request == null || entity == null) return;
-
-    entity.setPseudo(request.getPseudo());
-    entity.setEmail(request.getEmail());
-    // Gestion conditionnelle (ex: password seulement si non null)
-    if (request.getPassword() != null && !request.getPassword().isBlank()) {
-        entity.setPassword(request.getPassword());
+@Mapper(componentModel = "spring")
+public interface UserMapper {
+    User toEntity(UserRequest request);
+    UserResponse toResponse(User entity);
+    
+    @Mapping(target = "password", ignore = true)
+    void updateEntityFromRequest(UserRequest request, @MappingTarget User entity);
+    
+    @AfterMapping
+    default void updatePassword(UserRequest request, @MappingTarget User entity) {
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            entity.setPassword(request.getPassword());
+        }
     }
 }
-
 ```
 
 

@@ -29,27 +29,13 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public Country createCountry(CountryRequest countryRequest) {
-        Country country = Country.builder()
-                .name(countryRequest.getName())
-                .imageUrl(countryRequest.getImageUrl())
-                .build();
+    public Country save(Country country) {
         return countryRepository.save(country);
     }
 
     @Override
-    public Country updateCountry(Long id, CountryRequest countryRequest) {
-        Country existingCountry = countryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Country", "id", id));
-        existingCountry.setName(countryRequest.getName());
-        existingCountry.setImageUrl(countryRequest.getImageUrl());
-        return countryRepository.save(existingCountry);
-    }
-
-    @Override
     public void deleteCountry(Long id) {
-        Country country = countryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Country", "id", id));
+        Country country = findCountryById(id);
         countryRepository.delete(country);
     }
 }

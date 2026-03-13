@@ -111,7 +111,7 @@ Courte explication :
 - `shared` : composants et utilitaires réutilisables entre features.
 - `app/Services` : services d'application globaux (ex. `HealthService`).
 
-Où placer dans ton projet :
+Où placer dans le projet :
 
 - `client/src/pages` → Les pages, structures, pas de logiques métiers, pas de fonctionnel
 - `client/src/features/*` → Tout élément qui correspond à une feature. Tout les composants en rapport avec `recipe` vont dans `/feature/recipe`. Composants d'affichage et pas de logique.

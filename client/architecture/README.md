@@ -40,11 +40,6 @@ Ouvrir le diagramme :
 - Dans VS Code, double-cliquez sur `client/architecture/feature-sliced-diagram.svg` pour l’aperçu.
 - Vous pouvez aussi l’ouvrir dans un navigateur.
 
-Souhaitez-vous :
-
-- que je génère aussi un PNG exporté à côté du SVG, ou
-- que j’ajoute des exemples de fichiers réels (liste de fichiers) pour chaque couche ?
-
 ## Exemple de structure par feature
 
 Un exemple d'arborescence prêt à l'emploi est disponible dans :

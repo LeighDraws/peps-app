@@ -59,7 +59,7 @@ public class StepController {
         Recipe recipe = recipeRepository.findById(stepRequest.getRecipeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Recipe not found with id: " + stepRequest.getRecipeId()));
 
-        stepMapper.updateStepFromDto(stepRequest, existingStep, recipe);
+        stepMapper.updateEntityFromRequest(stepRequest, existingStep, recipe);
         Step updatedStep = stepService.save(existingStep);
         return ResponseEntity.ok(stepMapper.toDto(updatedStep));
     }

@@ -1,9 +1,7 @@
 package com.project.peps.country.service;
 
-import java.util.List;
-
-import com.project.peps.country.dto.CountryRequest;
 import com.project.peps.country.model.Country;
+import java.util.List;
 
 public interface CountryService {
 
@@ -11,9 +9,7 @@ public interface CountryService {
 
     Country findCountryById(Long id);
 
-    Country createCountry(CountryRequest countryRequest);
-
-    Country updateCountry(Long id, CountryRequest countryRequest);
+    Country save(Country country);
 
     void deleteCountry(Long id);
 }
