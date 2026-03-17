@@ -43,18 +43,15 @@ public class JwtService {
         return refreshExpiration;
     }
 
-    // Extrait le nom (username mais pas pseudo, on utilisera l'email) depuis le token JWT
+    /**
+     * Extrait le nom (username mais pas pseudo, on utilisera l'email) depuis le token JWT
+     */
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
     /**
      * Extrait une revendication spécifique (claim) du token JWT.
-     *
-     * token - Le token JWT.
-     * claimsResolver - Fonction pour résoudre la revendication souhaitée.
-     * <T> - Type de la revendication à extraire.
-     * return - La revendication extraite.
      */
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -63,10 +60,6 @@ public class JwtService {
 
     /**
      * Génère un token JWT sans revendications supplémentaires.
-     *
-     * userDetails - Les détails de l'utilisateur pour lequel le token est généré. 
-     * Type UserDetails vient de Spring Security et contient des informations sur l'utilisateur, comme le nom d'utilisateur, les rôles, etc.
-     * return - Le token JWT généré.
      */
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
@@ -74,10 +67,6 @@ public class JwtService {
 
     /**
      * Génère un token JWT avec des revendications supplémentaires.
-     *
-     * extraClaims - Revendications supplémentaires à inclure dans le token.
-     * userDetails - Les détails de l'utilisateur pour lequel le token est généré.
-     * return - Le token JWT généré.
      */
     public String generateToken(
             Map<String, Object> extraClaims,
@@ -87,10 +76,7 @@ public class JwtService {
     }
 
     /**
-     * Génère un token de rafraîchissement JWT.
-     *
-     * userDetails - Les détails de l'utilisateur pour lequel le token est généré.
-     * return - Le token de rafraîchissement JWT généré.
+     * Génère un refresh token
      */
     public String generateRefreshToken(
             UserDetails userDetails
@@ -100,7 +86,6 @@ public class JwtService {
 
     /**
      * Construit un token JWT avec les revendications, l'utilisateur et l'expiration spécifiés.
-     * return - Le token JWT construit.
      */
     private String buildToken(
             Map<String, Object> extraClaims,
@@ -130,8 +115,7 @@ public class JwtService {
 
     /**
      * Vérifie si le token JWT est expiré.
-     *
-     * return - Vrai si le token est expiré, faux sinon.
+     * Vrai si le token est expiré, faux sinon.
      */
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
@@ -139,8 +123,6 @@ public class JwtService {
 
     /**
      * Extrait la date d'expiration du token JWT.
-     *
-     * return - La date d'expiration.
      */
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);

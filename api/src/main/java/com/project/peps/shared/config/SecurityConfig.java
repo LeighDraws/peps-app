@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,21 +37,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
-                .csrf(AbstractHttpConfigurer::disable) // Désactive la protection CSRF
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint)) // Ajoute le point d'entrée d'authentification personnalisé
+                // Enable CORS avec la configuration personnalisée
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                // Désactive la protection CSRF
+                .csrf(AbstractHttpConfigurer::disable)
+                // Ajoute le point d'entrée d'authentification personnalisé
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/health").permitAll() // Autorise l'accès à /api/health pour tous
-                        .requestMatchers("/api/auth/**").permitAll() // Autorise l'accès à /api/auth/** pour tous
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll() // Autorise les requêtes GET sur /api/** pour tous
-                        .requestMatchers("/api-docs-ui/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll() // Autorise l'accès à la documentation API pour tous
-                        .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
+                        .requestMatchers("/api/health").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers("/api-docs-ui/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                        // Toutes les autres requêtes nécessitent une authentification
+                        .anyRequest().authenticated() 
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Configure la gestion de session comme STATELESS (sans état)
-                )
-                .authenticationProvider(authenticationProvider(userDetailsService(), passwordEncoder())) // Définit le fournisseur d'authentification
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Ajoute le filtre JWT avant le filtre d'authentification par nom d'utilisateur/mot de passe
+                        // Configure la gestion de session comme STATELESS (sans état)
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // Définit le fournisseur d'authentification
+                .authenticationProvider(authenticationProvider(userDetailsService(), passwordEncoder()))
+                // Ajoute le filtre JWT avant le filtre d'authentification par nom
+                // d'utilisateur/mot de passe
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -82,11 +88,12 @@ public class SecurityConfig {
 
     // Bean pour le fournisseur d'authentification
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService,
+            PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
-    }   
+    }
 
     // Bean pour le gestionnaire d'authentification
     @Bean
