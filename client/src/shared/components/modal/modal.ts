@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  input,
-  model,
-  viewChild,
-  effect,
-} from '@angular/core';
+import { Component, ElementRef, input, model, viewChild, effect } from '@angular/core';
 
 @Component({
   selector: 'app-modal',

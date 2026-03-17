@@ -80,7 +80,7 @@ export class RecipeFilter implements OnInit {
   // Stockage de tous les ingrédients chargés depuis le service
   private allIngredients$: Observable<Ingredient[]> = of([]);
   // Signal pour stocker les ingrédients filtrés en fonction de la barre de recherche
-  filteredIngredients$: Observable<Ingredient[]> = of([]); 
+  filteredIngredients$: Observable<Ingredient[]> = of([]);
   // Signal pour stocker les ingrédients sélectionnés avec leur état (inclus/exclus)
   selectedIngredients = signal<{ ingredient: Ingredient; state: IngredientState }[]>([]);
 
@@ -89,10 +89,10 @@ export class RecipeFilter implements OnInit {
   }
 
   ngOnInit() {
-    this.allIngredients$ = this.ingredientService.getAllIngredients().pipe(take(1)); 
+    this.allIngredients$ = this.ingredientService.getAllIngredients().pipe(take(1));
 
     const searchTerm$ = this.searchControl.valueChanges.pipe(
-      startWith(''), 
+      startWith(''),
       debounceTime(300),
       distinctUntilChanged(),
     );
@@ -105,7 +105,7 @@ export class RecipeFilter implements OnInit {
             ingredient.name.toLowerCase().includes(lowerCaseSearchTerm),
           );
         }
-        return allIngredients; 
+        return allIngredients;
       }),
     );
   }
