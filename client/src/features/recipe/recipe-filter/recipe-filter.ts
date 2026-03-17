@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
-  ViewChild,
   OnInit,
   signal,
 } from '@angular/core';
@@ -54,7 +53,7 @@ type IngredientState = 'NONE' | 'INCLUDED' | 'EXCLUDED';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeFilter implements OnInit {
-  @ViewChild(ModalComponent) modal!: ModalComponent;
+  isModalOpen = signal(false);
 
   // Injections des services et du FormBuilder
   private fb = inject(FormBuilder);
@@ -79,9 +78,9 @@ export class RecipeFilter implements OnInit {
   // Barre de recherche pour les ingrédients
   searchControl = new FormControl('');
   // Stockage de tous les ingrédients chargés depuis le service
-  private allIngredients$: Observable<Ingredient[]> = of([]); // Initialize with an empty observable
+  private allIngredients$: Observable<Ingredient[]> = of([]);
   // Signal pour stocker les ingrédients filtrés en fonction de la barre de recherche
-  filteredIngredients$: Observable<Ingredient[]> = of([]); // Already initialized
+  filteredIngredients$: Observable<Ingredient[]> = of([]); 
   // Signal pour stocker les ingrédients sélectionnés avec leur état (inclus/exclus)
   selectedIngredients = signal<{ ingredient: Ingredient; state: IngredientState }[]>([]);
 
@@ -90,10 +89,10 @@ export class RecipeFilter implements OnInit {
   }
 
   ngOnInit() {
-    this.allIngredients$ = this.ingredientService.getAllIngredients().pipe(take(1)); // Load all ingredients once
+    this.allIngredients$ = this.ingredientService.getAllIngredients().pipe(take(1)); 
 
     const searchTerm$ = this.searchControl.valueChanges.pipe(
-      startWith(''), // Emit empty string on initialization
+      startWith(''), 
       debounceTime(300),
       distinctUntilChanged(),
     );
@@ -106,7 +105,7 @@ export class RecipeFilter implements OnInit {
             ingredient.name.toLowerCase().includes(lowerCaseSearchTerm),
           );
         }
-        return allIngredients; // Show all ingredients if search term is empty or short
+        return allIngredients; 
       }),
     );
   }
@@ -124,7 +123,7 @@ export class RecipeFilter implements OnInit {
     );
 
     if (existingIndex > -1) {
-      // Ingredient already exists, cycle its state
+      // Ingredient existe déjà, toggle entre INCLUDED et EXCLUDED
       const current = this.selectedIngredients()[existingIndex];
       if (current.state === 'INCLUDED') {
         this.selectedIngredients.update((prev) => {
@@ -133,16 +132,16 @@ export class RecipeFilter implements OnInit {
           return updated;
         });
       } else {
-        // Was EXCLUDED, remove it (cycle back to None)
+        // Est exclu, on le retire complètement
         this.selectedIngredients.update((prev) => {
           return prev.filter((_, index) => index !== existingIndex);
         });
       }
     } else {
-      // Ingredient not found, add it as INCLUDED
+      // Ingrédient n'existe pas, on l'ajoute en tant qu'inclus
       this.selectedIngredients.update((prev) => [...prev, { ingredient, state: 'INCLUDED' }]);
     }
-    this.cd.detectChanges(); // Manually trigger change detection
+    this.cd.detectChanges(); // Forcer la détection de changement pour mettre à jour l'affichage après modification du signal
   }
 
   openModal(filterType: 'COUNTRY' | 'CATEGORY' | 'TASTE') {
@@ -156,7 +155,7 @@ export class RecipeFilter implements OnInit {
         .subscribe((countries) => {
           this.populateFormArray(countries);
           this.cd.detectChanges();
-          this.modal.open();
+          this.isModalOpen.set(true);
         });
     } else if (filterType === 'CATEGORY') {
       this.modalTitle = 'Choix de régime alimentaire';
@@ -166,13 +165,12 @@ export class RecipeFilter implements OnInit {
       }));
       this.populateFormArray(categories);
       this.cd.detectChanges();
-      this.modal.open();
+      this.isModalOpen.set(true);
     } else if (filterType === 'TASTE') {
       this.modalTitle = 'Choix des goûts';
-      this.searchControl.setValue(''); // Clear search input when opening modal
-      // No need to clear selectedIngredients here, as they persist across opening/closing for TASTE
+      this.searchControl.setValue('');
       this.cd.detectChanges();
-      this.modal.open();
+      this.isModalOpen.set(true);
     }
   }
 
@@ -198,13 +196,13 @@ export class RecipeFilter implements OnInit {
         .filter((item) => item.state === 'EXCLUDED')
         .map((item) => item.ingredient.id);
 
-      // Only apply taste filters if there are actually included or excluded ingredients
+      // On n'ajoute les filtres que s'il y a au moins un ingrédient inclus ou exclu, sinon on laisse filters vide pour ne pas appliquer de filtre de goût
       if (includedIngredientIds.length > 0 || excludedIngredientIds.length > 0) {
         filters = { includedIngredientIds, excludedIngredientIds };
       }
-      // If selectedIngredients is empty, filters object will remain empty, effectively clearing taste filters
+      // Si aucun ingrédient n'est sélectionné, on laisse filters vide pour ne pas appliquer de filtre de goût
     } else {
-      // COUNTRY or CATEGORY filters
+      // COUNTRY ou CATEGORY filters
       const selectedItem = this.filterForm.value.items.find(
         (item: { selected: boolean }) => item.selected,
       );
@@ -218,12 +216,11 @@ export class RecipeFilter implements OnInit {
       }
     }
 
-    // Always call loadRecipes with the determined filters (or an empty object if no filter was applied)
     this.recipeService.loadRecipes(filters);
     this.close();
   }
 
   close() {
-    this.modal.onClose();
+    this.isModalOpen.set(false);
   }
 }

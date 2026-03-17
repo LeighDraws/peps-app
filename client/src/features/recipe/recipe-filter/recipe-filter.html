@@ -16,7 +16,7 @@
   ></app-button-filter>
 </div>
 
-<app-modal [title]="modalTitle">
+<app-modal [title]="modalTitle" [(isOpen)]="isModalOpen">
   <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
     <div
       *ngIf="currentFilterType === 'COUNTRY' || currentFilterType === 'CATEGORY'"

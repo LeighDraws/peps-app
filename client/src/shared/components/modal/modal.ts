@@ -1,4 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  input,
+  model,
+  viewChild,
+  effect,
+} from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -8,17 +15,25 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
   standalone: true,
 })
 export class ModalComponent {
-  @Input() title = '';
-  @Output() closeModal = new EventEmitter<void>();
+  title = input<string>('');
+  isOpen = model<boolean>(false);
 
-  @ViewChild('modal') private dialog!: ElementRef<HTMLDialogElement>;
+  dialog = viewChild<ElementRef<HTMLDialogElement>>('modal');
 
-  open(): void {
-    this.dialog.nativeElement.showModal();
+  constructor() {
+    effect(() => {
+      const modalElement = this.dialog()?.nativeElement;
+      if (!modalElement) return;
+
+      if (this.isOpen()) {
+        modalElement.showModal();
+      } else {
+        modalElement.close();
+      }
+    });
   }
 
   onClose(): void {
-    this.dialog.nativeElement.close();
-    this.closeModal.emit();
+    this.isOpen.set(false);
   }
 }
