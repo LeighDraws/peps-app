@@ -24,6 +24,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.project.peps.menu.repository.MenuRepository;
+import com.project.peps.recipe.repository.RecipeRepository;
 import com.project.peps.shared.exception.ResourceNotFoundException;
 import com.project.peps.user.model.User;
 import com.project.peps.user.repository.UserRepository;
@@ -38,6 +39,9 @@ class UserServiceImplTest {
 
     @Mock
     private MenuRepository menuRepository;
+
+    @Mock
+    private RecipeRepository recipeRepository;
 
     // Classe testée avec les dépendances mockées injectées
     @InjectMocks
@@ -164,6 +168,7 @@ class UserServiceImplTest {
     void testDeleteById_shouldDeleteUser() {
         long userId = 1L;
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(recipeRepository.findByUserId(userId)).thenReturn(Collections.emptyList());
         doNothing().when(menuRepository).deleteByUserId(userId);
         doNothing().when(userRepository).deleteById(userId);
 
@@ -172,6 +177,7 @@ class UserServiceImplTest {
         assertThat(deletedUser).isNotNull();
         assertEquals(userId, deletedUser.getId());
         verify(userRepository, times(1)).findById(userId);
+        verify(recipeRepository, times(1)).findByUserId(userId);
         verify(menuRepository, times(1)).deleteByUserId(userId);
         verify(userRepository, times(1)).deleteById(userId);
     }
