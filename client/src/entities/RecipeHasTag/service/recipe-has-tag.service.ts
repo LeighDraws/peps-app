@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RecipeHasTag } from '../model/recipe-has-tag';
+import { RecipeHasTag, RecipeHasTagResponse } from '../model/recipe-has-tag';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RecipeHasTagService {
   private readonly API_URL: string = environment.apiUrl;
-  private readonly ENDPOINT = '/recipe-has-tags';
+  private readonly ENDPOINT = '/recipe-tags';
 
   private http = inject(HttpClient);
 
@@ -19,6 +19,12 @@ export class RecipeHasTagService {
 
   getRecipeHasTagById(id: number): Observable<RecipeHasTag> {
     return this.http.get<RecipeHasTag>(`${this.API_URL}${this.ENDPOINT}/${id}`);
+  }
+
+  getTagsByRecipeId(recipeId: number): Observable<RecipeHasTagResponse[]> {
+    return this.http.get<RecipeHasTagResponse[]>(
+      `${this.API_URL}${this.ENDPOINT}/recipe/${recipeId}`,
+    );
   }
 
   createRecipeHasTag(recipeHasTag: Omit<RecipeHasTag, 'id'>): Observable<RecipeHasTag> {

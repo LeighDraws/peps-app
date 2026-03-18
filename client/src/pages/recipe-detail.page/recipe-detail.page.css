@@ -1,0 +1,5 @@
+/* Styles for recipe detail page container */
+:host {
+  display: block;
+  width: 100%;
+}

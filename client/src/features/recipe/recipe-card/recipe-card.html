@@ -1,4 +1,7 @@
-<div class="card bg-base-100 min-h-min h-[420px] w-full shadow-sm">
+<div
+  class="card bg-base-100 min-h-min h-[420px] w-full shadow-sm cursor-pointer"
+  [routerLink]="['/recipes', recipe.id]"
+>
   <figure>
     <img
       [src]="recipe.imageUrl"
@@ -25,7 +28,7 @@
     <div class="card-actions justify-end">
       @if (!isAuthenticated()) {
       } @else {
-        <button class="cursor-pointer" (click)="toggleFavorite()">
+        <button class="cursor-pointer" (click)="$event.stopPropagation(); toggleFavorite()">
           <fa-icon
             [icon]="isFavorite ? faHeart : faHeartRegular"
             class="text-xl text-secondary hover:text-secondary transition-colors duration-200"

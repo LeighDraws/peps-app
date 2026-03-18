@@ -25,3 +25,14 @@ export interface RecipeHasIngredient {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface RecipeHasIngredientResponse {
+  id: number;
+  recipeId: number;
+  ingredientId: number;
+  ingredientName: string;
+  quantity: number;
+  measurementUnit: MeasurementUnit;
+  createdAt: string;
+  updatedAt: string;
+}

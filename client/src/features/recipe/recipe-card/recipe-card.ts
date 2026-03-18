@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faHeart, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
@@ -9,7 +10,7 @@ import { AuthService } from 'src/entities/User/service/auth.service';
 @Component({
   selector: 'app-recipe-card',
   standalone: true,
-  imports: [NgIf, NgClass, FontAwesomeModule],
+  imports: [NgIf, NgClass, FontAwesomeModule, RouterLink],
   templateUrl: './recipe-card.html',
   styleUrls: ['./recipe-card.css'],
 })

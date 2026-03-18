@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RecipeHasIngredient } from '../model/recipe-has-ingredient';
+import { RecipeHasIngredient, RecipeHasIngredientResponse } from '../model/recipe-has-ingredient';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RecipeHasIngredientService {
   private readonly API_URL: string = environment.apiUrl;
-  private readonly ENDPOINT = '/recipe-has-ingredients';
+  private readonly ENDPOINT = '/recipe-ingredients';
 
   private http = inject(HttpClient);
 
@@ -19,6 +19,12 @@ export class RecipeHasIngredientService {
 
   getRecipeHasIngredientById(id: number): Observable<RecipeHasIngredient> {
     return this.http.get<RecipeHasIngredient>(`${this.API_URL}${this.ENDPOINT}/${id}`);
+  }
+
+  getIngredientsByRecipeId(recipeId: number): Observable<RecipeHasIngredientResponse[]> {
+    return this.http.get<RecipeHasIngredientResponse[]>(
+      `${this.API_URL}${this.ENDPOINT}/recipe/${recipeId}`,
+    );
   }
 
   createRecipeHasIngredient(

@@ -1,0 +1,14 @@
+/* Custom styles for recipe detail */
+.font-peanut {
+  font-family: 'PeanutButter', sans-serif;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+@media (min-width: 768px) {
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+}

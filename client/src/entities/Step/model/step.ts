@@ -5,3 +5,5 @@ export interface IStep {
   imageUrl?: string;
   recipeId: number;
 }
+
+export type StepResponse = IStep;

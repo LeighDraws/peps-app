@@ -1,0 +1,34 @@
+<div class="min-h-screen bg-base-100">
+  @if (isLoading()) {
+    <div class="flex items-center justify-center min-h-[50vh]">
+      <span class="loading loading-spinner loading-lg text-primary"></span>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="container mx-auto p-4 flex flex-col items-center justify-center min-h-[50vh]">
+      <div class="alert alert-error max-w-lg">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="stroke-current shrink-0 h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <span>{{ errorMessage() }}</span>
+      </div>
+      <button class="btn btn-primary mt-6" onclick="history.back()">Retour</button>
+    </div>
+  } @else if (recipe()) {
+    <app-recipe-detail
+      [recipe]="recipe()!"
+      [ingredients]="ingredients()"
+      [steps]="steps()"
+      [tags]="tags()"
+    ></app-recipe-detail>
+  }
+</div>
