@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../entities/User/service/auth.service';
 import { faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UserSaveRecipeService } from '../../../entities/UserSaveRecipe/service/user-save-recipe.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class Login {
 
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly usersaveRecipeService = inject(UserSaveRecipeService);
 
   email = signal('');
   password = signal('');
@@ -41,6 +43,13 @@ export class Login {
 
     this.authService.login(credentials).subscribe({
       next: () => {
+        this.authService.getCurrentUser().subscribe((user) => {
+          if (user) {
+            this.usersaveRecipeService.loadFavoriteRecipes(user.id).subscribe();
+          } else {
+            console.warn('Login succeeded but no user data returned');
+          }
+        });
         this.router.navigate(['/home']);
       },
       error: (error) => {

@@ -21,11 +21,11 @@ export class UserSaveRecipeService {
   public favoriteRecipeIds = this.favoriteRecipeIdsWritable.asReadonly();
 
   constructor() {
-    this.loadFavoriteRecipes(this.user).subscribe();
     this.authService.getCurrentUser().subscribe((user) => {
       if (user) {
         this.user = user.id;
         this.loadFavoriteRecipes(this.user).subscribe();
+        console.log("favorites recipes constructor service", this.favoriteRecipeIds());
       }
     });
   }
@@ -41,6 +41,7 @@ export class UserSaveRecipeService {
         tap((responses) => {
           const ids = responses.map((fav) => fav.recipeId);
           this.favoriteRecipeIdsWritable.set(new Set(ids));
+          console.log('Loaded favorite recipes for user', ids);
         }),
       );
   }
