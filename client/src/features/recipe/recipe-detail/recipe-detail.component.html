@@ -21,7 +21,9 @@
         @if (recipe().category) {
           <span class="badge badge-soft badge-lg badge-primary">🍽️ {{ categoryLabel }}</span>
         }
-        <span class="badge badge-soft badge-lg" [ngClass]="difficultyClass">🔥 {{ difficultyLabel }}</span>
+        <span class="badge badge-soft badge-lg" [ngClass]="difficultyClass"
+          >🔥 {{ difficultyLabel }}</span
+        >
       </div>
 
       <!-- Titre de la recette -->
