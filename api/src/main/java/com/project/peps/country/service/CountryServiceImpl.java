@@ -1,6 +1,5 @@
 package com.project.peps.country.service;
 
-import com.project.peps.country.dto.CountryRequest;
 import com.project.peps.country.model.Country;
 import com.project.peps.country.repository.CountryRepository;
 import com.project.peps.shared.exception.ResourceNotFoundException;

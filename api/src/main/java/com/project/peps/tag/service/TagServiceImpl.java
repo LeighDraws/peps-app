@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.project.peps.shared.exception.ResourceNotFoundException;
-import com.project.peps.tag.dto.TagRequest;
 import com.project.peps.tag.model.Tag;
 import com.project.peps.tag.repository.TagRepository;
 

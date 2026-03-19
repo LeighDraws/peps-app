@@ -1,12 +1,10 @@
 package com.project.peps.recipe.mapper;
 
 import com.project.peps.country.mapper.CountryMapper;
-import com.project.peps.country.model.Country;
 import com.project.peps.recipe.dto.RecipeRequest;
 import com.project.peps.recipe.dto.RecipeResponse;
 import com.project.peps.recipe.model.Recipe;
 import com.project.peps.user.mapper.UserMapper;
-import com.project.peps.user.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
