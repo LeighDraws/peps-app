@@ -2,25 +2,21 @@
   <h2 class="font-bold text-2xl text-left">Vos recettes favorites</h2>
 
   <!-- No Favorites State -->
-  <div
-    *ngIf="favoriteRecipes().length === 0"
-    class="flex justify-center items-center h-64 text-center"
-  >
-    <div>
-      <p class="text-lg text-gray-600 dark:text-gray-400">
-        Vous n'avez pas encore de recettes favorites.
-      </p>
-      <button
-        routerLink="/home"
-        class="btn btn-secondary mt-5 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-75"
-      >
-        Découvrir des recettes
-      </button>
+  @if (favoriteRecipes().length === 0) {
+    <div class="flex justify-center items-center h-64 text-center">
+      <div>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          Vous n'avez pas encore de recettes favorites.
+        </p>
+        <button
+          routerLink="/home"
+          class="btn btn-secondary mt-5 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-opacity-75"
+        >
+          Découvrir des recettes
+        </button>
+      </div>
     </div>
-  </div>
-
-  <app-recipe-list-component
-    *ngIf="favoriteRecipes().length > 0"
-    [recipes]="favoriteRecipes()"
-  ></app-recipe-list-component>
+  } @else {
+    <app-recipe-list-component [recipes]="favoriteRecipes()"></app-recipe-list-component>
+  }
 </div>

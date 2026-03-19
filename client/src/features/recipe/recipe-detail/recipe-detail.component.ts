@@ -23,14 +23,6 @@ export class RecipeDetailComponent {
   // Expose l'enum pour le template
   Difficulty = Difficulty;
 
-  ngOnInit() {
-    console.log('Recipe:', this.recipe());
-    console.log('Difficulty:', this.recipe().difficulty);
-    console.log('Ingredients:', this.ingredients());
-    console.log('Steps:', this.steps());
-    console.log('Tags:', this.tags());
-  }
-
   get difficultyClass(): string {
     const difficulty = this.recipe().difficulty as unknown as string;
     switch (difficulty) {
