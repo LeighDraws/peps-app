@@ -25,7 +25,7 @@ export class UserSaveRecipeService {
       if (user) {
         this.user = user.id;
         this.loadFavoriteRecipes(this.user).subscribe();
-        console.log("favorites recipes constructor service", this.favoriteRecipeIds());
+        console.log('favorites recipes constructor service', this.favoriteRecipeIds());
       }
     });
   }

@@ -1,9 +1,11 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Recipe } from 'src/entities/Recipe/model/recipe';
+import { Recipe, Difficulty, PriceRange } from 'src/entities/Recipe/model/recipe';
 import { RecipeHasIngredientResponse } from 'src/entities/RecipeHasIngredient/model/recipe-has-ingredient';
 import { StepResponse } from 'src/entities/Step/model/step';
+// import { PriceRange } from 'src/entities/Recipe/model/recipe';
 import { RecipeHasTagResponse } from 'src/entities/RecipeHasTag/model/recipe-has-tag';
+import { Category } from 'src/entities/Recipe/model/recipe-filters';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -18,24 +20,46 @@ export class RecipeDetailComponent {
   steps = input<StepResponse[]>([]);
   tags = input<RecipeHasTagResponse[]>([]);
 
+  // Expose l'enum pour le template
+  Difficulty = Difficulty;
+
+  ngOnInit() {
+    console.log('Recipe:', this.recipe());
+    console.log('Difficulty:', this.recipe().difficulty);
+    console.log('Ingredients:', this.ingredients());
+    console.log('Steps:', this.steps());
+    console.log('Tags:', this.tags());
+  }
+
   get difficultyClass(): string {
-    const difficulty = this.recipe().difficulty;
+    const difficulty = this.recipe().difficulty as unknown as string;
     switch (difficulty) {
-      case 'Facile':
+      case 'EASY':
         return 'badge-success';
-      case 'Moyen':
+      case 'NORMAL':
         return 'badge-warning';
-      case 'Difficile':
+      case 'HARD':
         return 'badge-error';
       default:
         return 'badge-ghost';
     }
   }
 
-  get priceClass(): string {
+  get difficultyLabel(): string {
+    const difficulty = this.recipe().difficulty;
+    if (!difficulty) return 'Non spécifiée';
+    return (Difficulty as Record<string, string>)[difficulty] || difficulty;
+  }
+
+  get priceLabel(): string {
     const price = this.recipe().priceRange;
-    if (price === 'Very Cheap' || price === 'Cheap') return 'badge-success';
-    if (price === 'Normal') return 'badge-info';
-    return 'badge-warning';
+    if (!price) return 'Non spécifié';
+    return (PriceRange as Record<string, string>)[price] || price;
+  }
+
+  get categoryLabel(): string {
+    const category = this.recipe().category;
+    if (!category) return 'Pas de catégorie';
+    return (Category as Record<string, string>)[category] || category;
   }
 }

@@ -15,11 +15,12 @@ import { StepResponse } from 'src/entities/Step/model/step';
 import { RecipeHasTagResponse } from 'src/entities/RecipeHasTag/model/recipe-has-tag';
 
 import { RecipeDetailComponent } from 'src/features/recipe/recipe-detail/recipe-detail.component';
+import { BackButtonComponent } from 'src/shared/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-recipe-detail-page',
   standalone: true,
-  imports: [CommonModule, RecipeDetailComponent],
+  imports: [CommonModule, RecipeDetailComponent, BackButtonComponent],
   templateUrl: './recipe-detail.page.html',
   styleUrls: ['./recipe-detail.page.css'],
 })
