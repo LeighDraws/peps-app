@@ -5,6 +5,7 @@ import { faCaretLeft } from '@fortawesome/free-solid-svg-icons/faCaretLeft';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons/faCaretRight';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { AuthService } from 'src/entities/User/service/auth.service';
+import { SearchService } from 'src/shared/services/search.service';
 
 @Component({
   selector: 'app-header',
@@ -18,4 +19,9 @@ export class Header {
   faCaretLeft = faCaretLeft;
 
   protected readonly authService = inject(AuthService);
+  protected readonly searchService = inject(SearchService);
+
+  onSearch(event: Event) {
+    this.searchService.searchQuery.set((event.target as HTMLInputElement).value);
+  }
 }

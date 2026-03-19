@@ -48,7 +48,7 @@
     class="hidden md:flex px-6 py-3 mt-2 input focus-within:border-none focus-within:ring-2 focus-within:ring-primary focus-within:outline-none"
   >
     <fa-icon [icon]="faSearch" class="mx-2 text-primary"></fa-icon>
-    <input type="search" required placeholder="Rechercher" />
+    <input type="search" required placeholder="Rechercher" (input)="onSearch($event)" />
   </label>
 
   @if (authService.currentUser()) {
