@@ -7,10 +7,21 @@
     <div class="flex flex-col justify-center pl-6 bg-white card">
       <!-- Badges catégorie et difficulté -->
       <div class="flex flex-wrap font-alt gap-2 mb-4">
+        <div class="badge badge-soft badge-lg badge-primary">
+          @if (recipe().country?.imageUrl) {
+            <img
+              [src]="recipe().country?.imageUrl"
+              alt="{{ recipe().country?.name }} flag"
+              class="inline-block h-4 w-4 object-cover object-center mr-1"
+            />
+          }
+          {{ recipe().country?.name }}
+        </div>
+
         @if (recipe().category) {
-          <span class="badge badge-lg badge-primary">{{ categoryLabel }}</span>
+          <span class="badge badge-soft badge-lg badge-primary">🍽️ {{ categoryLabel }}</span>
         }
-        <span class="badge badge-lg" [ngClass]="difficultyClass">{{ difficultyLabel }}</span>
+        <span class="badge badge-soft badge-lg" [ngClass]="difficultyClass">🔥 {{ difficultyLabel }}</span>
       </div>
 
       <!-- Titre de la recette -->
@@ -19,13 +30,7 @@
       </h1>
 
       <div class="flex items-center font-alt gap-2 mb-6">
-        @if (recipe().country) {
-          <span class="flex items-center gap-1">
-            <span class="font-semibold">{{ recipe().country?.name }}</span>
-          </span>
-        }
         @if (recipe().user) {
-          <span>•</span>
           <span
             >Par <span class="font-semibold">{{ recipe().user?.pseudo }}</span></span
           >
@@ -48,10 +53,8 @@
     <div class="flex flex-col gap-4 relative">
       <!-- Badges pour le prix et le temps de préparation -->
       <div class="hidden xl:flex font-alt gap-4 absolute z-10 -top-3 right-2">
-        <span class="badge badge-lg">Prix - {{ priceLabel }}</span>
-        <span class="badge badge-lg">
-          Temps de préparation - {{ recipe().preparationDuration }} min</span
-        >
+        <span class="badge badge-lg">Prix € - {{ priceLabel }}</span>
+        <span class="badge badge-lg"> ⌛ {{ recipe().preparationDuration }} min</span>
       </div>
 
       <!-- Image de la recette -->

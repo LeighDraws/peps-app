@@ -1,5 +1,5 @@
 <div
-  class="card bg-base-100 min-h-min h-[420px] w-full shadow-sm cursor-pointer"
+  class="card bg-base-100 min-h-min h-[430px] w-full shadow-sm cursor-pointer"
   [routerLink]="['/recipes', recipe.id]"
 >
   <figure>
@@ -10,9 +10,10 @@
     />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">{{ recipe.name }}</h2>
+    <h2 class="card-title text-left">{{ recipe.name }}</h2>
     <p class="text-left text-gray-500">Par {{ recipeUser }}</p>
-    <div class="card-actions gap-2 flex-wrap">
+
+    <div class="card-actions gap-1 flex-wrap">
       <div class="badge badge-soft badge-primary">
         @if (recipe.country?.imageUrl) {
           <img
@@ -24,8 +25,9 @@
         {{ recipe.country?.name }}
       </div>
       <div class="badge badge-soft badge-primary">⌛ {{ recipe.preparationDuration }} mins</div>
-      <div class="badge badge-soft badge-primary">🔥 {{ recipe.difficulty }}</div>
+      <div class="badge badge-soft badge-primary">🔥 {{ difficultyLabel }}</div>
     </div>
+
     <div class="card-actions justify-end">
       @if (!isAuthenticated()) {
       } @else {
