@@ -3,7 +3,6 @@ package com.project.peps.menu.mapper;
 import com.project.peps.menu.dto.MenuRequest;
 import com.project.peps.menu.dto.MenuResponse;
 import com.project.peps.menu.model.Menu;
-import com.project.peps.user.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

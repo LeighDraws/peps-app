@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
-import { NgClass, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faHeart, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
-import { Recipe } from 'src/entities/Recipe/model/recipe';
+import { Difficulty, Recipe } from 'src/entities/Recipe/model/recipe';
 import { AuthService } from 'src/entities/User/service/auth.service';
 
 @Component({
   selector: 'app-recipe-card',
   standalone: true,
-  imports: [NgIf, NgClass, FontAwesomeModule],
+  imports: [FontAwesomeModule, RouterLink],
   templateUrl: './recipe-card.html',
   styleUrls: ['./recipe-card.css'],
 })
@@ -27,6 +27,12 @@ export class RecipeCard {
 
   get recipeUser(): string {
     return this.recipe.user?.pseudo || 'Unknown';
+  }
+
+  get difficultyLabel(): string {
+    const difficulty = this.recipe.difficulty;
+    if (!difficulty) return 'Non spécifiée';
+    return (Difficulty as Record<string, string>)[difficulty] || difficulty;
   }
 
   toggleFavorite(): void {

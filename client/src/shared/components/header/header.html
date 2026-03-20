@@ -1,20 +1,45 @@
 <!-- HEADER MILIEU -->
-<!-- Peut être découpé en composant -->
 <nav class="navbar w-full my-3 md:px-6! justify-between">
-  <div class="flex flex-row items-center">
-    <label for="left-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
-      <!-- Sidebar toggle icon -->
-      <fa-icon
-        [icon]="faCaretLeft"
-        class="inline is-drawer-close:hidden md:text-lg text-primary"
-      ></fa-icon>
-    </label>
+  <div class="flex flex-col justify-center">
+    <div class="flex flex-row items-center">
+      <label for="left-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+        <!-- Sidebar toggle icon -->
+        <fa-icon
+          [icon]="faCaretLeft"
+          class="inline is-drawer-close:hidden md:text-lg text-primary"
+        ></fa-icon>
+      </label>
 
-    <!-- Message d'Accueil -->
-    <div class="px-4">
-      <p class="w-40 md:w-full font-fancy text-4xl text-center items-center">
-        Bienvenue, {{ authService.currentUser()?.pseudo || 'Visiteur' }} ! 👋
-      </p>
+      <!-- Message d'Accueil -->
+      <div class="px-4">
+        <p class="w-full font-fancy text-3xl md:text-4xl text-center items-center">
+          Bienvenue, {{ authService.currentUser()?.pseudo || 'Visiteur' }} ! 👋
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-row w-full items-center justify-center md:hidden">
+      @if (authService.currentUser()) {
+        <!-- Avatar -->
+        <div class="avatar cursor-pointer" [routerLink]="['/profile']">
+          <div
+            class="w-12 md:w-14 rounded-full ring-2 ring-primary ring-offset-base-100 ring-offset-2"
+          >
+            <img
+              alt="avatar profile picture"
+              [src]="
+                authService.currentUser()?.avatarUrl ||
+                'https://img.daisyui.com/images/profile/demo/yellingcat@192.webp'
+              "
+            />
+          </div>
+        </div>
+      } @else {
+        <div class="flex md:hidden gap-3">
+          <button class="btn btn-primary" [routerLink]="['/login']">Se connecter</button>
+          <button class="btn btn-warning" [routerLink]="['/register']">S'inscrire</button>
+        </div>
+      }
     </div>
   </div>
 
@@ -23,7 +48,7 @@
     class="hidden md:flex px-6 py-3 mt-2 input focus-within:border-none focus-within:ring-2 focus-within:ring-primary focus-within:outline-none"
   >
     <fa-icon [icon]="faSearch" class="mx-2 text-primary"></fa-icon>
-    <input type="search" required placeholder="Rechercher" />
+    <input type="search" required placeholder="Rechercher" (input)="onSearch($event)" />
   </label>
 
   @if (authService.currentUser()) {
@@ -40,7 +65,7 @@
       </div>
     </div>
   } @else {
-    <div class="flex gap-3">
+    <div class="hidden md:flex gap-3">
       <button class="btn btn-primary" [routerLink]="['/login']">Se connecter</button>
       <button class="btn btn-warning" [routerLink]="['/register']">S'inscrire</button>
     </div>

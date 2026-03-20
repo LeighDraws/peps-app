@@ -10,11 +10,11 @@ export enum Difficulty {
 }
 
 export enum PriceRange {
-  VERY_CHEAP = 'Very Cheap',
-  CHEAP = 'Cheap',
-  NORMAL = 'Normal',
-  EXPENSIVE = 'Expensive',
-  VERY_EXPENSIVE = 'Very Expensive',
+  VERY_CHEAP = '🪙',
+  CHEAP = '🪙🪙',
+  NORMAL = '🪙🪙🪙',
+  EXPENSIVE = '🪙🪙🪙🪙',
+  VERY_EXPENSIVE = '🪙🪙🪙🪙🪙',
 }
 
 export interface Recipe {

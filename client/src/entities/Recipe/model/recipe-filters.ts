@@ -1,7 +1,7 @@
 export enum Category {
   VEGAN = 'Vegan',
   VEGETARIAN = 'Végétarien',
-  MEAT = 'Avec Viande',
+  MEAT = 'Viande',
   NO_FISH = 'Sans Poisson',
   GLUTENFREE = 'Sans Gluten',
   DESSERT = 'Dessert',

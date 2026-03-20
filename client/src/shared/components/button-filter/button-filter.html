@@ -4,6 +4,8 @@
     'btn-primary': isActive,
   }"
 >
-  <fa-icon *ngIf="icon" [icon]="icon" class="mr-2"></fa-icon>
+  @if (icon) {
+    <fa-icon [icon]="icon" class="mr-2"></fa-icon>
+  }
   {{ label }}
 </button>

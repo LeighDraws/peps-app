@@ -8,3 +8,12 @@ export interface RecipeHasTag {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface RecipeHasTagResponse {
+  id: number;
+  recipeId: number;
+  tagId: number;
+  tagName: string;
+  createdAt: string;
+  updatedAt: string;
+}

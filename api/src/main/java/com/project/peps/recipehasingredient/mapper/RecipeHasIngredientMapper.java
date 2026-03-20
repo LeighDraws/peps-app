@@ -1,7 +1,5 @@
 package com.project.peps.recipehasingredient.mapper;
 
-import com.project.peps.ingredient.model.Ingredient;
-import com.project.peps.recipe.model.Recipe;
 import com.project.peps.recipehasingredient.dto.RecipeHasIngredientResponse;
 import com.project.peps.recipehasingredient.model.RecipeHasIngredient;
 import org.mapstruct.Mapper;

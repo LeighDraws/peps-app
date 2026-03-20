@@ -5,6 +5,7 @@ import { HomePage } from 'src/pages/home.page/home-page';
 import { ProfilePage } from 'src/pages/profile.page/profile-page';
 import { authGuard } from './guards/auth-guard';
 import { MyRecipesPageComponent } from 'src/pages/my-recipes/my-recipes.page';
+import { RecipeDetailPageComponent } from 'src/pages/recipe-detail.page/recipe-detail.page';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,6 +15,11 @@ export const routes: Routes = [
     title: "Pep's | Mes Recettes",
     component: MyRecipesPageComponent,
     canActivate: [authGuard],
+  },
+  {
+    path: 'recipes/:id',
+    title: "Pep's | Détail Recette",
+    component: RecipeDetailPageComponent,
   },
   { path: 'menus', title: "Pep's | Mes Menus", component: HomePage, canActivate: [authGuard] },
   {
