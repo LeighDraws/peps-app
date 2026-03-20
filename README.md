@@ -30,6 +30,10 @@ Pep’s permet de :
 
 Le projet vise à devenir un outil pratique pour mieux manger, économiser du temps et éviter le gaspillage alimentaire.
 
+Liens utiles : 
+- [[Maquette Figma](https://www.figma.com/design/iAWVMgbXuP7lpKXbYhmGfB/Pep-s---Application-Recettes-et-Menu?node-id=1252-3544&t=rNlpJ35dVxfuFEyP-1)]
+- [[Lien vers l'app déployée](https://peps-app.vercel.app/home)]
+
 ## 📊 Diagrammes
 
 ### Modèle MPD Merise
@@ -251,6 +255,14 @@ Le workflow GitHub Actions (`.github/workflows/ci.yml`) automatise la vérificat
   * **Feature filter recipes**
     - Filtre sur Country et Category dans la liste de recette
     - Filtre complexe sur les goûts (tri par ingrédients)
+  * **Feature search recipes**
+  * **Feature recipe detail **
+      
+✅ BACK :
+    - Auhtentification JWT
+    - Hashage MDP
+    - Securité 
+    - MàJ tests unitaires
 
 ❌ FRONT - Manquant :
   * **Feature filter recipes**
@@ -258,12 +270,9 @@ Le workflow GitHub Actions (`.github/workflows/ci.yml`) automatise la vérificat
     - Filtres additionnables (filtrer par pays + category + taste)
     - Créer un composant qui affiche les filtres actuels
   * **Feature create recipes**
-  * **Feature search recipes**
+    - Formulaire
+    - Entrée tables croisées avec ingredients et steps
+  
 
   
-* BACK :
-    - Auhtentification JWT
-    - Hashage MDP
-    - Securité 
-    - MàJ tests unitaires
-    - Tests d'API avec Karate
+
