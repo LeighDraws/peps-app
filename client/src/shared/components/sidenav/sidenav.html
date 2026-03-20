@@ -37,20 +37,6 @@
     </li>
 
     <!-- List item -->
-    <li class="mb-2">
-      <button
-        class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
-        data-tip="Mes Recettes"
-        [routerLink]="['/recipes']"
-        [routerLinkActive]="['active-link']"
-      >
-        <!-- Recipe icon -->
-        <fa-icon [icon]="faBook" class="my-1.5 text-xl inline-block"></fa-icon>
-        <span class="my-1.5 is-drawer-close:hidden">Mes Recettes</span>
-      </button>
-    </li>
-
-    <!-- List item -->
     <!-- <li>
     <button
       class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -67,6 +53,19 @@
     <!-- List item -->
     @if (authService.isLoaded()) {
       @if (authService.isAuthenticated()) {
+        <li class="mb-2">
+          <button
+            class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
+            data-tip="Mes Recettes"
+            [routerLink]="['/recipes']"
+            [routerLinkActive]="['active-link']"
+          >
+            <!-- Recipe icon -->
+            <fa-icon [icon]="faBook" class="my-1.5 text-xl inline-block"></fa-icon>
+            <span class="my-1.5 is-drawer-close:hidden">Mes Recettes</span>
+          </button>
+        </li>
+
         <li class="mb-2">
           <button
             class="hover:bg-(--secondary-dark) is-drawer-close:tooltip is-drawer-close:tooltip-right"
